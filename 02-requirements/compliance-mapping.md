@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-REQ-CMP |
+| Document ID | HC-REQ-CMP |
 | Version | 1.3 (aligned with SRS v1.3) |
 | Status | Approved (baselined) |
 | Owner | Business Analyst |
@@ -74,7 +74,7 @@ The standard does not apply to disclosures to a provider for treatment. The plat
 
 | Party | Obligation | How the platform supports it |
 |---|---|---|
-| the vendor, as business associate | Notify the covered entity of a breach of unsecured PHI without unreasonable delay and no later than 60 calendar days after discovery (164.410), with the identities of affected individuals where known. The BAA sets a shorter notice period. | The [incident management process](../07-operations/incident-management-process.md) treats any suspected PHI exposure as SEV-1 (privacy). The audit log and notification records establish scope. |
+| The vendor, as business associate | Notify the covered entity of a breach of unsecured PHI without unreasonable delay and no later than 60 calendar days after discovery (164.410), with the identities of affected individuals where known. The BAA sets a shorter notice period. | The [incident management process](../07-operations/incident-management-process.md) treats any suspected PHI exposure as SEV-1 (privacy). The audit log and notification records establish scope. |
 | The agency, as covered entity | Decide whether a breach occurred (four-factor risk assessment, 164.402). Notify affected individuals (164.404), HHS (164.408) and, above 500 residents of a state or jurisdiction, the media (164.406). | The platform provides the facts for the assessment and the affected-record list. The determination and the notifications are the agency's. |
 
 ### 4.2 The Business Analyst's role in a privacy incident
@@ -182,7 +182,7 @@ BR-007 cites NIST SP 800-63B. The table compares the platform's controls with th
 
 ## 9. Shared responsibility summary
 
-| Area | the vendor | Agency |
+| Area | The vendor | Agency |
 |---|---|---|
 | Risk analysis (45 CFR 164.308(a)(1)) | Platform risk analysis and remediation | Its own enterprise risk analysis, including how it uses the platform |
 | Workforce | The platform staff training and sanctions; support access only by grant | Its staff's training, role assignment, sanctions and prompt deactivation |

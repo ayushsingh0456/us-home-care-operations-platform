@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-QA-01 |
+| Document ID | HC-QA-01 |
 | Version | 1.4 |
 | Status | Baselined |
 | Owner | Business Analyst (co-authored with the QA Lead) |
@@ -21,7 +21,7 @@
 
 ## 1. Purpose and scope
 
-This document is the test strategy and the master test plan for the platform Release 1 and its maintenance release R1.1. It follows the structure of the test plan in ISO/IEC/IEEE 29119-3: context, risk register, strategy, test levels and techniques, data and environments, criteria, staffing, schedule and reporting. The other quality documents are the remaining 29119-3 work products:
+This document is the test strategy and the master test plan for Release 1 and its maintenance release R1.1. It follows the structure of the test plan in ISO/IEC/IEEE 29119-3: context, risk register, strategy, test levels and techniques, data and environments, criteria, staffing, schedule and reporting. The other quality documents are the remaining 29119-3 work products:
 
 | 29119-3 work product | The platform artifact |
 |---|---|
@@ -29,7 +29,7 @@ This document is the test strategy and the master test plan for the platform Rel
 | Test design and test case specification | [test-cases.csv](test-cases.csv) and its guide [test-cases.md](test-cases.md) |
 | Test procedure specification (acceptance) | [uat-plan-and-scripts.md](uat-plan-and-scripts.md) |
 | Test data requirements and readiness report | [test-data/README.md](test-data/README.md) and `validate_test_data.py` |
-| Automated API procedure | [api-tests/tendwell.postman_collection.json](api-tests/tendwell.postman_collection.json) |
+| Automated API procedure | [api-tests/home-care.postman_collection.json](api-tests/home-care.postman_collection.json) |
 | Incident (defect) reports | [defect-log.csv](defect-log.csv), [defect-report-example.md](defect-report-example.md) |
 | Test status and completion reports | Section 16 of this document |
 

@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-DGM-02 |
+| Document ID | HC-DGM-02 |
 | Version | 1.3 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -19,7 +19,7 @@
 
 ### Purpose and scope
 
-These sequence diagrams show how containers and modules collaborate for the seven interactions where ordering, idempotency or security matters most. They complement the [process flows](process-flows.md) (who does what) and the [state machines](state-machines.md) (which states change). Endpoint names follow the [OpenAPI specification](../../04-api/openapi.yaml); request and response bodies are abbreviated. Times are America/New_York unless marked UTC. All data is fictional.
+These sequence diagrams show how containers and modules collaborate for the seven interactions where ordering, idempotency or security matters most. They complement the [process flows](process-flows.md) (who does what) and the [state machines](state-machines.md) (which states change). Endpoint names follow the [OpenAPI specification](../../04-api/openapi.yaml); request and response bodies are abbreviated. Times are America/New_York unless marked UTC. All data is changed.
 
 ## 1. Clock-in with identity check and geofence evaluation
 

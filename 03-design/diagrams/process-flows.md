@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-DGM-01 |
+| Document ID | HC-DGM-01 |
 | Version | 1.3 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -20,11 +20,11 @@
 
 ### Purpose and scope
 
-This document describes the seven end-to-end business processes of the platform Release 1 as BPMN-style swimlane flowcharts. Each lane is a role or system; numbered steps match the table under each diagram, which lists the actor, the rule or requirement that governs the step and the exceptions to handle. The flows are the to-be state; the as-is processes are in [current vs future state](../../01-discovery/current-vs-future-state.md).
+This document describes the seven end-to-end business processes of Release 1 as BPMN-style swimlane flowcharts. Each lane is a role or system; numbered steps match the table under each diagram, which lists the actor, the rule or requirement that governs the step and the exceptions to handle. The flows are the to-be state; the as-is processes are in [current vs future state](../../01-discovery/current-vs-future-state.md).
 
 Notation: rounded boxes are start and end events, rectangles are tasks, diamonds are gateways, and dotted arrows are messages or notifications. Lanes are drawn as Mermaid subgraphs, so the renderer may place them side by side rather than strictly stacked; the step numbers give the sequence.
 
-Sample data comes from the shared [synthetic test data set](../../06-quality/test-data/README.md): tenant TEN-001 Harborview Home Care (America/New_York), caregivers Maya Ortiz (E-2041) and Rosa Delgado (E-2017), client C-10234 Harold Jennings. All data is fictional.
+Sample data comes from the shared [synthetic test data set](../../06-quality/test-data/README.md): tenant TEN-001 Harborview Home Care (America/New_York), caregivers Maya Ortiz (E-2041) and Rosa Delgado (E-2017), client C-10234 Harold Jennings. All data is changed.
 
 ## Flow 1: Agency sign-up to activation
 

@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-DEL-007 |
+| Document ID | HC-DEL-007 |
 | Version | 2.1 |
 | Status | Living document (reviewed weekly) |
 | Owner | Business Analyst |
@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This log tracks the risks, assumptions, issues and dependencies for the platform Release 1 and R1.1, with items for Release 2 that are already known. The BA facilitates a weekly review with the Product Owner and Engineering Lead. Each item links to the requirements, stories, change requests and incidents it affects.
+This log tracks the risks, assumptions, issues and dependencies for Release 1 and R1.1, with items for Release 2 that are already known. The BA facilitates a weekly review with the Product Owner and Engineering Lead. Each item links to the requirements, stories, change requests and incidents it affects.
 
 **Scoring.** Probability (P) and impact (I) are each scored 1 (very low) to 5 (very high). Score = P x I. A score of 15 or more is Red, 8 to 14 is Amber and 7 or less is Green. Scores shown are the latest assessment. For realized risks, the score shown is the one before realization.
 

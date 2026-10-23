@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-DSN-DATA-03 |
+| Document ID | HC-DSN-DATA-03 |
 | Version | 1.3 |
 | Status | Baselined (aligned to SRS v1.3) |
 | Owner | Business Analyst |
@@ -22,7 +22,7 @@ This document defines how the platform classifies, protects, retains and dispose
 
 It applies to the PostgreSQL database, S3 documents and export files, the caregiver app's offline store, logs and telemetry, and the sub-processors listed in section 9.
 
-the vendor acts as a business associate of each agency, which is the HIPAA covered entity, under a business associate agreement (NFR-CMP-01). The controls below are designed to support the agency's compliance with the HIPAA Privacy and Security Rules, including 45 CFR 164.312, and with state record-keeping rules. **The agency remains responsible for its own retention and disclosure obligations.** Retention values in section 6 are configurable defaults, and **each agency confirms the values for its state** during onboarding. This document is not legal advice.
+The vendor acts as a business associate of each agency, which is the HIPAA covered entity, under a business associate agreement (NFR-CMP-01). The controls below are designed to support the agency's compliance with the HIPAA Privacy and Security Rules, including 45 CFR 164.312, and with state record-keeping rules. **The agency remains responsible for its own retention and disclosure obligations.** Retention values in section 6 are configurable defaults, and **each agency confirms the values for its state** during onboarding. This document is not legal advice.
 
 Column-level classifications are recorded in the [data dictionary](data-dictionary.md).
 
@@ -134,7 +134,7 @@ Retention runs from the trigger event. A disposal job runs monthly per tenant. I
 | 10 | User accounts | `users`, `user_roles`, `user_locations`, `user_permission_overrides`, `notification_preferences` | 7 years after deactivation for `users` (audit actor references). Child rows are deleted at deactivation. | User deactivation | Hard delete; phone and email nulled at deactivation + 90 days | Audit integrity; data minimization |
 | 11 | Notifications | `notifications` | 13 months | Creation | Drop monthly partitions | Operational evidence of escalations; content holds no PHI (BR-056). Escalation outcomes are also in `audit_events`. |
 | 12 | Tenant configuration | `tenant_settings`, `reason_codes`, `escalation_ladders`, `credential_types`, `locations`, `service_lines`, `payers`, `roles`, `role_permissions` | Life of the tenant | Tenant deletion (section 8) | Hard delete | Needed to interpret retained records |
-| 13 | The platform commercial records | `tenants` (legal name, code, status), `subscriptions`, `plans`, `promo_codes`, payment-provider subscription history | 7 years | Tenant cancellation | Hard delete | the vendor' own financial records; contain no PHI |
+| 13 | The platform commercial records | `tenants` (legal name, code, status), `subscriptions`, `plans`, `promo_codes`, payment-provider subscription history | 7 years | Tenant cancellation | Hard delete | The vendor' own financial records; contain no PHI |
 | 14 | Technical records | `job_executions` 90 days; `event_outbox` 30 days after publication; API idempotency keys 24 hours; application logs and traces 30 days hot and 1 year archived; WAF logs 90 days; error tracking 90 days | As listed | Creation | TTL expiry; S3 lifecycle rules | Operations and security investigation. Logs carry no PHI (NFR-OBS-01). |
 | 15 | Generated exports and reports | Report CSV and PDF files, audit log exports | 7 days in S3; download links valid for 15 minutes | Generation | S3 lifecycle rule | The export is already audited and watermarked (BR-058). Payroll and claim files follow rows 7 and 8. |
 | 16 | Mobile offline queue | SQLCipher queue on the device | Until the server acknowledges sync; at most 72 hours of punches by design (NFR-AVL-02) | Sync acknowledgement or remote wipe | Secure delete on device; remote wipe on deactivation | NFR-MOB-02 |

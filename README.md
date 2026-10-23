@@ -4,7 +4,7 @@
 
 > **Case study of a real project.** Client details are withheld, and names, figures and records in this repository are changed or synthetic. Compliance content is written to show how requirements support regulations; it is not legal or tax advice.
 
-> **Read it in the browser.** The [case study page](https://ayushsingh0456.github.io/case-studies/tendwell.html) walks through the work, and the [document library](https://ayushsingh0456.github.io/library.html?project=homecare) opens every file here with diagrams rendered. Formatted PDFs: [BRD](https://ayushsingh0456.github.io/assets/docs/tendwell-BRD.pdf) · [SRS](https://ayushsingh0456.github.io/assets/docs/tendwell-SRS.pdf).
+> **Read it in the browser.** The [case study page](https://ayushsingh0456.github.io/case-studies/home-care.html) walks through the work, and the [document library](https://ayushsingh0456.github.io/library.html?project=homecare) opens every file here with diagrams rendered. Formatted PDFs: [BRD](https://ayushsingh0456.github.io/assets/docs/home-care-BRD.pdf) · [SRS](https://ayushsingh0456.github.io/assets/docs/home-care-SRS.pdf).
 
 ---
 
@@ -131,7 +131,7 @@ ISO/IEC/IEEE 29148 (requirements) · ISO/IEC 25010 (quality model) · ISO/IEC/IE
 
 - **Diagrams** render directly on GitHub (Mermaid). To edit one, paste the block into [mermaid.live](https://mermaid.live).
 - **Jira:** import [`jira-import.csv`](05-delivery/jira-import.csv) through *System > External system import > CSV*. It contains 14 epics and 54 stories with acceptance criteria, points, sprints and labels.
-- **API:** open [`openapi.yaml`](04-api/openapi.yaml) in Swagger Editor or Redocly. Import the [Postman collection](06-quality/api-tests/tendwell.postman_collection.json) and set `baseUrl` to a mock server.
+- **API:** open [`openapi.yaml`](04-api/openapi.yaml) in Swagger Editor or Redocly. Import the [Postman collection](06-quality/api-tests/home-care.postman_collection.json) and set `baseUrl` to a mock server.
 - **Test data:** see the [test-data README](06-quality/test-data/README.md). `validate_test_data.py` checks keys, foreign keys and expected payroll and billing totals.
 
 ---

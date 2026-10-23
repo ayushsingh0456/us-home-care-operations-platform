@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-DSN-DATA-02 |
+| Document ID | HC-DSN-DATA-02 |
 | Version | 1.3 |
 | Status | Baselined (aligned to SRS v1.3) |
 | Owner | Business Analyst |
@@ -15,7 +15,7 @@
 
 This dictionary defines every Release 1 table in the platform PostgreSQL 16 database:
 - its purpose, owning module and expected row volume;
-- each column's type, nullability, key or constraint, data classification, description and a fictional example.
+- each column's type, nullability, key or constraint, data classification, description and a synthetic example.
 
 It also lists the enumerations and the index and constraint highlights that the business rules depend on.
 
@@ -35,7 +35,7 @@ The entity relationships are drawn in the [ERD](erd.md). Handling, encryption an
 
 ### 2.1 Canonical example identifiers
 
-The examples below and in the OpenAPI specification reuse these fictional values.
+The examples below and in the OpenAPI specification reuse these synthetic values.
 
 | Record | Business key | UUID |
 |---|---|---|

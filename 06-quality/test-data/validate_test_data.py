@@ -13,7 +13,7 @@ import csv, json, math, os, re, sys
 from datetime import date, datetime, timedelta, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-API = os.path.join(os.path.dirname(HERE), 'api-tests', 'tendwell.postman_collection.json')
+API = os.path.join(os.path.dirname(HERE), 'api-tests', 'home-care.postman_collection.json')
 AS_OF_DATE = date(2026, 9, 15)
 errors, checks = [], [0]
 

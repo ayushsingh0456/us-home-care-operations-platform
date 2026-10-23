@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-AI-01 |
+| Document ID | HC-AI-01 |
 | Version | 1.2 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -39,7 +39,7 @@ The short version: AI made the BA faster at producing first drafts and at findin
 Approved by the Compliance and Privacy Officer on 2026-02-02 and applied to every use.
 
 1. **No client data or PHI in prompts, ever.** No names, dates of birth, addresses, Medicaid IDs, diagnoses, medications, incident narratives or screenshots of production screens. Interview notes were de-identified by the BA before any synthesis: roles only, no agency names, no client details.
-2. **Synthetic data only.** Examples use the repo's fictional test data: client C-10234 at 418 Birchwood Lane, Lakemont, OH 43999; phone numbers in the 555-01xx range; emails at example.com; Medicaid IDs of the form `ZZ` plus 8 digits.
+2. **Synthetic data only.** Examples use the repo's synthetic test data: client C-10234 at 418 Birchwood Lane, Lakemont, OH 43999; phone numbers in the 555-01xx range; emails at example.com; Medicaid IDs of the form `ZZ` plus 8 digits.
 3. **Approved tools only.** The team used the company-approved enterprise AI assistant with prompt retention off and no training on inputs. Personal accounts and browser extensions were not allowed.
 4. **Every output is reviewed by the BA before anyone else sees it.** AI output is a draft, never a deliverable. The BA reads every line.
 5. **SMEs validate domain rules.** Clinical content goes to the Clinical SME, privacy content to the Compliance and Privacy Officer, and pay and billing rules to the Product Owner with agency finance input, exactly as if the BA had written it unaided.

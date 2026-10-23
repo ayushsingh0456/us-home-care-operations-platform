@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-REQ-SRS |
+| Document ID | HC-REQ-SRS |
 | Version | 1.3 |
 | Status | Approved (baselined) |
 | Owner | Business Analyst |
@@ -191,8 +191,8 @@ The chain runs left to right through the modules:
 
 | Code | Role | Description | Primary interface | MFA (BR-006) | Data scope |
 |---|---|---|---|---|---|
-| PLT-ADM | Platform Administrator | the vendor staff who run the SaaS platform: plans, promo codes, tenant lifecycle. | Platform Console | Mandatory | Platform configuration only (plans, promo codes, tenant lifecycle). No tenant PHI. |
-| PLT-SUP | Platform Support Agent | the vendor support staff. No tenant data access unless an Agency Administrator approves a time-boxed grant. | Platform Console; Agency Web App under a grant | Mandatory | None by default. Read-only tenant access only during an approved, time-boxed support grant. |
+| PLT-ADM | Platform Administrator | The vendor staff who run the SaaS platform: plans, promo codes, tenant lifecycle. | Platform Console | Mandatory | Platform configuration only (plans, promo codes, tenant lifecycle). No tenant PHI. |
+| PLT-SUP | Platform Support Agent | The vendor support staff. No tenant data access unless an Agency Administrator approves a time-boxed grant. | Platform Console; Agency Web App under a grant | Mandatory | None by default. Read-only tenant access only during an approved, time-boxed support grant. |
 | AG-ADM | Agency Administrator | Account holder at a care agency (tenant). Configures the agency, users, roles, payers and settings. | Agency Web App; public sign-up site | Mandatory | Whole tenant. |
 | AG-COORD | Care Coordinator | Schedules visits, manages client intake, resolves EVV exceptions, approves time off for assigned locations. | Agency Web App | Optional | Assigned locations. |
 | AG-SUPV | Clinical Supervisor | Registered nurse who approves care plans and medication orders, reviews missed doses, vitals alerts and client incidents. | Agency Web App | Mandatory | Assigned locations; clinical records. |

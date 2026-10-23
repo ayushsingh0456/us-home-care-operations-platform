@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-OPS-01 |
+| Document ID | HC-OPS-01 |
 | Version | 2.0 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -205,7 +205,7 @@ Next update: <HH:MM> ET
 
 ## 6. Privacy incident branch
 
-the vendor is a business associate of each agency (the covered entity) under a Business Associate Agreement (NFR-CMP-01). The Compliance and Privacy Officer leads every privacy incident; the IC continues to run the technical response.
+The vendor is a business associate of each agency (the covered entity) under a Business Associate Agreement (NFR-CMP-01). The Compliance and Privacy Officer leads every privacy incident; the IC continues to run the technical response.
 
 ```mermaid
 flowchart TD

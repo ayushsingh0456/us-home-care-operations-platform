@@ -1,15 +1,15 @@
-# US Home-Care Operations Platform API - OpenAPI 3.1 contract (fictional case study)
-# Document ID: TW-API-01 | Version 1.3.0 | Owner: Business Analyst | Last updated: 2026-09-24
+# US Home-Care Operations Platform API - OpenAPI 3.1 contract (names and data changed)
+# Document ID: HC-API-01 | Version 1.3.0 | Owner: Business Analyst | Last updated: 2026-09-24
 # Aligned to SRS v1.3. Conventions: api-guidelines.md. Events: events-and-webhooks.md.
 # Data model: ../03-design/data/data-dictionary.md
 openapi: 3.1.0
 info:
   title: the platform API
   version: 1.3.0
-  summary: Operations API for home and community-based care agencies (fictional case study).
+  summary: Operations API for home and community-based care agencies (names and data changed).
   description: |
     REST API for **the platform**, the operations platform for home and community-based care agencies
-    (fictional case study). It serves the Agency Web App, the Caregiver Mobile App, the Platform Console and the public
+    (names and data changed). It serves the Agency Web App, the Caregiver Mobile App, the Platform Console and the public
     sign-up site.
 
     **Conventions** (full rules in [api-guidelines.md](api-guidelines.md)):
@@ -26,7 +26,7 @@ info:
     * Traceability extensions: `x-requirements` (FR IDs), `x-business-rules` (BR IDs), `x-change-requests`,
       `x-permission`, `x-roles` (default role templates holding the permission) and `x-release` (R2 only).
 
-    All names, agencies, people, identifiers and data in this document are fictional.
+    All names, agencies, people, identifiers and data in this document are changed.
   contact:
     name: the vendor API team
     email: api-team@example.com

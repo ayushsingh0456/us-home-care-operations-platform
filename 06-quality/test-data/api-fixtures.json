@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "description": "Request bodies used by tendwell.postman_collection.json and by API-level test cases. Synthetic data only.",
+    "description": "Request bodies used by home-care.postman_collection.json and by API-level test cases. Synthetic data only.",
     "baseUrl": "https://api.homecare.example/v1",
     "dataAsOf": "2026-09-15T08:30:00-04:00",
     "virtualClockForPostmanRun": "2026-09-15T08:55:00-04:00",

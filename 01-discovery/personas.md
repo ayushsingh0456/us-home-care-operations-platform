@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-DIS-03 |
+| Document ID | HC-DIS-03 |
 | Version | 1.2 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -19,7 +19,7 @@
 
 ### Purpose and scope
 
-These five personas summarize who the platform R1 serves and what "better" means to each of them. The Business Analyst and UX Designer built them from 26 discovery interviews, 6 job-shadowed home visits, a survey of 48 caregivers and document analysis at the three pilot agencies (see [discovery workshop notes](discovery-workshop-notes.md)). Each persona is a composite: no persona describes a real individual, and all names and quotes are fictional. Pain references (P1 to P12) point to the pain points in [current vs future state](current-vs-future-state.md).
+These five personas summarize who the platform R1 serves and what "better" means to each of them. The Business Analyst and UX Designer built them from 26 discovery interviews, 6 job-shadowed home visits, a survey of 48 caregivers and document analysis at the three pilot agencies (see [discovery workshop notes](discovery-workshop-notes.md)). Each persona is a composite: no persona describes a real individual, and all names and quotes are changed. Pain references (P1 to P12) point to the pain points in [current vs future state](current-vs-future-state.md).
 
 The team uses the personas in three ways: to write and order user stories, to choose UAT participants, and to settle design debates ("would Rosa do this with gloves on, in a client's kitchen, with no signal?").
 

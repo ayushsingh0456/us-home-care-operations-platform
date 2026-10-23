@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-QA-04 |
+| Document ID | HC-QA-04 |
 | Version | 1.3 |
 | Status | Baselined |
 | Owner | Business Analyst |
@@ -25,7 +25,7 @@ This folder holds the synthetic data set used by every test level after unit tes
 Ground rules:
 
 - **Synthetic only.** No production PHI is ever copied, masked or sampled into any non-production environment. Defects that need real data are reproduced with synthetic records (see [deployment and security](../../03-design/architecture/deployment-and-security.md)).
-- **Anonymization.** Phones are in the fictional range +1-614-555-01xx; emails use `@example.com` (agency users) or `@example.org` (the vendor staff); Medicaid IDs are `ZZ` plus 8 digits; addresses are on fictional streets in Lakemont, OH 43999; EINs are placeholders. People, agencies and prescribers are fictional.
+- **Anonymization.** Phones are in the synthetic range +1-614-555-01xx; emails use `@example.com` (agency users) or `@example.org` (the vendor staff); Medicaid IDs are `ZZ` plus 8 digits; addresses are on synthetic streets in Lakemont, OH 43999; EINs are placeholders. People, agencies and prescribers are synthetic.
 - **One clock.** The data describes the world **as of 2026-09-15 08:30 America/New_York**. Timestamps are written in local ISO 8601 with offset (for example `2026-09-15T08:30:00-04:00`); the loader stores them in UTC (NFR-DAT-01). Tests that need another time move the tenant's virtual clock, a non-production test-harness control that is absent from production builds.
 - **Validated.** `validate_test_data.py` checks keys, foreign keys, same-tenant references, recomputed GPS distances, credential statuses, dose windows, vital flags, expected totals, anonymization formats and the Postman collection. It must pass before any seed is published.
 
@@ -38,7 +38,7 @@ Ground rules:
 | Input-only rows | `clients.csv` rows with `seed_mode = input-only` (C-10302) are request bodies, never pre-loaded |
 | Derived rows | For seeded Verified visits without punch rows (adult-day attendance), the loader writes In and Out punches from `actual_start` and `actual_end` at the location's coordinates |
 | Reset | Every test that writes data (clock-ins, billing runs, approvals) runs on a fresh seed or resets the records it names; BVA tests reset the listed visit between iterations |
-| Virtual clock for the API collection | Pin TEN-001 and TEN-003 to 2026-09-15T08:55:00-04:00, then run [the Postman collection](../api-tests/tendwell.postman_collection.json) |
+| Virtual clock for the API collection | Pin TEN-001 and TEN-003 to 2026-09-15T08:55:00-04:00, then run [the Postman collection](../api-tests/home-care.postman_collection.json) |
 
 ### Record keys and UUIDs
 
@@ -262,7 +262,7 @@ The cap is consumed in visit date order, so the excess falls on the latest visit
 - [Test cases (guide and featured cases)](../test-cases.md)
 - [Test cases (CSV)](../test-cases.csv)
 - [UAT plan and scripts](../uat-plan-and-scripts.md)
-- [Postman collection](../api-tests/tendwell.postman_collection.json)
+- [Postman collection](../api-tests/home-care.postman_collection.json)
 - [Business rules](../../02-requirements/business-rules.md)
 - [Data dictionary](../../03-design/data/data-dictionary.md)
 - [Data classification and retention](../../03-design/data/data-classification-and-retention.md)

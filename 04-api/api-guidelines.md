@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-API-02 |
+| Document ID | HC-API-02 |
 | Version | 1.3 |
 | Status | Baselined (aligned to SRS v1.3) |
 | Owner | Business Analyst |
@@ -540,7 +540,7 @@ See [events and webhooks, section 8](events-and-webhooks.md#8-outbound-agency-we
 | Review | The BA and Engineering Lead review every contract change in a pull request. A change to a requirement-bearing operation updates `x-requirements` and the [requirements traceability matrix](../02-requirements/requirements-traceability-matrix.md). |
 | Linting | CI lints the OpenAPI document. The build fails when:<ul><li>an operation lacks `operationId`, `x-requirements` or `x-permission`;</li><li>a property is not camelCase;</li><li>an error response does not use `Problem`;</li><li>a query parameter matches the PHI field list.</li></ul> |
 | Breaking-change check | CI diffs the contract against the last release tag and blocks breaking changes in `/v1`. |
-| Contract tests | Run from the [Postman collection](../06-quality/api-tests/tendwell.postman_collection.json) against the sandbox on every deployment. Responses are validated against the schemas. |
+| Contract tests | Run from the [Postman collection](../06-quality/api-tests/home-care.postman_collection.json) against the sandbox on every deployment. Responses are validated against the schemas. |
 | Mocks | The mobile team develops against a mock server generated from the contract and its examples. |
 
 ## Related documents

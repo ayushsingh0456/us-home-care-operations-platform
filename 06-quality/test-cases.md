@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-QA-02 |
+| Document ID | HC-QA-02 |
 | Version | 1.4 |
 | Status | Baselined |
 | Owner | Business Analyst (co-authored with the QA Lead) |
@@ -434,7 +434,7 @@ No visit is created by a dry run, and every message states the problem and the f
 - [Test strategy and plan](test-strategy-and-plan.md)
 - [Test cases (CSV)](test-cases.csv)
 - [Test data](test-data/README.md)
-- [Postman collection](api-tests/tendwell.postman_collection.json)
+- [Postman collection](api-tests/home-care.postman_collection.json)
 - [UAT plan and scripts](uat-plan-and-scripts.md)
 - [Defect log](defect-log.csv) and [defect report example](defect-report-example.md)
 - [Software requirements specification](../02-requirements/SRS.md)

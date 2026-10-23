@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-DIS-05 |
+| Document ID | HC-DIS-05 |
 | Version | 1.2 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -19,7 +19,7 @@
 
 ### Purpose and scope
 
-This document records how the Business Analyst elicited the platform R1 requirements during discovery (January and February 2026) and what was learned. It contains the elicitation plan, the records of the three discovery workshops, the interview synthesis, and the insights that changed scope. Workshop records were circulated to attendees within 2 business days and approved by reply. Quotes are paraphrased and fictional; participants are identified by role and agency only.
+This document records how the Business Analyst elicited the platform R1 requirements during discovery (January and February 2026) and what was learned. It contains the elicitation plan, the records of the three discovery workshops, the interview synthesis, and the insights that changed scope. Workshop records were circulated to attendees within 2 business days and approved by reply. Quotes are paraphrased and anonymised; participants are identified by role and agency only.
 
 ## 1. Elicitation plan
 

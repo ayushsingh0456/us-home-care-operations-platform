@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-REQ-GLO |
+| Document ID | HC-REQ-GLO |
 | Version | 1.3 (aligned with SRS v1.3) |
 | Status | Approved (baselined) |
 | Owner | Business Analyst |
@@ -44,12 +44,12 @@
 | Term | Definition |
 |---|---|
 | **BA** | In this repository BA means Business Analyst. "Business associate" is always written out to avoid confusion. |
-| **BAA (business associate agreement)** | The contract HIPAA requires before a business associate handles PHI for a covered entity, and between a business associate and its own subcontractors. the vendor signs one with each agency (NFR-CMP-01). |
+| **BAA (business associate agreement)** | The contract HIPAA requires before a business associate handles PHI for a covered entity, and between a business associate and its own subcontractors. The vendor signs one with each agency (NFR-CMP-01). |
 | **Billing model** | How an authorization is priced: Hourly (15-minute units), Per visit, Daily or Fixed monthly (BR-047, BR-048). |
 | **Billing run** | A batch job that creates or updates Draft invoices for a period from Verified visits. Idempotent per tenant, client, payer and period (BR-050). |
 | **Blocking credential** | A credential type that, once Expired, stops the caregiver from being assigned new visits (FR-WRK-03, BR-014). |
 | **Breach (HIPAA)** | An acquisition, access, use or disclosure of PHI not permitted by the Privacy Rule that compromises its security or privacy. It is presumed to be a breach unless a four-factor risk assessment shows a low probability of compromise (45 CFR 164.402). |
-| **Business associate** | A person or organization that creates, receives, maintains or transmits PHI on behalf of a covered entity. the vendor is a business associate of each agency. |
+| **Business associate** | A person or organization that creates, receives, maintains or transmits PHI on behalf of a covered entity. The vendor is a business associate of each agency. |
 
 ### C
 

@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-REQ-BRD |
+| Document ID | HC-REQ-BRD |
 | Version | 1.2 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -18,7 +18,7 @@
 | 1.1 | 2026-04-17 | Scope changes from CR-001 (daily overtime profile, BN-10), CR-002 (optional open-shift confirmation, BN-05) and CR-003 (Family Portal moved to Release 2, BN-14). |
 | 1.2 | 2026-09-24 | Post-pilot update. Needs sharpened by CR-004, CR-005 and CR-006 after INC-2026-011, INC-2026-007 and INC-2026-015. KPI baselines reconfirmed with the pilot agencies. |
 
-**Purpose.** This document states why the platform Release 1 (R1) exists, which business outcomes it must achieve, and which business needs the solution must meet. In ISO/IEC/IEEE 29148:2018 terms it is the business requirements specification. It deliberately says little about *how*; the [SRS](SRS.md) specifies the system behavior that satisfies each need.
+**Purpose.** This document states why Release 1 (R1) exists, which business outcomes it must achieve, and which business needs the solution must meet. In ISO/IEC/IEEE 29148:2018 terms it is the business requirements specification. It deliberately says little about *how*; the [SRS](SRS.md) specifies the system behavior that satisfies each need.
 
 **Scope of this document.** The R1 product for the three pilot agencies and general availability, plus the boundary to Release 2 (R2). Audience: Product Owner, delivery team, pilot agency leadership, Compliance and Privacy Officer.
 
@@ -26,7 +26,7 @@
 
 Home and community-based care agencies run their core value chain across disconnected tools: authorizations in spreadsheets, schedules in a whiteboard-style scheduler, visit verification in a state-supplied EVV app, medication records on paper in the client's home, payroll keyed by hand from timesheets, and invoices built in a spreadsheet. Every hand-off re-enters the same visit, and every re-entry leaks money or compliance.
 
-Discovery at three fictional pilot agencies (TEN-001 Harborview Home Care, TEN-002 Cedar Lane Adult Day Center, TEN-003 Northgate Supported Living) quantified the cost:
+Discovery at three pilot agencies (TEN-001 Harborview Home Care, TEN-002 Cedar Lane Adult Day Center, TEN-003 Northgate Supported Living) quantified the cost:
 
 | Pain point | Baseline (discovery) |
 |---|---|
@@ -48,7 +48,7 @@ Three scope decisions shape the solution:
 
 ## 2. Business context
 
-the vendor sells the platform as a multi-tenant SaaS product to US agencies that deliver three service lines:
+The vendor sells the platform as a multi-tenant SaaS product to US agencies that deliver three service lines:
 - `HOME_VISIT`: in-home personal care visits.
 - `ADULT_DAY`: adult day programs.
 - `SUPPORTED_LIVING`: 24-hour supported living homes.
@@ -146,7 +146,7 @@ The full register, with RACI, is in [stakeholder-register-raci.md](../01-discove
 | Caregivers | PER-01 Rosa Delgado (CG) | Quick clock-in, correct pay, fair schedules | Low individually, decisive collectively | Clock-in in three taps, capture without signal, paid travel |
 | Clients and their representatives | Family Contact (FAM, R2) | Reliable visits, privacy | Medium | Privacy now; visibility in R2 |
 | Payers and the state EVV program | External | Valid EVV and clean claims | High (regulatory) | Six EVV elements; aggregator export; authorization respected |
-| the vendor delivery team | Product Owner, Engineering Lead, QA Lead, UX Designer | Ship R1 safely and on time | High | Prioritized, testable requirements |
+| The vendor delivery team | Product Owner, Engineering Lead, QA Lead, UX Designer | Ship R1 safely and on time | High | Prioritized, testable requirements |
 | Clinical SME (RN advisor) | Clinical SME | Clinical safety of eMAR, vitals and incidents | High on clinical rules | Rules signed off before build |
 | Compliance and Privacy Officer | Compliance and Privacy Officer | HIPAA, BAA, breach process | Veto on PHI handling | Minimum necessary by design; audit evidence |
 | Customer Success Lead (pilot) | Customer Success Lead | Pilot adoption and KPI evidence | Medium | Baselines, training plan, measurement method |
@@ -204,7 +204,7 @@ Design consequences that the business has agreed to:
 | Type | Constraint |
 |---|---|
 | Regulatory | HIPAA Privacy and Security Rules (the vendor is a business associate of each agency); 21st Century Cures Act section 12006 EVV; FLSA and the DOL Home Care Rule; state rules on incident reporting and record retention. See [compliance-mapping.md](compliance-mapping.md). |
-| Contractual | the vendor signs a BAA with every agency and uses only HIPAA-eligible services under a BAA with its own vendors (NFR-CMP-01). |
+| Contractual | The vendor signs a BAA with every agency and uses only HIPAA-eligible services under a BAA with its own vendors (NFR-CMP-01). |
 | Schedule | Six two-week sprints (S1 from 2026-03-09 to S6 ending 2026-05-29), hardening and UAT in June 2026, pilot go-live 2026-07-06. |
 | Team | One cross-functional team: 4 developers (2 backend, 1 web, 1 mobile), QA Lead plus 1 QA engineer, UX Designer, Engineering Lead, Product Owner, Business Analyst. Scope is cut, not stretched, when capacity runs out. |
 | Technical | Payroll and claims leave the platform as files, not integrations (ADR-005). The caregiver app must work offline (ADR-006). The mobile app supports iOS 16+ and Android 10+ (NFR-MOB-01). |
@@ -229,7 +229,7 @@ These are tracked, with owners and review dates, in the [RAID log](../05-deliver
 
 ## 11. Benefits and cost/benefit view
 
-All figures are fictional and illustrative. They show the logic of the business case, not a forecast. The reference agency has Harborview's profile (TEN-001: 62 caregivers, 180 clients).
+All figures are changed and illustrative. They show the logic of the business case, not a forecast. The reference agency has Harborview's profile (TEN-001: 62 caregivers, 180 clients).
 
 **Model assumptions.**
 - About 2,700 visits a month, averaging 2.5 h each.

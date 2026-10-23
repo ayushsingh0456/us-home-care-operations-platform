@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-QA-03 |
+| Document ID | HC-QA-03 |
 | Version | 1.2 |
 | Status | Closed (UAT complete; signed off 2026-06-25) |
 | Owner | Business Analyst |
@@ -347,9 +347,9 @@ Note: the separate Low GPS accuracy exception did not exist in R1. It was added 
 | TEN-001 Harborview Home Care | Agency Administrator | Accept with known issues | DEF-059, DEF-061 | 2026-06-25 | Signed (e-signature on file) |
 | TEN-002 Cedar Lane Adult Day Center | Agency Administrator | Accept | None affecting adult day | 2026-06-25 | Signed (e-signature on file) |
 | TEN-003 Northgate Supported Living | Agency Administrator and Clinical Supervisor | Accept with known issues | DEF-055 | 2026-06-25 | Signed (e-signature on file) |
-| the vendor | Clinical SME (RN advisor), for UAT-07 and UAT-08 | Accept | DEF-055 | 2026-06-25 | Signed (e-signature on file) |
-| the vendor | Compliance and Privacy Officer, for UAT-02 and UAT-12 | Accept | None | 2026-06-25 | Signed (e-signature on file) |
-| the vendor | Product Owner | Accept; recommends Go | All 4 UAT known issues | 2026-06-25 | Signed (e-signature on file) |
+| The vendor | Clinical SME (RN advisor), for UAT-07 and UAT-08 | Accept | DEF-055 | 2026-06-25 | Signed (e-signature on file) |
+| The vendor | Compliance and Privacy Officer, for UAT-02 and UAT-12 | Accept | None | 2026-06-25 | Signed (e-signature on file) |
+| The vendor | Product Owner | Accept; recommends Go | All 4 UAT known issues | 2026-06-25 | Signed (e-signature on file) |
 
 ## 9. UAT outcome summary
 

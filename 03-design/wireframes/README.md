@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-UX-01 |
+| Document ID | HC-UX-01 |
 | Version | 1.3 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -23,7 +23,7 @@ These six low-fidelity wireframes show layout, content priority and behavior for
 
 Each wireframe has numbered callouts that match the annotation table under it (callout, element, behavior, FR/BR reference). Visual design, final copy and component specifications are owned by the UX Designer and are out of scope here.
 
-Sample data comes from the shared [synthetic test data set](../../06-quality/test-data/README.md), so the wireframes, UAT scripts and API tests describe the same people and visits. All names and data are fictional. Times are 24-hour, America/New_York.
+Sample data comes from the shared [synthetic test data set](../../06-quality/test-data/README.md), so the wireframes, UAT scripts and API tests describe the same people and visits. All names and data are changed. Times are 24-hour, America/New_York.
 
 | Wireframe | App and frame | Persona | Tenant | Stories |
 |---|---|---|---|---|

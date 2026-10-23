@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-SPEC-001 |
+| Document ID | HC-SPEC-001 |
 | Version | 1.3 |
 | Status | Approved |
 | Owner | Business Analyst |

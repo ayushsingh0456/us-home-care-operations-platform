@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | TW-DIS-01 |
+| Document ID | HC-DIS-01 |
 | Version | 1.1 |
 | Status | Approved |
 | Owner | Business Analyst |
@@ -19,13 +19,13 @@
 
 ### Purpose and scope of this document
 
-This charter authorizes the platform Release 1 (R1) project, states why it exists, and sets the objectives, scope boundaries, milestones, budget envelope and governance that every later artifact traces to. The Business Analyst drafted it from discovery evidence (see [discovery workshop notes](discovery-workshop-notes.md)) and maintains it; the Executive Sponsor and Product Owner approve it. Detailed requirements live in the [BRD](../02-requirements/BRD.md) and [SRS](../02-requirements/SRS.md), not here.
+This charter authorizes Release 1 (R1) project, states why it exists, and sets the objectives, scope boundaries, milestones, budget envelope and governance that every later artifact traces to. The Business Analyst drafted it from discovery evidence (see [discovery workshop notes](discovery-workshop-notes.md)) and maintains it; the Executive Sponsor and Product Owner approve it. Detailed requirements live in the [BRD](../02-requirements/BRD.md) and [SRS](../02-requirements/SRS.md), not here.
 
-All organizations, people and figures in this case study are fictional.
+All organizations, people and figures in this case study are changed.
 
 ## 1. Vision statement
 
-> For home and community-based care agencies that run on phone calls, paper timesheets and MAR binders, **the platform** is a multi-tenant operations platform that connects every authorized hour of care to a verified visit, a documented dose, a correct paycheck and a clean invoice. Unlike generic scheduling tools, the platform treats EVV, medication safety and payroll and billing rules as one connected chain, so agency staff spend their time on care rather than on reconciliation.
+> For home and community-based care agencies that run on phone calls, paper timesheets and MAR binders, **The platform** is a multi-tenant operations platform that connects every authorized hour of care to a verified visit, a documented dose, a correct paycheck and a clean invoice. Unlike generic scheduling tools, the platform treats EVV, medication safety and payroll and billing rules as one connected chain, so agency staff spend their time on care rather than on reconciliation.
 
 ## 2. Problem statement
 
@@ -124,7 +124,7 @@ The pilot runs with the three design-partner agencies from 2026-07-06. An early-
 
 ## 7. Budget envelope (illustrative)
 
-Figures are fictional and shown only to illustrate how the envelope was framed for steering. They cover R1 through general availability.
+Figures are changed and shown only to illustrate how the envelope was framed for steering. They cover R1 through general availability.
 
 | Line item | Basis | Amount (USD) |
 |---|---|---|
