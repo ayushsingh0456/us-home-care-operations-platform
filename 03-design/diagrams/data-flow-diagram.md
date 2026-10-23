@@ -19,7 +19,7 @@
 
 ### Purpose and scope
 
-This document shows where Tendwell data comes from, where it is processed and stored, and where it leaves, with trust boundaries and PHI flows marked. It is the basis for the privacy review, the HIPAA security risk analysis and threat modelling. Level 0 shows Tendwell as a single process with its external entities; level 1 decomposes it into processes and data stores, drawn as two views (care delivery, then back office) for readability.
+This document shows where the platform data comes from, where it is processed and stored, and where it leaves, with trust boundaries and PHI flows marked. It is the basis for the privacy review, the HIPAA security risk analysis and threat modelling. Level 0 shows the platform as a single process with its external entities; level 1 decomposes it into processes and data stores, drawn as two views (care delivery, then back office) for readability.
 
 Classifications follow the [data classification and retention](../data/data-classification-and-retention.md) scheme: **PHI**, **PII**, **Confidential** and **Internal**, where the highest class of any field in a flow wins. Interface IDs (IF-01 to IF-10) are those in the [SRS](../../02-requirements/SRS.md).
 
@@ -27,7 +27,7 @@ Classifications follow the [data classification and retention](../data/data-clas
 
 | Symbol | Meaning |
 |---|---|
-| Rectangle (E-number) | External entity: a person, organization or system outside Tendwell's control |
+| Rectangle (E-number) | External entity: a person, organization or system outside the platform's control |
 | Circle (P-number) | Process that transforms data |
 | Cylinder (D-number) | Data store |
 | Thick arrow `==>` | Flow that carries PHI or biometric data |
@@ -47,12 +47,12 @@ flowchart LR
   subgraph TB1["TB1: user devices and browsers on the internet"]
     E1["E1 Agency office staff<br/>AG-ADM, AG-COORD, AG-SUPV, AG-FIN"]:::ent
     E2["E2 Caregiver with mobile app"]:::ent
-    E3["E3 Tendwell Labs staff<br/>PLT-ADM, PLT-SUP"]:::ent
+    E3["E3 the vendor staff<br/>PLT-ADM, PLT-SUP"]:::ent
     E4["E4 Prospective agency owner"]:::ent
     E5["E5 Responsible party, private pay"]:::ent
   end
-  subgraph TB2["TB2: Tendwell AWS production account under BAA"]
-    P0(("0<br/>Tendwell<br/>platform")):::proc
+  subgraph TB2["TB2: the platform AWS production account under BAA"]
+    P0(("0<br/>the platform<br/>platform")):::proc
   end
   subgraph TB3["TB3: sub-processors under BAA"]
     E6["E6 Identity verification vendor"]:::ent
@@ -65,7 +65,7 @@ flowchart LR
     E11["E11 FCM / APNs push"]:::ent
     E12["E12 Google Maps Platform"]:::ent
   end
-  subgraph TB5["Outside Tendwell: file recipients, reached by agency users"]
+  subgraph TB5["Outside the platform: file recipients, reached by agency users"]
     E13["E13 Payroll provider"]:::ent
     E14["E14 Clearinghouse and payers"]:::ent
     E15["E15 State EVV aggregator"]:::ent
@@ -116,7 +116,7 @@ flowchart LR
     D11[("D11 Offline store<br/>SQLCipher outbox and cache")]:::store
   end
 
-  subgraph TB2["TB2: Tendwell AWS production account"]
+  subgraph TB2["TB2: the platform AWS production account"]
     P1(("P1 Onboard<br/>and subscribe")):::proc
     P2(("P2 Authenticate<br/>and authorize")):::proc
     P3(("P3 Manage clients<br/>and care plans")):::proc
@@ -179,7 +179,7 @@ flowchart LR
   E14["E14 Clearinghouse"]:::ent
   E15["E15 State EVV aggregator"]:::ent
 
-  subgraph TB2["TB2: Tendwell AWS production account"]
+  subgraph TB2["TB2: the platform AWS production account"]
     D1[("D1 Tenants, users, access")]:::store
     D3[("D3 Workforce, schedule, time off")]:::store
     D4[("D4 EVV punches and exceptions")]:::store
@@ -233,7 +233,7 @@ flowchart LR
 | F04 | P0 | E2 Caregiver | Assigned visits, client first name and last initial, service address, tasks, due doses, allergies | PHI | Only assigned visits, 72 h window; stored in SQLCipher |
 | F05 | E3 Platform staff | P0 | Plans, promo codes, support grant requests | Confidential | WAF IP allowlist; MFA (BR-006) |
 | F06 | P0 | E3 Platform staff | Tenant data under an Active grant | PHI (masked) | Grant approval, 4 h maximum, read-only default, no reveal, audited with grant ID (BR-008) |
-| F07 | E4 Owner | P1 | Owner contact, agency legal details, EIN, plan | PII, Confidential | TLS; EIN encrypted on receipt; card data goes to Stripe, never to Tendwell |
+| F07 | E4 Owner | P1 | Owner contact, agency legal details, EIN, plan | PII, Confidential | TLS; EIN encrypted on receipt; card data goes to Stripe, never to the platform |
 | F08 | P5 | E6 Identity vendor (IF-06) | Encrypted capture package, enrollment reference | PII (biometric) | BAA; in-memory only on the server; vendor deletes after match (ADR-004) |
 | F09 | E6 | P5 | Liveness result, match score, vendor transaction ID | PII | Server-side; result valid 90 s, single use (BR-024) |
 | F10 | P2 / P0 | E7 OIDC provider (IF-10) | Email, MFA factors, tokens | PII | OIDC with PKCE; JWKS validation; 15 min access tokens |
@@ -244,7 +244,7 @@ flowchart LR
 | F15 | P9 | E11 FCM / APNs (IF-04) | Device token, generic title and body, deep link | PII (no PHI) | Same template control; payload size check |
 | F16 | P3 | E12 Google Maps (IF-05) | Address string at intake; coordinate pairs for drive time | Confidential (no identifiers) | Adapter allowlist sends no name, client number or Medicaid ID |
 | F17 | E10 | E5 Responsible party | Invoice number, amount, due date, payment link | Confidential (no PHI) | Itemized invoice only behind the link after verification; no attachment (SRS TBD-13) |
-| F18 | E5 | E8 Stripe | Card or bank details | Confidential (cardholder data) | Stripe-hosted page; outside Tendwell's PCI scope |
+| F18 | E5 | E8 Stripe | Card or bank details | Confidential (cardholder data) | Stripe-hosted page; outside the platform's PCI scope |
 | F19 | D10 | E13 Payroll provider (IF-07) | Employee number, hours, rates, amounts, mileage | PII, Confidential | Pre-signed URL 15 min; watermark in file name and manifest; SHA-256 recorded; period lock (BR-046, BR-058) |
 | F20 | D10 | E14 Clearinghouse (IF-08) | Medicaid ID, authorization number, HCPCS code, dates, units, charges, diagnosis codes | PHI | Pre-signed URL; watermark; audit event; agency transmits through its own clearinghouse account |
 | F21 | P10 | E15 State EVV aggregator (IF-09) | Six EVV elements, punch sources, exception and reason codes | PHI | Configurable CSV; watermark; audit event (NFR-CMP-02) |
@@ -296,7 +296,7 @@ These flows cross into systems that are either not covered for PHI or not approp
 | Boundary | Contains | Controls on crossing |
 |---|---|---|
 | TB1 User devices and browsers | Office staff browsers, caregiver phones, platform staff browsers, sign-up visitors, responsible parties | TLS 1.2+; OIDC tokens; MFA for privileged roles (BR-006); WAF; idle timeout and mobile re-authentication (FR-IAM-04) |
-| TB2 Tendwell AWS production account | API, Worker, PostgreSQL, Redis, S3, KMS | Private subnets; security groups; RLS (BR-001); KMS envelope encryption; no standing human access |
+| TB2 the platform AWS production account | API, Worker, PostgreSQL, Redis, S3, KMS | Private subnets; security groups; RLS (BR-001); KMS envelope encryption; no standing human access |
 | TB3 Sub-processors under BAA | Identity verification vendor, OIDC provider | BAA; minimum data; vendor deletion terms; contract review annually (NFR-CMP-01) |
 | TB4 Vendors that never receive PHI | Stripe, Twilio, Amazon SES, FCM/APNs, Google Maps | Payload allowlists and template controls (section 5) |
 | TB5 File recipients | Payroll provider, clearinghouse, state EVV aggregator | Files downloaded by authorized agency users; watermark and audit; the agency remains responsible for onward transmission |

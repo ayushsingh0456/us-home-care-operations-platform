@@ -1,11 +1,11 @@
 "Issue ID","Issue Type","Summary","Description","Acceptance Criteria","Priority","Story Points","Epic Link","Sprint","Fix Version","Labels","Components"
-"EP-01","Epic","Agency Onboarding & Subscription","Goal: Let a care agency go from the public sign-up site to a provisioned, correctly billed tenant in one sitting, with no Tendwell Labs staff involvement, and make sure subscription problems never block care delivery.
+"EP-01","Epic","Agency Onboarding & Subscription","Goal: Let a care agency go from the public sign-up site to a provisioned, correctly billed tenant in one sitting, with no the vendor staff involvement, and make sure subscription problems never block care delivery.
 
 Objectives: Enabler for OBJ-01 to OBJ-06 (no direct KPI). Leading indicator: pilot tenants complete the setup checklist within 5 business days of activation.
 Business need: BN-01
 Functional requirements: FR-ONB-01, FR-ONB-02, FR-ONB-03, FR-ONB-04, FR-ONB-05, FR-ONB-06, FR-ONB-07, FR-ONB-08
 Stories: US-001, US-002, US-003, US-004, US-005, US-006 (29 points)","","Highest","","","","R1","ONB",""
-"EP-02","Epic","Identity & Access Management","Goal: Give every user secure, least-privilege access limited to their tenant and assigned locations, keep a complete sign-in and access trail, and let Tendwell Labs support staff into a tenant only with the agency's time-boxed consent.
+"EP-02","Epic","Identity & Access Management","Goal: Give every user secure, least-privilege access limited to their tenant and assigned locations, keep a complete sign-in and access trail, and let the vendor support staff into a tenant only with the agency's time-boxed consent.
 
 Objectives: Enabler for OBJ-01 to OBJ-06 (no direct KPI). Guardrails: zero cross-tenant access findings in the penetration test (NFR-SEC-02); 100% MFA enrollment for MFA-mandatory roles.
 Business need: BN-02
@@ -83,7 +83,7 @@ Objectives: No direct R1 KPI. R2 hypothesis: reduce inbound ""did the aide come 
 Business need: BN-14
 Functional requirements: FR-FAM-01, FR-FAM-02, FR-FAM-03
 Stories: US-053, US-054 (11 points)","","Medium","","","","R2","FAM",""
-"US-001","Story","Register my agency","As an agency owner, I want to register my agency online with my details, the agency's legal details, a plan and our service lines, so that I can start using Tendwell the same day without waiting for a call or manual setup by Tendwell staff.
+"US-001","Story","Register my agency","As an agency owner, I want to register my agency online with my details, the agency's legal details, a plan and our service lines, so that I can start using the platform the same day without waiting for a call or manual setup by the platform staff.
 
 Persona: PER-05 Tom Brennan (AG-ADM)
 Requirements: FR-ONB-01, FR-ONB-04
@@ -109,7 +109,7 @@ Scenario: US-001-AC2 Register without a trial code
   Given Tom has not applied a trial code
   When he completes the sign-up form and submits
   Then the payment provider's hosted card form is shown before submission completes
-  And card details are never sent to or stored by Tendwell
+  And card details are never sent to or stored by the platform
   And after email verification the subscription starts with status ""Active"" instead of ""Trialing""
 
 Scenario Outline: US-001-AC3 Reject incomplete or invalid registration data
@@ -290,7 +290,7 @@ Scenario: US-004-AC5 Update the payment method securely
   When Tom replaces the card on file using the payment provider's hosted form
   Then the new card is shown as brand and last 4 digits only
   And an audit event ""subscription.payment_method_updated"" records Tom as actor
-  And no card number, expiry or CVC reaches Tendwell servers
+  And no card number, expiry or CVC reaches the platform servers
 
 Scenario: US-004-AC6 Only Agency Administrators manage the subscription
   Given Denise Carter has the AG-FIN role and no subscription permission override
@@ -405,7 +405,7 @@ Dependencies: US-001
 
 Notes:
 - MFA uses TOTP or SMS one-time codes through the managed OIDC provider; access tokens live 15 minutes and refresh tokens rotate on use.
-- Recovery when an MFA device is lost: another Agency Administrator resets the factor, or Tendwell Support does so under a support grant (US-011). The reset is audited.
+- Recovery when an MFA device is lost: another Agency Administrator resets the factor, or the platform Support does so under a support grant (US-011). The reset is audited.
 - Analytics: sign-in success rate and MFA failure rate per tenant feed the security dashboard.
 - Out of scope: SSO with agency identity providers (backlog candidate); WebAuthn passkeys (R2 candidate).","Scenario: US-007-AC1 Sign in with password and authenticator code
   Given Tom has the AG-ADM role and an enrolled authenticator app
@@ -457,7 +457,7 @@ Scenario: US-007-AC5 No forced periodic rotation
 Scenario: US-007-AC6 Use an SMS one-time code without PHI
   Given Tom chose SMS as his second factor with verified phone ""+1-614-555-0142""
   When he passes the password step
-  Then an SMS is sent containing only a one-time code and the text ""Tendwell sign-in code. Do not share it.""","Highest","5","EP-02","S1","R1","IAM FR-IAM-01 FR-IAM-08","Agency Web App"
+  Then an SMS is sent containing only a one-time code and the text ""the platform sign-in code. Do not share it.""","Highest","5","EP-02","S1","R1","IAM FR-IAM-01 FR-IAM-08","Agency Web App"
 "US-008","Story","Reset a forgotten password","As a caregiver, I want to reset my forgotten password from my phone, so that I can sign in before my next visit without calling the office.
 
 Persona: PER-01 Rosa Delgado (CG)
@@ -898,7 +898,7 @@ Notes:
 - FR-WRK-06 (deactivation) sits in this story because invitation and deactivation are two ends of the same account lifecycle. Per FR-WRK-06 the actor for deactivation is the Agency Administrator, not the Coordinator.
 - A visit in progress at deactivation is not reassigned; it is flagged for Coordinator review.
 - Remote wipe on deactivation implements NFR-MOB-02.
-- Out of scope: background-check and I-9 workflows (handled outside Tendwell in R1).","Scenario: US-017-AC1 Create a caregiver profile and send the invitation
+- Out of scope: background-check and I-9 workflows (handled outside the platform in R1).","Scenario: US-017-AC1 Create a caregiver profile and send the invitation
   When Marcus creates caregiver ""Maya Ortiz"" with employee number ""E-2041"", email ""maya.ortiz@example.com"", phone ""+1-614-555-0163"", employment type ""FullTime"", hire date 2026-02-16, location ""Lakemont North"", skills ""Hoyer lift"" and languages ""English, Spanish""
   Then the caregiver is saved with status ""Active"" and a linked user with status ""Invited""
   And an invitation is sent by SMS and email with a single-use link to install the app and set a password
@@ -1075,7 +1075,7 @@ Scenario: US-020-AC4 Editing a pattern changes only future, not-yet-started visi
 
 Scenario: US-020-AC5 Notify the caregiver within 1 minute without PHI
   When the pattern above is saved at 14:20:00
-  Then Rosa receives one notification by 14:21:00 saying ""You have 24 new visits. Open Tendwell to view your schedule.""
+  Then Rosa receives one notification by 14:21:00 saying ""You have 24 new visits. Open the app to view your schedule.""
   And the notification contains no client name or address
 
 Scenario: US-020-AC6 Keep local times across a DST change
@@ -1350,7 +1350,7 @@ Scenario: US-025-AC5 Cannot clock in to someone else's visit
   And Rosa's app offers ""Start an unscheduled visit"", which raises UNSCHEDULED_VISIT for Coordinator review
 
 Scenario: US-025-AC6 Ask for precise location before clocking in
-  Given Rosa's iPhone has Precise Location turned off for Tendwell
+  Given Rosa's iPhone has Precise Location turned off for the platform
   When she taps ""Clock in""
   Then the app explains why precise location is needed and offers to open Settings
   And if she continues without it and the fix is 95 m from the address with 3,400 m accuracy, the punch is recorded and LOW_GPS_ACCURACY is raised instead of LOCATION_MISMATCH","Highest","8","EP-06","S3","R1","EVV FR-EVV-01 FR-EVV-02 FR-EVV-03","Caregiver Mobile App"
@@ -1363,7 +1363,7 @@ Dependencies: US-025, DEP-02
 
 Notes:
 - Identity verification is optional per tenant (DEC-07) and sits behind the `IdentityVerificationPort` adapter (ADR-004) so the vendor can be replaced.
-- Privacy: the vendor deletes selfie images after the match under the BAA; Tendwell stores only the result, liveness flag, match score and timestamps. Biometric consent is captured at enrollment; the agency remains responsible for any state biometric privacy obligations.
+- Privacy: the vendor deletes selfie images after the match under the BAA; the platform stores only the result, liveness flag, match score and timestamps. Biometric consent is captured at enrollment; the agency remains responsible for any state biometric privacy obligations.
 - Delivery: carried over from S4 to S5 because the vendor's sandbox credentials arrived late (ISS-02, DEP-02).
 - Out of scope: offline face matching on the device.","Scenario: US-026-AC1 Pass the identity check and clock in
   Given Harborview Home Care has identity verification turned on
@@ -1985,7 +1985,7 @@ Scenario: US-037-AC3 Urgent incident notifications bypass quiet hours
   Given the time is 23:40, inside quiet hours
   When Rosa reports category ""SuspectedAbuseNeglect""
   Then Priya and Tom receive push and SMS notifications within 1 minute
-  And the notification text is ""Urgent: a client incident needs review. Sign in to Tendwell."" with no client name, initials or category
+  And the notification text is ""Urgent: a client incident needs review. Sign in to the platform."" with no client name, initials or category
 
 Scenario: US-037-AC4 Start the deadline clock for suspected abuse or neglect
   When Rosa reports category ""SuspectedAbuseNeglect"" that occurred 2026-09-14 13:00
@@ -2149,7 +2149,7 @@ Scenario: US-040-AC6 Approve only for assigned locations
   When a caregiver from ""Lakemont South"" requests time off
   Then the request does not appear in Marcus's approval queue
   And a direct call to POST /v1/time-off-requests/{requestId}/decision returns 404","Highest","5","EP-09","S5","R1","TOF FR-TOF-03 FR-TOF-05","Agency Web App"
-"US-041","Story","Calculate pay-period hours and pay lines","As a Billing & Payroll Specialist, I want Tendwell to calculate each caregiver's regular, overtime, holiday, travel, PTO and mileage lines from Verified visits, so that I review exceptions instead of rebuilding timesheets by hand.
+"US-041","Story","Calculate pay-period hours and pay lines","As a Billing & Payroll Specialist, I want the platform to calculate each caregiver's regular, overtime, holiday, travel, PTO and mileage lines from Verified visits, so that I review exceptions instead of rebuilding timesheets by hand.
 
 Persona: PER-04 Denise Carter (AG-FIN)
 Requirements: FR-PAY-01, FR-PAY-02, FR-PAY-03
@@ -2229,7 +2229,7 @@ Dependencies: US-041
 
 Notes:
 - The export watermark (BR-058) is carried in the file name and in the audit event, not as a data row, so that the payroll provider's import is not broken (agreed with the Compliance and Privacy Officer, 2026-05-20).
-- Tendwell does not calculate tax withholding or produce pay stubs; full payroll processing was requested in CR-008 and rejected (DEC-04).
+- The platform does not calculate tax withholding or produce pay stubs; full payroll processing was requested in CR-008 and rejected (DEC-04).
 - Analytics: time from period end to export per tenant is the measure for OBJ-02.","Scenario: US-042-AC1 Review open items before export
   Given the pay period 2026-08-31 to 2026-09-13 has 3 caregivers with 5 visits that are Needs review or not yet Verified
   When Denise opens the pre-export review
@@ -2426,7 +2426,7 @@ Business rules: BR-052
 Dependencies: US-044, DEP-05
 
 Notes:
-- Payment pages are hosted by the payment provider; Tendwell never handles card or bank details (PCI DSS scope stays with the provider).
+- Payment pages are hosted by the payment provider; the platform never handles card or bank details (PCI DSS scope stays with the provider).
 - An invoice paid before a reminder date receives no further reminders.
 - Out of scope: autopay, payment plans and payer remittance (835) import.","Scenario: US-046-AC1 Send an invoice with a payment link and no PHI
   Given INV-2026-000141 for $174.00 is Approved for a private-pay client whose legal representative is ""jamie.kimball@example.org""
@@ -2543,7 +2543,7 @@ Scenario Outline: US-048-AC4 Credit notes only on issued invoices
     | Draft  | rejected: ""Edit the draft instead of issuing a credit note."" |
     | Void   | rejected: ""This invoice is void.""                            |
     | Paid   | accepted, and the balance shows the credit due to the payer  |","Highest","3","EP-11","S6","R1","BIL FR-BIL-07","Agency Web App"
-"US-049","Story","Choose notification channels and respect quiet hours","As a caregiver, I want to choose how Tendwell contacts me and not be disturbed at night by anything that can wait, so that I see what matters without my phone buzzing all evening.
+"US-049","Story","Choose notification channels and respect quiet hours","As a caregiver, I want to choose how the platform contacts me and not be disturbed at night by anything that can wait, so that I see what matters without my phone buzzing all evening.
 
 Persona: PER-01 Rosa Delgado (CG)
 Requirements: FR-NTF-01, FR-NTF-02, FR-NTF-05
@@ -2580,9 +2580,9 @@ Scenario Outline: US-049-AC3 Keep PHI out of every external channel
 
   Examples:
     | channel | text                                                                         |
-    | SMS     | Tendwell: your schedule changed. Open the app to see details.                |
+    | SMS     | The platform: your schedule changed. Open the app to see details.                |
     | Push    | Your schedule changed. Tap to see details.                                   |
-    | Email   | Your schedule changed. Sign in to Tendwell to see details. (with deep link)  |
+    | Email   | Your schedule changed. Sign in to the platform to see details. (with deep link)  |
 
 Scenario: US-049-AC4 Deep links require sign-in
   Given Rosa's session has expired

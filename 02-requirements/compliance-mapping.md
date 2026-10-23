@@ -1,4 +1,4 @@
-# Compliance Mapping: Tendwell
+# Compliance Mapping: US Home-Care Operations Platform
 
 ## Document control
 
@@ -11,7 +11,7 @@
 | Last updated | 2026-09-24 |
 | Reviewers | Compliance and Privacy Officer; Engineering Lead; Clinical SME (RN advisor); QA Lead; Product Owner |
 
-**Purpose and scope.** This document maps Tendwell's requirements and controls to the regulations and standards that shape them:
+**Purpose and scope.** This document maps the platform's requirements and controls to the regulations and standards that shape them:
 - the HIPAA Security Rule technical safeguards;
 - the HIPAA Privacy Rule minimum-necessary standard;
 - breach notification;
@@ -20,25 +20,25 @@
 - WCAG 2.2 AA;
 - NIST SP 800-63B.
 
-For each obligation it shows the Tendwell control, the requirement IDs that implement it and what the agency remains responsible for. It is the input to the Compliance and Privacy Officer's reviews and to agency security questionnaires.
+For each obligation it shows the platform control, the requirement IDs that implement it and what the agency remains responsible for. It is the input to the Compliance and Privacy Officer's reviews and to agency security questionnaires.
 
-> **Disclaimer.** Tendwell is designed to support an agency's compliance. It does not make an agency compliant. The agency, as the covered entity and employer, remains responsible for its own policies, workforce, configuration choices, filings and determinations. This document is a requirements traceability artifact, not legal advice. Citations are summarized for readability; the regulation text is authoritative.
+> **Disclaimer.** the platform is designed to support an agency's compliance. It does not make an agency compliant. The agency, as the covered entity and employer, remains responsible for its own policies, workforce, configuration choices, filings and determinations. This document is a requirements traceability artifact, not legal advice. Citations are summarized for readability; the regulation text is authoritative.
 
 ## 1. How to read this mapping
 
-- **R / A** marks a HIPAA implementation specification as Required or Addressable. Addressable does not mean optional: the entity implements it, or documents why an equivalent alternative is reasonable. Tendwell implements every addressable specification listed here.
-- **Tendwell control** is what the product and platform do. **Agency remains responsible for** is the part no software can do for the agency.
-- HHS published proposed amendments to the Security Rule in January 2025 that would, among other things, remove the required/addressable distinction. The Compliance and Privacy Officer tracks the rulemaking. Because Tendwell already treats the addressable specifications below as required, no requirement change is expected.
+- **R / A** marks a HIPAA implementation specification as Required or Addressable. Addressable does not mean optional: the entity implements it, or documents why an equivalent alternative is reasonable. The platform implements every addressable specification listed here.
+- **The platform control** is what the product and platform do. **Agency remains responsible for** is the part no software can do for the agency.
+- HHS published proposed amendments to the Security Rule in January 2025 that would, among other things, remove the required/addressable distinction. The Compliance and Privacy Officer tracks the rulemaking. Because the platform already treats the addressable specifications below as required, no requirement change is expected.
 
 ## 2. HIPAA Security Rule: technical safeguards (45 CFR 164.312)
 
-| Citation | Standard or implementation specification | R / A | Tendwell control | Requirement IDs | Agency remains responsible for |
+| Citation | Standard or implementation specification | R / A | The platform control | Requirement IDs | Agency remains responsible for |
 |---|---|---|---|---|---|
 | 164.312(a)(1) | **Access control:** allow access only to authorized persons or software | Standard | Permissions default to deny and are enforced server-side on every request. Tenant isolation by database row-level security. Location scoping. Caregivers see only assigned clients. Support staff see nothing without a time-boxed grant. | FR-IAM-05, FR-IAM-06, FR-IAM-07, BR-001, BR-005, BR-008, NFR-SEC-04 | Assigning roles that match each job; running the quarterly access review (NFR-SEC-04) |
 | 164.312(a)(2)(i) | Unique user identification | R | Every person has their own account and email; no shared logins. Every action is attributed to one user, or to System or Support with a grant ID. Sign-in events are recorded. | FR-IAM-01, FR-IAM-08, FR-RPT-03, BR-057 | Not sharing credentials; deactivating leavers promptly (FR-WRK-06) |
 | 164.312(a)(2)(ii) | Emergency access procedure | R | Care continues in an outage: the caregiver app captures EVV and documentation offline for 72 h, with today's care-plan tasks, allergies and due doses cached on the device (NFR-AVL-02). A Read-only tenant keeps point-of-care actions available (BR-003, TBD-07). An agency that loses its only administrator recovers access through a verified support procedure. | NFR-AVL-02, BR-003, FR-EVV-05, NFR-DR-01 | Its own emergency-mode operations plan; keeping more than one Agency Administrator |
 | 164.312(a)(2)(iii) | Automatic logoff | A | Web sessions end after 15 minutes idle, with a 60-second warning. Mobile requires re-authentication with device PIN or biometrics every 12 hours. | FR-IAM-04 | Device screen-lock policy on caregiver phones |
-| 164.312(a)(2)(iv) | Encryption and decryption | A | AES-256 at rest; field-level envelope encryption of PHI (date of birth, Medicaid ID, phone, service address, diagnoses) with KMS keys rotated annually; encrypted offline queue on devices. | NFR-SEC-01, BR-011, NFR-MOB-02 | Encryption of any PHI it exports and stores outside Tendwell |
+| 164.312(a)(2)(iv) | Encryption and decryption | A | AES-256 at rest; field-level envelope encryption of PHI (date of birth, Medicaid ID, phone, service address, diagnoses) with KMS keys rotated annually; encrypted offline queue on devices. | NFR-SEC-01, BR-011, NFR-MOB-02 | Encryption of any PHI it exports and stores outside the platform |
 | 164.312(b) | **Audit controls:** record and examine activity in systems containing ePHI | Standard (R) | An immutable audit log of creates, updates, deletes, PHI reveals (with reason), exports, sign-ins, permission changes and support access, kept 7 years. Filterable and exportable by the Agency Administrator. | FR-RPT-03, FR-RPT-04, FR-IAM-08, BR-057, BR-058, NFR-PRIV-02 | Reviewing audit activity (for example PHI reveals) under its own policy |
 | 164.312(c)(1) | **Integrity:** protect ePHI from improper alteration or destruction | Standard | EVV punches are append-only, with corrections as new punches (BR-026). Visit notes lock after 24 h and change only by addenda (BR-035). Doses are never deleted (BR-031). Issued invoices are immutable (BR-051). Audit events are append-only. | BR-026, BR-031, BR-035, BR-051, BR-057, FR-EVV-08, FR-DOC-02 | Using corrections and addenda rather than workarounds outside the system |
 | 164.312(c)(2) | Mechanism to authenticate ePHI | A | SHA-256 recorded for every payroll export; signed webhooks; database uniqueness constraints on invoice keys (CR-005); checksums in tenant exports (NFR-PRIV-03). | FR-PAY-05, BR-050, NFR-PRIV-03, IF-01 | Verifying checksums when importing exports elsewhere |
@@ -53,9 +53,9 @@ Beyond 164.312, two administrative and physical safeguards depend on the product
 
 ## 3. HIPAA Privacy Rule: minimum necessary (45 CFR 164.502(b), 164.514(d))
 
-The standard does not apply to disclosures to a provider for treatment. Tendwell still masks by default because most uses inside an agency are operational (scheduling, billing, payroll), not treatment.
+The standard does not apply to disclosures to a provider for treatment. The platform still masks by default because most uses inside an agency are operational (scheduling, billing, payroll), not treatment.
 
-| Control area | Tendwell control | Requirement IDs | Agency remains responsible for |
+| Control area | The platform control | Requirement IDs | Agency remains responsible for |
 |---|---|---|---|
 | Role-based access | Role templates give each job only the modules it needs. Billing & Payroll Specialists have no eMAR or clinical-note access ([SRS section 3.3](SRS.md#33-role-permission-matrix)). | FR-IAM-05, NFR-SEC-04 | Role assignment; approving overrides only with a reason |
 | Location and assignment scope | Coordinators, Supervisors and Caregivers see only their locations. Caregivers see only the clients they are assigned to, and only what the visit needs. | FR-IAM-06 | Keeping location assignments current |
@@ -72,10 +72,10 @@ The standard does not apply to disclosures to a provider for treatment. Tendwell
 
 ### 4.1 Who does what
 
-| Party | Obligation | How Tendwell supports it |
+| Party | Obligation | How the platform supports it |
 |---|---|---|
-| Tendwell Labs, as business associate | Notify the covered entity of a breach of unsecured PHI without unreasonable delay and no later than 60 calendar days after discovery (164.410), with the identities of affected individuals where known. The BAA sets a shorter notice period. | The [incident management process](../07-operations/incident-management-process.md) treats any suspected PHI exposure as SEV-1 (privacy). The audit log and notification records establish scope. |
-| The agency, as covered entity | Decide whether a breach occurred (four-factor risk assessment, 164.402). Notify affected individuals (164.404), HHS (164.408) and, above 500 residents of a state or jurisdiction, the media (164.406). | Tendwell provides the facts for the assessment and the affected-record list. The determination and the notifications are the agency's. |
+| the vendor, as business associate | Notify the covered entity of a breach of unsecured PHI without unreasonable delay and no later than 60 calendar days after discovery (164.410), with the identities of affected individuals where known. The BAA sets a shorter notice period. | The [incident management process](../07-operations/incident-management-process.md) treats any suspected PHI exposure as SEV-1 (privacy). The audit log and notification records establish scope. |
+| The agency, as covered entity | Decide whether a breach occurred (four-factor risk assessment, 164.402). Notify affected individuals (164.404), HHS (164.408) and, above 500 residents of a state or jurisdiction, the media (164.406). | The platform provides the facts for the assessment and the affected-record list. The determination and the notifications are the agency's. |
 
 ### 4.2 The Business Analyst's role in a privacy incident
 
@@ -107,9 +107,9 @@ Response:
 
 ## 5. 21st Century Cures Act section 12006: EVV
 
-Section 12006 added section 1903(l) to the Social Security Act. It requires EVV for Medicaid personal care services and home health care services, capturing six data elements (BR-020). Tendwell captures all six for every visit and exports them through IF-09 (NFR-CMP-02).
+Section 12006 added section 1903(l) to the Social Security Act. It requires EVV for Medicaid personal care services and home health care services, capturing six data elements (BR-020). The platform captures all six for every visit and exports them through IF-09 (NFR-CMP-02).
 
-| # | Data element | Tendwell source fields | How it is captured | Integrity controls |
+| # | Data element | The platform source fields | How it is captured | Integrity controls |
 |---|---|---|---|---|
 | 1 | Type of service performed | `visits.service_authorization_id` to `service_authorizations.service_code`; `visits.service_line_id` to `service_lines.code`. Supporting: `visit_task_results` (tasks done). | From the authorization the visit is scheduled against (BR-009) | A visit cannot be scheduled without a matching Active authorization (hard block S3 in [business-rules.md](business-rules.md#34-scheduling-compliance-checks)) |
 | 2 | Individual receiving the service | `visits.client_id` to `clients.client_number`, `clients.first_name`, `clients.last_name`, `clients.medicaid_id_enc` | From the schedule | Duplicate-client check (FR-CLI-02); Medicaid ID format validation |
@@ -119,17 +119,17 @@ Section 12006 added section 1903(l) to the Social Security Act. It requires EVV 
 | 6 | Time the service begins and ends | `evv_punches.punch_time` for `type` In and Out; `evv_punches.source` (Mobile, MobileOffline, Manual, System) | Clock-in and clock-out on the device; corrections as new punches with `supersedes_punch_id`, `reason_code`, `note` and `created_by` (BR-026) | Append-only ledger; Late start, Early end, Missing clock-out and Auto-closed exceptions |
 
 Applicability and agency responsibilities:
-- **Which visits are in scope.** The mandate covers Medicaid personal care and home health services. CMS guidance indicates that services in congregate residential settings where 24-hour service is available are not subject to it. Whether ADULT_DAY and SUPPORTED_LIVING visits are reported is decided by the agency per payer and state. Tendwell captures the same elements for every visit regardless.
+- **Which visits are in scope.** The mandate covers Medicaid personal care and home health services. CMS guidance indicates that services in congregate residential settings where 24-hour service is available are not subject to it. Whether ADULT_DAY and SUPPORTED_LIVING visits are reported is decided by the agency per payer and state. The platform captures the same elements for every visit regardless.
 - **Manual corrections.** States commonly monitor manual-edit rates. The export includes the punch source and the reason code, so a manually corrected visit is never presented as device-captured. OBJ-01 reports the manual-correction rate alongside completeness for the same reason.
 - **Submission.** The agency uploads the export to the state aggregator and works any rejections. State-specific formats and direct submission are R2 (TBD-12).
 
 ## 6. FLSA and the DOL Home Care Rule
 
-Since the DOL Home Care Rule took effect in 2015, third-party employers such as agencies cannot claim the companionship-services or live-in exemptions for their home care workers (29 CFR 552.109). Agency caregivers are therefore owed minimum wage and overtime, and their travel time between clients counts as hours worked. Any future change to the federal third-party employer provisions would be tracked by the Compliance and Privacy Officer. Several states require overtime independently, so Tendwell keeps these rules tenant-configurable rather than hard-coded.
+Since the DOL Home Care Rule took effect in 2015, third-party employers such as agencies cannot claim the companionship-services or live-in exemptions for their home care workers (29 CFR 552.109). Agency caregivers are therefore owed minimum wage and overtime, and their travel time between clients counts as hours worked. Any future change to the federal third-party employer provisions would be tracked by the Compliance and Privacy Officer. Several states require overtime independently, so the platform keeps these rules tenant-configurable rather than hard-coded.
 
-| Obligation | Citation | Tendwell rule | Requirement IDs | Agency remains responsible for |
+| Obligation | Citation | The platform rule | Requirement IDs | Agency remains responsible for |
 |---|---|---|---|---|
-| Overtime at 1.5x the regular rate for hours over 40 in a workweek | 29 USC 207(a)(1) | Weekly overtime over 40 h at 1.5x for overtime-eligible caregivers, assigned to the chronologically last minutes of the tenant's workweek | BR-041, FR-PAY-02 | Defining the workweek. Regular-rate treatment of pay outside Tendwell: Tendwell computes overtime on the base rate, so shift differentials and non-discretionary bonuses paid elsewhere must be included by the payroll provider. |
+| Overtime at 1.5x the regular rate for hours over 40 in a workweek | 29 USC 207(a)(1) | Weekly overtime over 40 h at 1.5x for overtime-eligible caregivers, assigned to the chronologically last minutes of the tenant's workweek | BR-041, FR-PAY-02 | Defining the workweek. Regular-rate treatment of pay outside the platform: the platform computes overtime on the base rate, so shift differentials and non-discretionary bonuses paid elsewhere must be included by the payroll provider. |
 | No companionship or live-in exemption for third-party employers | 29 CFR 552.109 | Pay profiles default to overtime-eligible for hourly caregivers | FR-WRK-05 | Classifying each worker correctly |
 | Travel between clients during the workday is hours worked | 29 CFR 785.38 | Paid travel = min(actual gap, estimated drive time + 10 min) between consecutive visits when the gap is 2 h or less; it counts toward overtime | BR-043, FR-PAY-02 | Confirming the 2-hour off-duty threshold and the 10-minute allowance with its own counsel. A gap is off duty only if the caregiver is completely relieved and can use the time for their own purposes (29 CFR 785.16). |
 | Ordinary home-to-work commute is not hours worked | 29 CFR 785.35 | Travel is paid only between consecutive visits, never before the first or after the last ([business-rules.md](business-rules.md#33-payroll-hour-classification), table 3.3b, row V1) | BR-043 | n/a |
@@ -144,9 +144,9 @@ The canonical payroll example ([SRS Appendix B.1](SRS.md#b1-payroll-us-041)) sho
 
 ## 7. WCAG 2.2 AA
 
-NFR-ACC-01 sets WCAG 2.2 AA for the web app and screen-reader and 200% font support for the mobile app. HHS's 2024 Section 504 rule adopts WCAG 2.1 AA for the web content and mobile apps of recipients of HHS funding, which includes many agencies; WCAG 2.2 AA exceeds that baseline. The criteria that matter most in Tendwell:
+NFR-ACC-01 sets WCAG 2.2 AA for the web app and screen-reader and 200% font support for the mobile app. HHS's 2024 Section 504 rule adopts WCAG 2.1 AA for the web content and mobile apps of recipients of HHS funding, which includes many agencies; WCAG 2.2 AA exceeds that baseline. The criteria that matter most in the platform:
 
-| Success criterion | Level | Where it matters in Tendwell | Control | Verification |
+| Success criterion | Level | Where it matters in the platform | Control | Verification |
 |---|---|---|---|---|
 | 1.3.1 Info and Relationships | A | Schedule board, MAR grid, payroll and invoice tables | Semantic tables with headers; grid pattern for the board | axe-core; screen-reader test |
 | 1.4.1 Use of Color | A | Color-coded visit status (FR-SCH-06); exception and dose status | A text label and icon always accompany color | Inspection |
@@ -165,9 +165,9 @@ NFR-ACC-01 sets WCAG 2.2 AA for the web app and screen-reader and 200% font supp
 
 ## 8. NIST SP 800-63B: passwords and authenticators
 
-BR-007 cites NIST SP 800-63B. The table compares Tendwell's controls with the current revision (SP 800-63B-4, 2025) and flags one gap.
+BR-007 cites NIST SP 800-63B. The table compares the platform's controls with the current revision (SP 800-63B-4, 2025) and flags one gap.
 
-| SP 800-63B expectation | Tendwell control | Requirement IDs | Status |
+| SP 800-63B expectation | The platform control | Requirement IDs | Status |
 |---|---|---|---|
 | Minimum length: at least 15 characters for a password used as a single factor; at least 8 when used only with MFA | Minimum 12 characters for everyone | BR-007, BR-006 | Meets the MFA case. **Gap** for users without MFA (AG-COORD and CG may opt out). TBD-09 recommends MFA for Coordinators, or 15 characters for users without MFA. |
 | Allow at least 64 characters, all printable characters and spaces | Up to 64 characters; Unicode and spaces allowed | BR-007 | Meets |
@@ -182,10 +182,10 @@ BR-007 cites NIST SP 800-63B. The table compares Tendwell's controls with the cu
 
 ## 9. Shared responsibility summary
 
-| Area | Tendwell Labs | Agency |
+| Area | the vendor | Agency |
 |---|---|---|
-| Risk analysis (45 CFR 164.308(a)(1)) | Platform risk analysis and remediation | Its own enterprise risk analysis, including how it uses Tendwell |
-| Workforce | Tendwell staff training and sanctions; support access only by grant | Its staff's training, role assignment, sanctions and prompt deactivation |
+| Risk analysis (45 CFR 164.308(a)(1)) | Platform risk analysis and remediation | Its own enterprise risk analysis, including how it uses the platform |
+| Workforce | The platform staff training and sanctions; support access only by grant | Its staff's training, role assignment, sanctions and prompt deactivation |
 | Devices | App-level encryption, no PHI in plain storage, remote wipe on deactivation | Device policy, mobile device management, lost-device reporting |
 | Breaches | Detection, facts, notice to the agency under the BAA | Determination; notices to individuals, HHS and media |
 | EVV | Capture of the six elements; exceptions; export | State submission; rejection handling; deciding which visits are in scope |

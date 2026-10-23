@@ -21,9 +21,9 @@
 
 ## 1. Purpose and scope
 
-This document is the test strategy and the master test plan for Tendwell Release 1 and its maintenance release R1.1. It follows the structure of the test plan in ISO/IEC/IEEE 29119-3: context, risk register, strategy, test levels and techniques, data and environments, criteria, staffing, schedule and reporting. The other quality documents are the remaining 29119-3 work products:
+This document is the test strategy and the master test plan for the platform Release 1 and its maintenance release R1.1. It follows the structure of the test plan in ISO/IEC/IEEE 29119-3: context, risk register, strategy, test levels and techniques, data and environments, criteria, staffing, schedule and reporting. The other quality documents are the remaining 29119-3 work products:
 
-| 29119-3 work product | Tendwell artifact |
+| 29119-3 work product | The platform artifact |
 |---|---|
 | Test plan (this document) | `test-strategy-and-plan.md` |
 | Test design and test case specification | [test-cases.csv](test-cases.csv) and its guide [test-cases.md](test-cases.md) |
@@ -64,7 +64,7 @@ Quality characteristics follow ISO/IEC 25010: functional suitability, performanc
 - All R1 functional requirements (90 of the 93 in the SRS) and all 58 business rules, at the levels in section 3.
 - R1.1 changes: CR-004 (Low GPS accuracy separated from Location mismatch), CR-005 (database-enforced billing idempotency and pre-issue duplicate check), CR-006 (send-time recipient resolution, no PHI in email bodies).
 - Non-functional requirements NFR-PERF-01 to NFR-DAT-01, as listed in [non-functional requirements](../02-requirements/non-functional-requirements.md).
-- Data exports (payroll CSV, claim batch CSV, EVV aggregator CSV) as files, up to the point where they leave Tendwell.
+- Data exports (payroll CSV, claim batch CSV, EVV aggregator CSV) as files, up to the point where they leave the platform.
 
 ### 1.4 Out of scope
 
@@ -75,7 +75,7 @@ Quality characteristics follow ISO/IEC 25010: functional suitability, performanc
 | EDI 837 claims and state-specific EVV aggregator formats | Not in R1 (NFR-CMP-02 defers state formats to R2) | Claim batch CSV and configurable aggregator CSV |
 | Acceptance of files by the agency's payroll provider, clearinghouse or state aggregator | Third-party systems | Agencies verify during UAT with their own sample import |
 | Penetration testing of vendor platforms (payments, SMS, identity) | Covered by vendor attestations under BAAs | Contract and integration tests against sandboxes |
-| Legal interpretation of FLSA, state EVV or reporting rules | Tendwell is designed to support compliance; the agency remains responsible | Rules are tested as specified in the SRS and business rules |
+| Legal interpretation of FLSA, state EVV or reporting rules | The platform is designed to support compliance; the agency remains responsible | Rules are tested as specified in the SRS and business rules |
 | Load beyond NFR-SCL-01 targets | No requirement | Capacity model reviewed quarterly |
 
 ### 1.5 Assumptions and constraints

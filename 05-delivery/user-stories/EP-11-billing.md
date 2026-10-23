@@ -259,7 +259,7 @@ Scenario: US-046-AC6 Handle a failed ACH payment
 ```
 
 **Notes**
-- Payment pages are hosted by the payment provider; Tendwell never handles card or bank details (PCI DSS scope stays with the provider).
+- Payment pages are hosted by the payment provider; the platform never handles card or bank details (PCI DSS scope stays with the provider).
 - An invoice paid before a reminder date receives no further reminders.
 - Out of scope: autopay, payment plans and payer remittance (835) import.
 

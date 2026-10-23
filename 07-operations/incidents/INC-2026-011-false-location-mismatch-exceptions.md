@@ -243,7 +243,7 @@ The Business Analyst wrote the acceptance criteria for the reclassification scri
 Email to all tenant administrators, 2026-08-19 13:40 ET:
 
 ```text
-Subject: Tendwell incident INC-2026-011: extra location exceptions for iPhone users - identified
+Subject: the platform incident INC-2026-011: extra location exceptions for iPhone users - identified
 
 Hello,
 
@@ -255,7 +255,7 @@ a location that can be several kilometers away.
 
 What you can do now:
 - Ask caregivers who use iPhones to open Settings > Privacy & Security >
-  Location Services > Tendwell and turn on Precise Location.
+  Location Services > the platform and turn on Precise Location.
 - In the exception queue, you can leave Location mismatch exceptions whose
   accuracy is worse than 100 m for now. We are building a way to review them
   together, and will tell you when it is ready.
@@ -266,7 +266,7 @@ Success at +1-614-555-0142 so we can help you plan.
 
 Next update by 18:00 ET.
 
-Customer Success Lead, Tendwell Labs
+Customer Success Lead, the vendor
 ```
 
 ## Approval

@@ -19,7 +19,7 @@
 
 ### Purpose and scope
 
-These five personas summarize who Tendwell R1 serves and what "better" means to each of them. The Business Analyst and UX Designer built them from 26 discovery interviews, 6 job-shadowed home visits, a survey of 48 caregivers and document analysis at the three pilot agencies (see [discovery workshop notes](discovery-workshop-notes.md)). Each persona is a composite: no persona describes a real individual, and all names and quotes are fictional. Pain references (P1 to P12) point to the pain points in [current vs future state](current-vs-future-state.md).
+These five personas summarize who the platform R1 serves and what "better" means to each of them. The Business Analyst and UX Designer built them from 26 discovery interviews, 6 job-shadowed home visits, a survey of 48 caregivers and document analysis at the three pilot agencies (see [discovery workshop notes](discovery-workshop-notes.md)). Each persona is a composite: no persona describes a real individual, and all names and quotes are fictional. Pain references (P1 to P12) point to the pain points in [current vs future state](current-vs-future-state.md).
 
 The team uses the personas in three ways: to write and order user stories, to choose UAT participants, and to settle design debates ("would Rosa do this with gloves on, in a client's kitchen, with no signal?").
 
@@ -75,7 +75,7 @@ The team uses the personas in three ways: to write and order user stories, to ch
 
 Rosa leaves home at 07:15. Her first client, in a farmhouse 22 minutes north of Lakemont, has no signal indoors. Today she writes times on a paper timesheet and asks the client to sign; the client's hands shake and the signature is barely legible. At 09:40 her phone buzzes in the car: the office wants to know whether she reached client two. At client three she reminds the client to take morning medications and initials the MAR binder, then notices yesterday's evening dose is blank. She mentions it to nobody because she does not know whom to tell. Between client four and five she has a 50-minute gap, and she is not sure whether it is paid. At 18:30 she photographs her paper timesheets and texts them to the office so payroll has them before Friday.
 
-### Representative quotes (fictional)
+### Representative quotes
 
 > "Out at the farm there is no signal. If the app needs internet to clock me in, it does not work for me."
 
@@ -100,11 +100,11 @@ US-025, US-027, US-028, US-032, US-036, US-023, US-039, US-049, US-026, US-037.
 
 ### Visit-day journey (future state)
 
-The journey shows Rosa's day with Tendwell R1, scored 1 (painful) to 5 (effortless). The UX Designer and Business Analyst scored it from the prototype walkthrough on 2026-02-24 and re-scored it after UAT; lower scores mark the friction the team is still watching.
+The journey shows Rosa's day with the platform R1, scored 1 (painful) to 5 (effortless). The UX Designer and Business Analyst scored it from the prototype walkthrough on 2026-02-24 and re-scored it after UAT; lower scores mark the friction the team is still watching.
 
 ```mermaid
 journey
-    title PER-01 Rosa Delgado visit day with Tendwell R1
+    title PER-01 Rosa Delgado visit day with the platform R1
     section Start of day
       Open app and see todays visits: 5: Rosa
       Drive to first client: 3: Rosa
@@ -174,7 +174,7 @@ journey
 
 At 06:35 Marcus takes a call-out for a 07:30 visit. He scans the whiteboard, calls three caregivers and reaches the third at 06:58. Between 08:00 and 10:00 he places 31 confirmation calls. At 11:15 a daughter calls: her mother's 09:00 aide never arrived. The aide had the wrong week on her printed schedule. In the afternoon Marcus reconciles 14 timesheets with missing times and leaves voicemails. Before leaving he checks the paper authorization tracker and finds two clients over their monthly units.
 
-### Representative quotes (fictional)
+### Representative quotes
 
 > "My job is to make sure care happens. Right now my job is to make phone calls."
 
@@ -236,7 +236,7 @@ US-020, US-021, US-022, US-024, US-029, US-040, US-012, US-013, US-018, US-023.
 
 Priya starts at the Lakemont North office at 07:30 with a stack of paper MAR sheets that caregivers dropped off last week. She finds two blank evening entries for one client from three days ago. The caregiver remembers giving the doses but cannot be sure. She writes a late-entry note and starts an internal review. At 10:00 she receives a faxed new order for a client and copies it onto the MAR sheet that lives in the client's home binder, which means a drive across town. At 14:00 a caregiver calls about a fall from the morning; the paper incident form is still in the caregiver's car. In the evening she reviews care plan changes and phones three caregivers to read them the new instructions.
 
-### Representative quotes (fictional)
+### Representative quotes
 
 > "If a dose disappears from the record, I cannot tell a surveyor whether it was given. A missed dose stays missed until someone explains it."
 
@@ -300,7 +300,7 @@ US-033, US-031, US-014, US-035, US-038, US-032, US-037, US-034.
 
 Payroll Tuesday. Denise starts at 07:00 with 118 paper timesheets. By 11:00 she has keyed half and flagged 21 with missing or unclear times for coordinators. She calculates overtime for 9 caregivers by hand and checks two against last period's errors. After lunch she builds the import file for the payroll provider by copying columns into its template. At 16:30 a coordinator brings four late timesheets. She finishes at 19:10. Monthly billing next week will take most of three days.
 
-### Representative quotes (fictional)
+### Representative quotes
 
 > "Do not give me a new payroll system. Give me a file my payroll provider accepts, and tell me which visits are not clean yet."
 
@@ -363,7 +363,7 @@ US-041, US-042, US-043, US-044, US-045, US-046, US-047, US-048, US-019.
 
 Tom opens the office at 07:00 and checks the overnight voicemail for call-outs. At 10:00 he reviews last month's unpaid invoices with his bookkeeper. At 13:00 a payer asks for visit verification records for three clients for March 2025; he spends the afternoon pulling paper timesheets from storage. At 17:00 he approves an overdue CPR renewal reimbursement and wonders how many other credentials are about to expire.
 
-### Representative quotes (fictional)
+### Representative quotes
 
 > "I want to sleep the night before an audit."
 

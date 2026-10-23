@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This file holds the user stories and acceptance criteria for EP-07. It covers medication orders and their approval, dose tasks, dose documentation, missed-dose escalation, PRN safety limits, vital signs and out-of-range alerts, and the monthly MAR grid. The Clinical SME reviewed every acceptance criterion in this file. Tendwell records and escalates; clinical decisions remain with the agency's licensed staff.
+This file holds the user stories and acceptance criteria for EP-07. It covers medication orders and their approval, dose tasks, dose documentation, missed-dose escalation, PRN safety limits, vital signs and out-of-range alerts, and the monthly MAR grid. The Clinical SME reviewed every acceptance criterion in this file. The platform records and escalates; clinical decisions remain with the agency's licensed staff.
 
 Version 1.2 records the outcome of CR-007 (auto-cancel undocumented doses at midnight), which was rejected on 2026-06-17. US-033-AC3 makes that decision testable.
 

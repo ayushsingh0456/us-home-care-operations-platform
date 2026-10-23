@@ -1,4 +1,4 @@
-# Tendwell Entity Relationship Model
+# US Home-Care Operations Platform Entity Relationship Model
 
 ## Document control
 
@@ -22,7 +22,7 @@
 
 ## 1. Purpose and scope
 
-This document is the logical data model for Tendwell Release 1. It shows every core entity from the SRS data model, its keys and its relationships, grouped into four domains. Column-level detail (types, nullability, classification, examples) is in the [data dictionary](data-dictionary.md). Retention and handling rules are in [data classification and retention](data-classification-and-retention.md).
+This document is the logical data model for the platform Release 1. It shows every core entity from the SRS data model, its keys and its relationships, grouped into four domains. Column-level detail (types, nullability, classification, examples) is in the [data dictionary](data-dictionary.md). Retention and handling rules are in [data classification and retention](data-classification-and-retention.md).
 
 In scope: all Release 1 tables in PostgreSQL 16. Out of scope: Family Portal tables (Release 2, CR-003), Redis job queues, S3 object layout and the analytics read model.
 

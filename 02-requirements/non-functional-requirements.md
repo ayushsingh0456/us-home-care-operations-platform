@@ -1,4 +1,4 @@
-# Non-Functional Requirements: Tendwell
+# Non-Functional Requirements: US Home-Care Operations Platform
 
 ## Document control
 
@@ -263,7 +263,7 @@ The requirement wording is canonical and must not be paraphrased elsewhere.
 |---|---|
 | Requirement | After 30 minutes or less of training, at least 90% of new Coordinators schedule a recurring visit unaided in usability testing. |
 | ISO/IEC 25010 | Usability: learnability |
-| Fit criterion | Moderated test with at least 10 participants who have scheduling experience but are new to Tendwell, after a standard training session of 30 minutes or less. Task: create a Monday, Wednesday and Friday 08:00-10:00 pattern for client C-10234 with caregiver E-2041 for 8 weeks, and resolve one compliance warning. Success means saved correctly within 10 minutes with no facilitator help. Pass: 90% or more succeed. Secondary measure: a System Usability Scale score of 70 or more. |
+| Fit criterion | Moderated test with at least 10 participants who have scheduling experience but are new to the platform, after a standard training session of 30 minutes or less. Task: create a Monday, Wednesday and Friday 08:00-10:00 pattern for client C-10234 with caregiver E-2041 for 8 weeks, and resolve one compliance warning. Success means saved correctly within 10 minutes with no facilitator help. Pass: 90% or more succeed. Secondary measure: a System Usability Scale score of 70 or more. |
 | Verification | Demonstration: usability test run by the UX Designer; results in the test summary report. |
 | Priority | Should |
 | Rationale | Coordinator turnover is high, and onboarding time is a cost the agency feels directly. |
@@ -391,12 +391,12 @@ The requirement wording is canonical and must not be paraphrased elsewhere.
 
 | Attribute | Specification |
 |---|---|
-| Requirement | Only HIPAA-eligible services are used, under a BAA, and Tendwell Labs signs a BAA with each agency. |
+| Requirement | Only HIPAA-eligible services are used, under a BAA, and the vendor signs a BAA with each agency. |
 | ISO/IEC 25010 | Security: confidentiality |
 | Fit criterion | (a) A per-release inventory check confirms every cloud service that stores or processes PHI is on the provider's HIPAA-eligible list. (b) The vendor register shows a signed BAA for every subprocessor that receives PHI (hosting, email, identity verification vendor). Vendors designed to receive no PHI (push, SMS bodies, maps, payments) are listed with the control that keeps it out ([SRS section 3.1.3](SRS.md#313-software-interfaces)). (c) A signed BAA exists for every tenant before activation; it is accepted at sign-up and the version is stored. |
 | Verification | Inspection: service inventory, vendor register and BAA register. |
 | Priority | Must |
-| Rationale | Tendwell Labs is a business associate of each agency (45 CFR 164.502(e), 164.504(e)). Keeping PHI out of a channel by design is stronger than relying on a vendor's BAA. |
+| Rationale | the vendor is a business associate of each agency (45 CFR 164.502(e), 164.504(e)). Keeping PHI out of a channel by design is stronger than relying on a vendor's BAA. |
 | Related | IF-01 to IF-10, BR-056 |
 
 ### NFR-CMP-02

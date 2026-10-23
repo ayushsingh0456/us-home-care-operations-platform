@@ -20,9 +20,9 @@
 
 ### Purpose and scope
 
-This document describes how Tendwell is deployed on AWS, how code reaches production, which security controls protect tenant data and PHI, how backups and disaster recovery meet the RPO and RTO, and how the team observes the system and responds to alerts. It refines the containers in [System context and containers](system-context-and-containers.md) and gives the evidence trail for the security and operations NFRs.
+This document describes how the platform is deployed on AWS, how code reaches production, which security controls protect tenant data and PHI, how backups and disaster recovery meet the RPO and RTO, and how the team observes the system and responds to alerts. It refines the containers in [System context and containers](system-context-and-containers.md) and gives the evidence trail for the security and operations NFRs.
 
-The controls are designed to support the HIPAA Security Rule technical safeguards (45 CFR 164.312) and OWASP ASVS v4.0.3 Level 2. Each agency, as the covered entity, remains responsible for its own HIPAA compliance; Tendwell Labs acts as a business associate under a BAA (NFR-CMP-01).
+The controls are designed to support the HIPAA Security Rule technical safeguards (45 CFR 164.312) and OWASP ASVS v4.0.3 Level 2. Each agency, as the covered entity, remains responsible for its own HIPAA compliance; the vendor acts as a business associate under a BAA (NFR-CMP-01).
 
 ## 1. AWS deployment view
 
@@ -34,7 +34,7 @@ flowchart TB
   classDef svc fill:#f2f2f2,stroke:#555555,color:#222222
   classDef ext fill:#ffffff,stroke:#7a7a7a,color:#222222,stroke-dasharray:4 3
 
-  users(["Agency staff browsers<br/>Caregiver devices<br/>Tendwell Labs staff"])
+  users(["Agency staff browsers<br/>Caregiver devices<br/>the vendor staff"])
 
   subgraph Edge["AWS global edge"]
     r53["Route 53<br/>DNS, health checks"]:::edge
@@ -42,11 +42,11 @@ flowchart TB
     wafg["AWS WAF on CloudFront<br/>managed rules, geo and rate limits"]:::edge
   end
 
-  subgraph Region["us-east-2 primary region, tendwell-prod account"]
+  subgraph Region["us-east-2 primary region, homecare-prod account"]
     subgraph VPC["VPC 10.20.0.0/16 across 3 AZs"]
       subgraph Public["Public subnets"]
         waf["AWS WAF regional web ACL"]:::edge
-        alb["Application Load Balancer<br/>api.tendwell.example, HTTPS 443<br/>blue and green target groups"]:::edge
+        alb["Application Load Balancer<br/>api.homecare.example, HTTPS 443<br/>blue and green target groups"]:::edge
         nat["NAT gateways, one per AZ<br/>egress to allowlisted vendors"]:::edge
       end
       subgraph AppNet["Private app subnets"]
@@ -108,7 +108,7 @@ flowchart TB
 | Element | Configuration | Related NFRs |
 |---|---|---|
 | CloudFront + WAF | Serves the three SPAs from a private S3 origin (origin access control); security headers (HSTS, CSP, frame-ancestors none); WAF managed rule sets for common exploits and known bad inputs | NFR-SEC-01, NFR-SEC-02 |
-| ALB + regional WAF | TLS policy allowing TLS 1.2 and 1.3 only; rate limit 300 requests per 5 min per IP on `/v1/auth/*`; `/v1/platform/*` restricted to the Tendwell Labs IP set | NFR-SEC-02 |
+| ALB + regional WAF | TLS policy allowing TLS 1.2 and 1.3 only; rate limit 300 requests per 5 min per IP on `/v1/auth/*`; `/v1/platform/*` restricted to the the vendor IP set | NFR-SEC-02 |
 | ECS service `api` | Fargate, 1 vCPU / 2 GB tasks across 3 AZs; target tracking on CPU 55% and request count; blue/green through CodeDeploy | NFR-PERF-01, NFR-AVL-01, NFR-SCL-01 |
 | ECS service `worker` | Fargate, separate scaling on queue depth; graceful shutdown drains in-flight jobs within 120 s; scheduler runs in every task and relies on `job_executions` for single-flight | NFR-MNT-02, NFR-PERF-04 |
 | RDS PostgreSQL 16 | Multi-AZ, storage encryption with KMS, automated backups 35 days with point-in-time recovery, Performance Insights; RDS Proxy for connection pooling in transaction mode | NFR-DR-01, NFR-SEC-01 |
@@ -120,9 +120,9 @@ flowchart TB
 
 | Environment | Purpose | AWS account | Data | Deployment trigger | Scale | Human access |
 |---|---|---|---|---|---|---|
-| dev | Integration of merged work; feature flags on by default | `tendwell-dev` | Synthetic only, seeded from the [test data set](../../06-quality/test-data/README.md) | Every merge to `main` | Single task per service, single-AZ RDS | Engineers through SSO |
-| staging | Release candidates, regression, UAT, performance and DAST | `tendwell-staging` | Synthetic only; performance data set of 500 tenants and 2 million visits per month | Release tag `vX.Y.Z-rc.N` | Production-shaped: Multi-AZ RDS, 3 API tasks | Engineers, QA, UAT participants with synthetic accounts |
-| prod | Live tenants | `tendwell-prod` | PHI under BAA | Approved release tag `vX.Y.Z` | As in section 1 | No standing access; break-glass role through SSO with approval by the Engineering Lead, session recorded and audited |
+| dev | Integration of merged work; feature flags on by default | `homecare-dev` | Synthetic only, seeded from the [test data set](../../06-quality/test-data/README.md) | Every merge to `main` | Single task per service, single-AZ RDS | Engineers through SSO |
+| staging | Release candidates, regression, UAT, performance and DAST | `homecare-staging` | Synthetic only; performance data set of 500 tenants and 2 million visits per month | Release tag `vX.Y.Z-rc.N` | Production-shaped: Multi-AZ RDS, 3 API tasks | Engineers, QA, UAT participants with synthetic accounts |
+| prod | Live tenants | `homecare-prod` | PHI under BAA | Approved release tag `vX.Y.Z` | As in section 1 | No standing access; break-glass role through SSO with approval by the Engineering Lead, session recorded and audited |
 
 Real PHI never leaves production. Defects that need production data are reproduced with synthetic data; if a PHI-bearing record must be inspected, PLT-SUP requests a support access grant from the tenant (BR-008).
 

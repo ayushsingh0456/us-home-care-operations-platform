@@ -22,7 +22,7 @@ This file holds the user stories, acceptance criteria and story notes for EP-01.
 | Epic ID | EP-01 |
 | Name | Agency Onboarding & Subscription |
 | Module | ONB |
-| Goal | Let a care agency go from the public sign-up site to a provisioned, correctly billed tenant in one sitting, with no Tendwell Labs staff involvement, and make sure subscription problems never block care delivery. |
+| Goal | Let a care agency go from the public sign-up site to a provisioned, correctly billed tenant in one sitting, with no the vendor staff involvement, and make sure subscription problems never block care delivery. |
 | Objectives | Enabler for OBJ-01 to OBJ-06 (no direct KPI). Leading indicator: pilot tenants complete the setup checklist within 5 business days of activation. |
 | Business need | BN-01 |
 | Release | R1 |
@@ -57,7 +57,7 @@ Shared test data: plan `Core` at $14.00 per active client seat per month; tenant
 | Dependencies | US-005, DEP-05 |
 
 **Story**
-As an agency owner, I want to register my agency online with my details, the agency's legal details, a plan and our service lines, so that I can start using Tendwell the same day without waiting for a call or manual setup by Tendwell staff.
+As an agency owner, I want to register my agency online with my details, the agency's legal details, a plan and our service lines, so that I can start using the platform the same day without waiting for a call or manual setup by the platform staff.
 
 **Acceptance criteria**
 
@@ -77,7 +77,7 @@ Scenario: US-001-AC2 Register without a trial code
   Given Tom has not applied a trial code
   When he completes the sign-up form and submits
   Then the payment provider's hosted card form is shown before submission completes
-  And card details are never sent to or stored by Tendwell
+  And card details are never sent to or stored by the platform
   And after email verification the subscription starts with status "Active" instead of "Trialing"
 
 Scenario Outline: US-001-AC3 Reject incomplete or invalid registration data
@@ -307,7 +307,7 @@ Scenario: US-004-AC5 Update the payment method securely
   When Tom replaces the card on file using the payment provider's hosted form
   Then the new card is shown as brand and last 4 digits only
   And an audit event "subscription.payment_method_updated" records Tom as actor
-  And no card number, expiry or CVC reaches Tendwell servers
+  And no card number, expiry or CVC reaches the platform servers
 
 Scenario: US-004-AC6 Only Agency Administrators manage the subscription
   Given Denise Carter has the AG-FIN role and no subscription permission override

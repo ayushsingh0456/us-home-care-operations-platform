@@ -44,7 +44,7 @@ Caregivers must clock in and out with no connectivity for up to 72 hours of punc
 
 ## Constitution Check
 
-The Tendwell delivery constitution is the set of non-negotiable principles every feature plan is checked against. The Business Analyst ran the check at `/plan` time and again after UAT.
+The platform delivery constitution is the set of non-negotiable principles every feature plan is checked against. The Business Analyst ran the check at `/plan` time and again after UAT.
 
 | Principle | What it requires | How this plan complies | Result |
 |---|---|---|---|

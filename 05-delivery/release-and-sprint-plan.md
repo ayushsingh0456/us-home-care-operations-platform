@@ -17,7 +17,7 @@ This plan covers the delivery of Release 1: team capacity and velocity assumptio
 
 ## Team, capacity and velocity assumptions
 
-| Role | People | Allocation to Tendwell | Counted in velocity |
+| Role | People | Allocation to the platform | Counted in velocity |
 |---|---|---|---|
 | Product Owner | 1 | 60% | No |
 | Business Analyst | 1 | 100% | No |
@@ -181,7 +181,7 @@ Average velocity over the six sprints was 47.0 points (282 / 6), 2% below the 48
 **Decision: Go with conditions (DEC-11).**
 
 1. TEN-003 starts eMAR at one home on 2026-07-06 and extends to all three homes by 2026-07-20 after a Clinical SME review of the first two weeks.
-2. Each pilot agency runs payroll in parallel (old process and Tendwell export) for its first two pay periods.
+2. Each pilot agency runs payroll in parallel (old process and the platform export) for its first two pay periods.
 3. Identity verification is enabled only at TEN-001 during the pilot.
 4. Hypercare runs for two weeks, with daily defect triage led by the QA Lead and the BA.
 
@@ -201,7 +201,7 @@ Average velocity over the six sprints was 47.0 points (282 / 6), 2% below the 48
 
 | Pilot exit criterion (for GA) | Result |
 |---|---|
-| Two consecutive pay periods exported from Tendwell per agency with no unexplained variance against the parallel run | Met |
+| Two consecutive pay periods exported from the platform per agency with no unexplained variance against the parallel run | Met |
 | July and August invoices issued within 2 business days of period end | Met for TEN-001 and TEN-002; TEN-003 took 3 business days in July (fixed-monthly proration review) and 2 in August |
 | Visits with complete EVV data at 95% or more over 2026-08-17 to 2026-08-30, after bulk resolution of INC-2026-011's false exceptions | Met |
 | No open SEV-1 or SEV-2 incident without an approved corrective change request | Met (CR-004 and CR-005 approved) |

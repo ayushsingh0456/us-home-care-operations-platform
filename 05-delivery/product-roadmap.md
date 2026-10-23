@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This roadmap shows where Tendwell has been and where it is going, from discovery in January 2026 to Release 2 in mid-2027. It records the release goals, the Now / Next / Later view the Product Owner uses with stakeholders, and the timeline. It is outcome-led: every release names the business objectives it moves (OBJ-01 to OBJ-06) and the evidence that will show it worked. Dates after 2026-10-01 are targets, not commitments, and are reviewed monthly.
+This roadmap shows where the platform has been and where it is going, from discovery in January 2026 to Release 2 in mid-2027. It records the release goals, the Now / Next / Later view the Product Owner uses with stakeholders, and the timeline. It is outcome-led: every release names the business objectives it moves (OBJ-01 to OBJ-06) and the evidence that will show it worked. Dates after 2026-10-01 are targets, not commitments, and are reviewed monthly.
 
 ## Release goals
 
@@ -21,7 +21,7 @@ This roadmap shows where Tendwell has been and where it is going, from discovery
 |---|---|---|---|---|
 | R1 | Pilot go-live 2026-07-06; general availability 2026-09-01 | Run the full value chain, from authorization to verified visit to payroll export and client billing, for three pilot agencies across all three service lines | EP-01 to EP-13: 52 stories, 282 points (SRS v1.2) | Go/no-go criteria met on 2026-06-26; pilot exit review shows OBJ-01 to OBJ-06 trending to target; no open Critical or High security findings |
 | R1.1 | Target 2026-10-14 | Close the three gaps the pilot and GA incidents exposed | CR-004 (Low GPS accuracy as a separate exception, precise-location prompt, bulk resolve), CR-005 (database-enforced billing idempotency, pre-issue duplicate check), CR-006 (send-time recipient resolution, no PHI in email bodies); SRS v1.3 | Zero duplicate invoices; iOS Location mismatch rate back within 2x of the 7-day baseline; zero notifications to deactivated users (NFR-OBS-02) |
-| R2 | Q1-Q2 2027, target 2027-06-28 | Extend Tendwell to families, state EVV submission, Spanish-speaking caregivers and agency integrations | Family Portal (EP-14: US-053, US-054), state EVV aggregator formats (NFR-CMP-02), Spanish caregiver app (NFR-I18N-01), outbound webhooks | Family call volume to Coordinators down 30% at portal agencies; state-format EVV files accepted without manual edits; caregiver app task completion for Spanish users on par with English |
+| R2 | Q1-Q2 2027, target 2027-06-28 | Extend the platform to families, state EVV submission, Spanish-speaking caregivers and agency integrations | Family Portal (EP-14: US-053, US-054), state EVV aggregator formats (NFR-CMP-02), Spanish caregiver app (NFR-I18N-01), outbound webhooks | Family call volume to Coordinators down 30% at portal agencies; state-format EVV files accepted without manual edits; caregiver app task completion for Spanish users on par with English |
 
 ## Now, Next, Later
 
@@ -47,7 +47,7 @@ Status as of 2026-10-01.
 
 ```mermaid
 gantt
-    title Tendwell delivery roadmap 2026 to 2027
+    title the platform delivery roadmap 2026 to 2027
     dateFormat YYYY-MM-DD
     axisFormat %b %Y
     section Discovery

@@ -24,16 +24,16 @@
 
 Discovery found that payroll preparation takes 14 hours per pay period per agency (target 3 hours or less). The time goes into collecting timesheets, reconciling them with schedules, calculating overtime, holiday and travel time, and keying hours into the agency's payroll provider. It does not go into tax withholding or payment, which every pilot agency already outsources to a payroll provider.
 
-Tendwell owns the data that determines hours worked: Verified visits (BR-028), travel between visits (BR-043, consistent with the DOL Home Care Rule under the FLSA), holidays (BR-042), overtime (BR-041, including the daily profile from CR-001) and PTO (BR-040). Payroll processing (gross-to-net, federal, state and local tax withholding, garnishments, benefits deductions, direct deposit, pay stubs, W-2 and quarterly filings) is a regulated product category in its own right.
+The platform owns the data that determines hours worked: Verified visits (BR-028), travel between visits (BR-043, consistent with the DOL Home Care Rule under the FLSA), holidays (BR-042), overtime (BR-041, including the daily profile from CR-001) and PTO (BR-040). Payroll processing (gross-to-net, federal, state and local tax withholding, garnishments, benefits deductions, direct deposit, pay stubs, W-2 and quarterly filings) is a regulated product category in its own right.
 
 After the baseline, CR-008 requested full in-app payroll processing with tax withholding and pay stubs. It was rejected and deferred to the backlog as out of scope, with export to a payroll provider retained (FR-PAY-05).
 
-Where should Tendwell's payroll responsibility end?
+Where should the platform's payroll responsibility end?
 
 ## Decision drivers
 
 1. Hit the payroll-preparation KPI (14 h to 3 h or less) in Release 1.
-2. Keep Tendwell out of regulated money movement and tax filing it is not staffed or licensed to operate.
+2. Keep the platform out of regulated money movement and tax filing it is not staffed or licensed to operate.
 3. Accuracy and traceability of hours and rates (FR-PAY-02, FR-PAY-03, BR-045).
 4. Work with whatever payroll provider each agency already uses.
 5. Delivery capacity: payroll is one epic among fourteen.
@@ -46,14 +46,14 @@ Where should Tendwell's payroll responsibility end?
 |---|---|
 | Removes the time-consuming work (collection, reconciliation, calculation, keying) | Agency still uploads the file to its provider each period |
 | Works with any provider that imports CSV | Column mappings must be maintained per provider format |
-| Clear responsibility boundary: Tendwell prepares hours and amounts, the provider pays and files | No pay stub in Tendwell for caregivers |
+| Clear responsibility boundary: the platform prepares hours and amounts, the provider pays and files | No pay stub in the platform for caregivers |
 | Small, testable scope; worked examples verify every rule | |
 
 ### Option 2: Direct API integrations with selected payroll providers
 
 | Pros | Cons |
 |---|---|
-| No file handling; status visible in Tendwell | One integration per provider; pilot agencies use different providers |
+| No file handling; status visible in the platform | One integration per provider; pilot agencies use different providers |
 | | Provider APIs, partner agreements and certification take months each |
 | | Hours data would still need the same calculation engine as Option 1 |
 
@@ -61,7 +61,7 @@ Where should Tendwell's payroll responsibility end?
 
 | Pros | Cons |
 |---|---|
-| Caregivers get pay stubs in the app; possible revenue stream | Makes Tendwell responsible to agencies for payroll outcomes it does not control |
+| Caregivers get pay stubs in the app; possible revenue stream | Makes the platform responsible to agencies for payroll outcomes it does not control |
 | | Agencies would have to migrate payroll mid-year (tax filings, year-to-date balances) |
 | | Large scope: onboarding, KYC, funding flows, support for tax notices |
 
@@ -75,9 +75,9 @@ Where should Tendwell's payroll responsibility end?
 
 ## Decision outcome
 
-**Chosen option: Option 1, payroll preparation and CSV export**, because it removes the work that drives the 14-hour baseline (driver 1) while keeping Tendwell out of money movement and tax filing (driver 2). Option 2 stays a candidate for a later release if several tenants share a provider. Options 3 and 4 are out of scope; CR-008 is recorded as Rejected / deferred in the change request log.
+**Chosen option: Option 1, payroll preparation and CSV export**, because it removes the work that drives the 14-hour baseline (driver 1) while keeping the platform out of money movement and tax filing (driver 2). Option 2 stays a candidate for a later release if several tenants share a provider. Options 3 and 4 are out of scope; CR-008 is recorded as Rejected / deferred in the change request log.
 
-Scope of Tendwell's payroll module:
+Scope of the platform's payroll module:
 
 1. Pay periods (weekly, bi-weekly, semi-monthly) per tenant (FR-PAY-01).
 2. Pay calculation from Verified visits and approved time only, merging overlapping time to the second (FR-PAY-02, FR-PAY-03, BR-045), producing payroll lines of type Regular, Overtime, DoubleTime, Holiday, Travel, PTO, Mileage and Adjustment.
@@ -93,12 +93,12 @@ Canonical check (US-041): caregiver E-2041 Maya Ortiz, workweek 2026-09-07 to 20
 **Positive**
 
 - R1 attacks the actual cost driver; Customer Success measures preparation time per period against the 3-hour target.
-- Responsibility is explicit: Tendwell is designed to support FLSA hours-worked calculations, and the agency remains responsible for wage-and-hour compliance and for running payroll.
+- Responsibility is explicit: the platform is designed to support FLSA hours-worked calculations, and the agency remains responsible for wage-and-hour compliance and for running payroll.
 - The export file is reproducible and verifiable by hash, which supports audits and disputes.
 
 **Negative**
 
-- Caregivers do not see pay stubs in Tendwell; they see hours and pay-line summaries only.
+- Caregivers do not see pay stubs in the platform; they see hours and pay-line summaries only.
 - Provider column mappings need maintenance; Customer Success owns a library of mapping templates.
 - A requested in-app payroll capability (CR-008) remains unmet; it is tracked in the backlog for market validation.
 - File-based handoff can be mishandled by users (wrong file uploaded); the lock, file name watermark and hash reduce but do not remove that risk.

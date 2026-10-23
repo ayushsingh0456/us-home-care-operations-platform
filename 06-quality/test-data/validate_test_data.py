@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validates the Tendwell synthetic test data set and the Postman collection.
+"""Validates the platform synthetic test data set and the Postman collection.
 
 Usage (from the repo root):  python3 06-quality/test-data/validate_test_data.py
 Exit code 0 when every check passes; 1 otherwise. Standard library only.
@@ -298,7 +298,7 @@ defined = {v['key'] for v in PM.get('variable', [])}
 for v in PM['variable']:
     check(set(v) >= {'key', 'value'}, f"variable {v}")
 check({'baseUrl', 'accessToken', 'tenantBAccessToken'} <= defined, 'required collection variables')
-check(any(v['key'] == 'baseUrl' and v['value'] == 'https://api.tendwell.example/v1' for v in PM['variable']), 'baseUrl value')
+check(any(v['key'] == 'baseUrl' and v['value'] == 'https://api.homecare.example/v1' for v in PM['variable']), 'baseUrl value')
 pre = ' '.join(PM['event'][0]['script']['exec'])
 check(PM['event'][0]['listen'] == 'prerequest' and 'Idempotency-Key' in pre and 'uuid' in pre, 'collection pre-request sets Idempotency-Key')
 fixture_bodies = []

@@ -118,7 +118,7 @@ Scenario: US-025-AC5 Cannot clock in to someone else's visit
   And Rosa's app offers "Start an unscheduled visit", which raises UNSCHEDULED_VISIT for Coordinator review
 
 Scenario: US-025-AC6 Ask for precise location before clocking in
-  Given Rosa's iPhone has Precise Location turned off for Tendwell
+  Given Rosa's iPhone has Precise Location turned off for the platform
   When she taps "Clock in"
   Then the app explains why precise location is needed and offers to open Settings
   And if she continues without it and the fix is 95 m from the address with 3,400 m accuracy, the punch is recorded and LOW_GPS_ACCURACY is raised instead of LOCATION_MISMATCH
@@ -195,7 +195,7 @@ Scenario: US-026-AC6 Offline clock-in on an identity-enabled tenant
 
 **Notes**
 - Identity verification is optional per tenant (DEC-07) and sits behind the `IdentityVerificationPort` adapter (ADR-004) so the vendor can be replaced.
-- Privacy: the vendor deletes selfie images after the match under the BAA; Tendwell stores only the result, liveness flag, match score and timestamps. Biometric consent is captured at enrollment; the agency remains responsible for any state biometric privacy obligations.
+- Privacy: the vendor deletes selfie images after the match under the BAA; the platform stores only the result, liveness flag, match score and timestamps. Biometric consent is captured at enrollment; the agency remains responsible for any state biometric privacy obligations.
 - Delivery: carried over from S4 to S5 because the vendor's sandbox credentials arrived late (ISS-02, DEP-02).
 - Out of scope: offline face matching on the device.
 

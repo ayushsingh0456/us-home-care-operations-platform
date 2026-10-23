@@ -1,4 +1,4 @@
-# Tendwell Data Dictionary
+# US Home-Care Operations Platform Data Dictionary
 
 ## Document control
 
@@ -13,7 +13,7 @@
 
 ## 1. Purpose and scope
 
-This dictionary defines every Release 1 table in the Tendwell PostgreSQL 16 database:
+This dictionary defines every Release 1 table in the platform PostgreSQL 16 database:
 - its purpose, owning module and expected row volume;
 - each column's type, nullability, key or constraint, data classification, description and a fictional example.
 
@@ -163,7 +163,7 @@ Every table has the columns below in addition to those listed per entity, unless
 | settings | jsonb | N | JSON Schema validated by the API | Confidential | Configuration document. Defaults come from the SRS configuration defaults table. | `{"geofenceRadiusM":150,"gpsAccuracyThresholdM":100,"identityVerification":true,"dailyOvertimeProfile":false,"openShiftClaimConfirmation":true,"mileageRateCents":70,"ptoAccrual":{"perHoursWorked":30,"capHours":80},"quietHours":{"start":"21:00","end":"07:00"},"clientRetentionYears":7}` |
 
 #### plans
-- **Purpose:** Subscription plans that Tendwell Labs sells (FR-ONB-08).
+- **Purpose:** Subscription plans that the vendor sells (FR-ONB-08).
 - **Owner module:** ONB (platform-managed by PLT-ADM)
 - **Volume:** 4 rows platform-wide.
 - **Notes:** This is a platform-global table with no `tenant_id`.
@@ -326,7 +326,7 @@ Every table has the columns below in addition to those listed per entity, unless
 | email_attempted | citext | N | indexed | PII | Email as typed. Lockout counts by this value, so unknown emails lock too. | `maya.ortiz@example.com` |
 | outcome | text | N | CHECK `sign_in_outcome` | Internal | `Success`, `BadPassword`, `MfaFailed` or `Locked`. | `Success` |
 | ip | inet | N | | PII | Client IP address. | `198.51.100.24` |
-| device | text | Y | | PII | User agent or device model and app version. | `Tendwell Caregiver 1.6.2 (Android 14)` |
+| device | text | Y | | PII | User agent or device model and app version. | `the platform Caregiver 1.6.2 (Android 14)` |
 | occurred_at | timestamptz | N | | Internal | Attempt instant. | `2026-09-08T12:41:03Z` |
 
 #### locations
@@ -620,7 +620,7 @@ Remaining units are not stored. They are computed as `units_authorized` minus un
 - **Purpose:** Results of selfie liveness and face-match checks (FR-EVV-04, BR-024).
 - **Owner module:** EVV
 - **Volume:** About 100,000 rows per year where the tenant enables identity verification.
-- **Notes:** Selfie images and face templates are not stored in Tendwell. The vendor adapter (ADR-004) receives the image, returns a result and deletes the image.
+- **Notes:** Selfie images and face templates are not stored in the platform. The vendor adapter (ADR-004) receives the image, returns a result and deletes the image.
 
 | Column | Type | Null | Key / constraint | Class | Description | Example |
 |---|---|---|---|---|---|---|
@@ -679,7 +679,7 @@ Remaining units are not stored. They are computed as `units_authorized` minus un
 | start_date | date | N | | PHI | First date. | `2026-08-29` |
 | end_date | date | Y | CHECK `>= start_date` | PHI | Last date. | `NULL` |
 | prescriber_name | text | N | | PII | Prescriber. | `Dr. Alan Brooks` |
-| prescriber_npi | text | Y | CHECK 10 digits | PII | Prescriber NPI (fictional). | `1999999984` |
+| prescriber_npi | text | Y | CHECK 10 digits | PII | Prescriber NPI. | `1999999984` |
 | instructions | text | Y | | PHI | Administration instructions. | `Hold if systolic BP below 100; notify supervisor` |
 | is_prn | boolean | N | | PHI | As-needed order. | `false` |
 | prn_indication | text | Y | required when PRN | PHI | Approved indication. | `NULL` |

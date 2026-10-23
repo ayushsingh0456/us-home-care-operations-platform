@@ -240,7 +240,7 @@ Status rules: **Verified** = every linked test passed in the last cycle; **Cover
 | NFR-MOB-02 | The offline queue is encrypted, and local data is remotely wiped on deactivation. | TC-NFR-005 |
 | NFR-MNT-01 | Domain modules (EVV, payroll, billing, eMAR) have at least 80% line coverage, and every BR has at least one automated test. | Verified by inspection / CI gate (see NFR document) |
 | NFR-MNT-02 | Deployments have zero downtime. Migrations are backward-compatible for one release, and scheduled jobs are single-flight across deployments. | TC-BIL-007, TC-NFR-014 |
-| NFR-CMP-01 | Only HIPAA-eligible services are used, under a BAA, and Tendwell Labs signs a BAA with each agency. | Verified by inspection / CI gate (see NFR document) |
+| NFR-CMP-01 | Only HIPAA-eligible services are used, under a BAA, and the vendor signs a BAA with each agency. | Verified by inspection / CI gate (see NFR document) |
 | NFR-CMP-02 | EVV data export is available in a configurable aggregator CSV format. State-specific formats come in R2. | TC-NFR-017 |
 | NFR-I18N-01 | UI strings are externalized. R1 is English; Spanish for the caregiver app comes in R2. | TC-NFR-019 |
 | NFR-DAT-01 | Timestamps are stored in UTC and shown in the tenant time zone. Durations that cross DST changes are computed correctly. | TC-NFR-011 |

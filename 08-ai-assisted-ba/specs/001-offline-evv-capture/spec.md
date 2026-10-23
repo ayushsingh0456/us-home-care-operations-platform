@@ -35,7 +35,7 @@ In scope: clock-in and clock-out captured without connectivity, care-plan task s
 
 ### Primary User Story
 
-Rosa Delgado (PER-01), a home health aide, visits a client in a rural farmhouse with no cellular signal. She opens the Tendwell app at the door, taps "Clock in" on the next-visit card, delivers care, marks each care-plan task and writes her note, and taps "Clock out". The app confirms each step immediately with "Saved on this phone. It will sync when you are back online." Twenty minutes later, driving into town, her phone reconnects and the punches sync without her doing anything. Her Coordinator sees a normal visit with source MobileOffline, the server has computed the distance to the client's address, and the visit becomes Verified and counts for her pay.
+Rosa Delgado (PER-01), a home health aide, visits a client in a rural farmhouse with no cellular signal. She opens the platform app at the door, taps "Clock in" on the next-visit card, delivers care, marks each care-plan task and writes her note, and taps "Clock out". The app confirms each step immediately with "Saved on this phone. It will sync when you are back online." Twenty minutes later, driving into town, her phone reconnects and the punches sync without her doing anything. Her Coordinator sees a normal visit with source MobileOffline, the server has computed the distance to the client's address, and the visit becomes Verified and counts for her pay.
 
 ### Acceptance Scenarios
 

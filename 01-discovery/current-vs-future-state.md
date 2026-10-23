@@ -18,7 +18,7 @@
 
 ### Purpose and scope
 
-This document shows how the pilot agencies work today, where that process fails, and how Tendwell R1 changes it. It covers four AS-IS processes: scheduling and visit confirmation, visit verification by paper timesheet, medication administration with MAR binders, and spreadsheet payroll and billing. The Business Analyst mapped each AS-IS process from job shadowing (6 home visits), observation of office staff, and document analysis (2 pay periods of timesheets, 3 months of MAR binders, 6 months of billing denials). Pilot agency staff validated the maps in the discovery workshops. Each pain point is quantified and traced to the requirement that closes it, so the business case and the requirements share one evidence base.
+This document shows how the pilot agencies work today, where that process fails, and how the platform R1 changes it. It covers four AS-IS processes: scheduling and visit confirmation, visit verification by paper timesheet, medication administration with MAR binders, and spreadsheet payroll and billing. The Business Analyst mapped each AS-IS process from job shadowing (6 home visits), observation of office staff, and document analysis (2 pay periods of timesheets, 3 months of MAR binders, 6 months of billing denials). Pilot agency staff validated the maps in the discovery workshops. Each pain point is quantified and traced to the requirement that closes it, so the business case and the requirements share one evidence base.
 
 Detailed TO-BE behavior is specified in the [SRS](../02-requirements/SRS.md) and [process flows](../03-design/diagrams/process-flows.md); the TO-BE views here are business-level.
 
@@ -249,7 +249,7 @@ flowchart TD
 
 ## 5. Capability map
 
-The map groups Tendwell capabilities along the core value chain (authorization, schedule, EVV, verified visit, payroll and billing). Colors show the change each capability brings to the pilot agencies.
+The map groups the platform capabilities along the core value chain (authorization, schedule, EVV, verified visit, payroll and billing). Colors show the change each capability brings to the pilot agencies.
 
 ```mermaid
 flowchart LR

@@ -26,7 +26,7 @@ An EVV punch is evidence that care was delivered at a place and time. Under the 
 
 Punch data arrives from three paths: online clock-in and clock-out, offline capture synced hours later (FR-EVV-05, BR-025), and Coordinator time corrections in the exception queue (FR-EVV-08). The system also writes a placeholder clock-out when it auto-closes a visit left open for 14 hours (BR-027). BR-026 states that punches are append-only and that a correction adds a new Manual punch with reason code, note and editor identity while the original stays visible.
 
-How should Tendwell store punches so that corrections are possible, history is tamper-evident and the "effective" times used for pay and billing are unambiguous?
+How should the platform store punches so that corrections are possible, history is tamper-evident and the "effective" times used for pay and billing are unambiguous?
 
 ## Decision drivers
 

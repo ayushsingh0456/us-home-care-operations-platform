@@ -1,4 +1,4 @@
-# Tendwell Domain Events and Webhooks
+# US Home-Care Operations Platform Domain Events and Webhooks
 
 ## Document control
 
@@ -14,7 +14,7 @@
 ## 1. Purpose and scope
 
 This document defines:
-- the domain events that Tendwell modules publish and consume;
+- the domain events that the platform modules publish and consume;
 - the event envelope;
 - delivery and consumer rules;
 - how the inbound payment-provider webhook is handled;
@@ -59,18 +59,18 @@ flowchart LR
 
 ## 4. Event envelope
 
-The envelope follows CloudEvents 1.0 (JSON format). It adds Tendwell extension attributes, named in lowercase alphanumeric form as CloudEvents requires.
+The envelope follows CloudEvents 1.0 (JSON format). It adds the platform extension attributes, named in lowercase alphanumeric form as CloudEvents requires.
 
 | Attribute | Required | Type | Description |
 |---|---|---|---|
 | `specversion` | Yes | string | Always `1.0` |
 | `id` | Yes | UUID | Event ID. Equals `event_outbox.id`, and is used as the idempotency key by consumers and in `notifications.dedupe_key` (BR-055). |
-| `source` | Yes | URI reference | Producing module, for example `/tendwell/evv` |
+| `source` | Yes | URI reference | Producing module, for example `/homecare/evv` |
 | `type` | Yes | string | Event type, for example `evv.exception_raised` |
 | `subject` | Yes | string | Aggregate reference, for example `visits/a1f3c5e7-...` |
 | `time` | Yes | RFC 3339 UTC | When the business fact occurred |
 | `datacontenttype` | Yes | string | `application/json` |
-| `dataschema` | Yes | URI | `https://api.tendwell.example/schemas/events/<type>/v1.json` |
+| `dataschema` | Yes | URI | `https://api.homecare.example/schemas/events/<type>/v1.json` |
 | `tenantid` | Yes | UUID | Tenant. Consumers set the RLS tenant context from it (BR-001). |
 | `sequence` | Yes | string (integer) | Monotonic per subject, used for ordering |
 | `correlationid` | Yes | UUID | `X-Request-Id` of the originating API request, or the job execution ID |
@@ -85,12 +85,12 @@ The envelope follows CloudEvents 1.0 (JSON format). It adds Tendwell extension a
 {
   "specversion": "1.0",
   "id": "0e1f2a3b-4c5d-4e6f-9a7b-8c9d0e1f2a20",
-  "source": "/tendwell/evv",
+  "source": "/homecare/evv",
   "type": "evv.exception_raised",
   "subject": "visits/a1f3c5e7-0b2d-4c6e-8f1a-20260908a001",
   "time": "2026-09-08T12:56:11Z",
   "datacontenttype": "application/json",
-  "dataschema": "https://api.tendwell.example/schemas/events/evv.exception_raised/v1.json",
+  "dataschema": "https://api.homecare.example/schemas/events/evv.exception_raised/v1.json",
   "tenantid": "7c1e4a52-3b9d-4f0e-9a61-2d8f5b3c1a01",
   "sequence": "2",
   "correlationid": "5e1d7a90-3c2b-4f8e-9a6d-0b1c2d3e4f5a",
@@ -117,12 +117,12 @@ The envelope follows CloudEvents 1.0 (JSON format). It adds Tendwell extension a
 {
   "specversion": "1.0",
   "id": "0e1f2a3b-4c5d-4e6f-9a7b-8c9d0e1f2a31",
-  "source": "/tendwell/bil",
+  "source": "/homecare/bil",
   "type": "billing_run.completed",
   "subject": "billing-runs/d7c9e1f3-5a7b-4c9d-8e1f-202609300001",
   "time": "2026-10-01T13:01:52Z",
   "datacontenttype": "application/json",
-  "dataschema": "https://api.tendwell.example/schemas/events/billing_run.completed/v1.json",
+  "dataschema": "https://api.homecare.example/schemas/events/billing_run.completed/v1.json",
   "tenantid": "7c1e4a52-3b9d-4f0e-9a61-2d8f5b3c1a01",
   "sequence": "2",
   "correlationid": "2b7d9f13-5c8e-4a61-b0d2-9e4f3a2c1b70",
@@ -201,7 +201,7 @@ Consumer codes are module codes: NTF notifications, PAY payroll, BIL billing, RP
 
 `POST /v1/webhooks/payments` receives payment-provider events for two flows:
 - **agency invoice payments** through payment links (FR-BIL-05), where the event carries the agency's connected account ID;
-- **Tendwell subscription billing** (FR-ONB-06, FR-ONB-07).
+- **The platform subscription billing** (FR-ONB-06, FR-ONB-07).
 
 ### 7.1 Processing sequence
 
@@ -264,7 +264,7 @@ The provider does not guarantee delivery order. The worker therefore treats each
 
 ### 7.5 Provider events handled
 
-| Provider event | Flow | Tendwell effect | Domain event |
+| Provider event | Flow | The platform effect | Domain event |
 |---|---|---|---|
 | `checkout.session.completed` | Invoice payment link | Links the payment intent to the invoice (metadata `invoiceId`) | None |
 | `payment_intent.succeeded` | Invoice payment | Inserts or updates `payments` as `Succeeded`, recomputes `paid_cents` and `balance_cents`, and sets the invoice to `PartiallyPaid` or `Paid` | `payment.succeeded` |
@@ -279,7 +279,7 @@ All other event types are acknowledged with `200` and ignored.
 
 ### 7.6 Data minimization and reconciliation
 
-- **No PHI to the provider.** Tendwell sends only the tenant ID, the invoice ID and number, and the amount. No client name, diagnosis or service detail is placed in provider metadata or descriptions. The payer enters their own payment details on the provider's hosted page; card and bank data never reach Tendwell.
+- **No PHI to the provider.** the platform sends only the tenant ID, the invoice ID and number, and the amount. No client name, diagnosis or service detail is placed in provider metadata or descriptions. The payer enters their own payment details on the provider's hosted page; card and bank data never reach the platform.
 - **Nightly reconciliation.** A single-flight job compares the provider's balance transactions for the previous day with `payments`. Missing or mismatched records are corrected from provider state and reported to the Billing & Payroll Specialist. This catches any event lost before it was recorded.
 
 ## 8. Outbound agency webhooks (Release 2)
@@ -289,9 +289,9 @@ All other event types are acknowledged with `200` and ignored.
 | Aspect | Planned design |
 |---|---|
 | Subscription | The Agency Administrator registers an HTTPS endpoint and chooses event types from an allow-list. Events with `containsphi: true` are excluded by default. Enabling them requires the agency to confirm that the receiving system is covered by its own HIPAA safeguards and agreements. |
-| Payload | Thin events: the CloudEvents envelope with IDs, type and time only. The receiver calls the Tendwell API, with OAuth client credentials and least-privilege scopes, to fetch the details it is entitled to. |
-| Signature | `Tendwell-Signature: t=<unix seconds>,v1=<HMAC-SHA256 of "<t>.<raw body>">`, with a per-endpoint secret shown once at creation. Receivers must enforce a 5-minute timestamp tolerance and compare in constant time. Secrets rotate with an overlap period. |
-| Idempotency | The `Tendwell-Event-Id` header equals the CloudEvents `id`. Receivers deduplicate on it. |
+| Payload | Thin events: the CloudEvents envelope with IDs, type and time only. The receiver calls the platform API, with OAuth client credentials and least-privilege scopes, to fetch the details it is entitled to. |
+| Signature | `the platform-Signature: t=<unix seconds>,v1=<HMAC-SHA256 of "<t>.<raw body>">`, with a per-endpoint secret shown once at creation. Receivers must enforce a 5-minute timestamp tolerance and compare in constant time. Secrets rotate with an overlap period. |
+| Idempotency | The `the platform-Event-Id` header equals the CloudEvents `id`. Receivers deduplicate on it. |
 | Delivery | At least once. Retries use exponential backoff for up to 24 hours. After 24 hours of consecutive failures the endpoint is disabled and the Agency Administrator is notified. A delivery log is kept for 30 days. |
 | Ordering | Not guaranteed. The `sequence` attribute lets receivers discard stale events. |
 | Security | HTTPS with TLS 1.2+ only; no redirects followed; private IP ranges blocked (server-side request forgery protection); a per-tenant rate limit on deliveries. |

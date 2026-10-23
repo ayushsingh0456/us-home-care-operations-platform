@@ -1,4 +1,4 @@
-# Software Requirements Specification (SRS): Tendwell
+# Software Requirements Specification (SRS): US Home-Care Operations Platform
 
 ## Document control
 
@@ -12,7 +12,7 @@
 | Reviewers | Product Owner; Engineering Lead; QA Lead; UX Designer; Clinical SME (RN advisor); Compliance and Privacy Officer |
 | Change control | After a baseline, this document changes only through the [change request log](../05-delivery/change-request-log.md). Each approved CR updates this SRS, the [traceability matrix](requirements-traceability-matrix.md) and the affected user stories in the same pull request. |
 
-**Purpose and scope.** This SRS specifies what Tendwell does, how it interfaces with people and other systems, and the quality and constraints it must meet. It covers Release 1 (R1) and the deferred Release 2 (R2) Family Portal. It is the contract between the Product Owner and the delivery team and the basis for test design. Every requirement here is meant to be verifiable, and section 4 says how.
+**Purpose and scope.** This SRS specifies what the platform does, how it interfaces with people and other systems, and the quality and constraints it must meet. It covers Release 1 (R1) and the deferred Release 2 (R2) Family Portal. It is the contract between the Product Owner and the delivery team and the basis for test design. Every requirement here is meant to be verifiable, and section 4 says how.
 
 ## 1. Introduction
 
@@ -28,7 +28,7 @@ The layout follows the SRS information item in ISO/IEC/IEEE 29148:2018, with the
 
 ### 1.2 Scope
 
-Tendwell is a multi-tenant SaaS operations platform for US home and community-based care agencies. It serves three service lines:
+The platform is a multi-tenant SaaS operations platform for US home and community-based care agencies. It serves three service lines:
 - `HOME_VISIT`: in-home personal care.
 - `ADULT_DAY`: adult day programs.
 - `SUPPORTED_LIVING`: 24-hour supported living homes.
@@ -44,7 +44,7 @@ Out of scope:
 - Telephony EVV.
 - EHR integration.
 
-The reasons are in [BRD section 5.3](BRD.md#53-out-of-scope). The business outcomes Tendwell must move are OBJ-01 to OBJ-06 ([BRD section 4](BRD.md#4-business-objectives)).
+The reasons are in [BRD section 5.3](BRD.md#53-out-of-scope). The business outcomes the platform must move are OBJ-01 to OBJ-06 ([BRD section 4](BRD.md#4-business-objectives)).
 
 ### 1.3 Product overview
 
@@ -102,24 +102,24 @@ Terms and acronyms are defined in the [glossary](glossary.md). Conventions used 
 
 ### 2.1 Product perspective
 
-Tendwell is a new product. It replaces the spreadsheets, paper MARs, standalone EVV apps and hand-built invoices described in [current-vs-future-state.md](../01-discovery/current-vs-future-state.md). It owns the operational record of a visit. It does not own payroll processing, claim adjudication or state EVV aggregation; it hands those off as files.
+The platform is a new product. It replaces the spreadsheets, paper MARs, standalone EVV apps and hand-built invoices described in [current-vs-future-state.md](../01-discovery/current-vs-future-state.md). It owns the operational record of a visit. It does not own payroll processing, claim adjudication or state EVV aggregation; it hands those off as files.
 
 ```mermaid
 flowchart LR
   subgraph PEOPLE["People"]
     CGU["Caregiver (CG)"]
     AGU["Agency office staff<br/>AG-ADM, AG-COORD,<br/>AG-SUPV, AG-FIN"]
-    PLU["Tendwell Labs staff<br/>PLT-ADM, PLT-SUP"]
+    PLU["the vendor staff<br/>PLT-ADM, PLT-SUP"]
     PRO["Prospective agency"]
     FMU["Family contact<br/>FAM, R2"]
   end
-  subgraph TW["Tendwell system boundary"]
+  subgraph TW["the platform system boundary"]
     MOB["Caregiver Mobile App"]
     WEB["Agency Web App"]
     CON["Platform Console"]
     SUS["Public sign-up site"]
     FPO["Family Portal (R2)"]
-    API["Tendwell API /v1<br/>and background jobs"]
+    API["the platform API /v1<br/>and background jobs"]
   end
   subgraph EXT["External services"]
     E01["IF-01 Payments (Stripe)"]
@@ -191,8 +191,8 @@ The chain runs left to right through the modules:
 
 | Code | Role | Description | Primary interface | MFA (BR-006) | Data scope |
 |---|---|---|---|---|---|
-| PLT-ADM | Platform Administrator | Tendwell Labs staff who run the SaaS platform: plans, promo codes, tenant lifecycle. | Platform Console | Mandatory | Platform configuration only (plans, promo codes, tenant lifecycle). No tenant PHI. |
-| PLT-SUP | Platform Support Agent | Tendwell Labs support staff. No tenant data access unless an Agency Administrator approves a time-boxed grant. | Platform Console; Agency Web App under a grant | Mandatory | None by default. Read-only tenant access only during an approved, time-boxed support grant. |
+| PLT-ADM | Platform Administrator | the vendor staff who run the SaaS platform: plans, promo codes, tenant lifecycle. | Platform Console | Mandatory | Platform configuration only (plans, promo codes, tenant lifecycle). No tenant PHI. |
+| PLT-SUP | Platform Support Agent | the vendor support staff. No tenant data access unless an Agency Administrator approves a time-boxed grant. | Platform Console; Agency Web App under a grant | Mandatory | None by default. Read-only tenant access only during an approved, time-boxed support grant. |
 | AG-ADM | Agency Administrator | Account holder at a care agency (tenant). Configures the agency, users, roles, payers and settings. | Agency Web App; public sign-up site | Mandatory | Whole tenant. |
 | AG-COORD | Care Coordinator | Schedules visits, manages client intake, resolves EVV exceptions, approves time off for assigned locations. | Agency Web App | Optional | Assigned locations. |
 | AG-SUPV | Clinical Supervisor | Registered nurse who approves care plans and medication orders, reviews missed doses, vitals alerts and client incidents. | Agency Web App | Mandatory | Assigned locations; clinical records. |
@@ -226,7 +226,7 @@ What the user classes are like, and what that means for design:
 | EVV punches are an append-only ledger; corrections add punches and never update them (BR-026). | [ADR-002](../03-design/architecture/adr/ADR-002-append-only-evv-punch-ledger.md) |
 | Scheduled jobs (materialization, billing runs, dose generation, auto-close, overdue marking) are single-flight across workers and deployments, using `job_executions` with a unique idempotency key (NFR-MNT-02). | [ADR-003](../03-design/architecture/adr/ADR-003-single-flight-scheduled-jobs.md) |
 | The identity verification vendor sits behind an `IdentityVerificationPort` adapter so it can be replaced without changing EVV logic. | [ADR-004](../03-design/architecture/adr/ADR-004-identity-verification-vendor-adapter.md) |
-| Payroll leaves Tendwell as a CSV export; there is no tax or pay-stub processing. | [ADR-005](../03-design/architecture/adr/ADR-005-payroll-export-not-processing.md) |
+| Payroll leaves the platform as a CSV export; there is no tax or pay-stub processing. | [ADR-005](../03-design/architecture/adr/ADR-005-payroll-export-not-processing.md) |
 | The caregiver app is offline-first: punches, task results, doses, vitals and notes are captured locally and synced. | [ADR-006](../03-design/architecture/adr/ADR-006-offline-first-caregiver-app.md) |
 | REST under `/v1`, OpenAPI-first; JSON with camelCase; cursor pagination; RFC 9457 `application/problem+json` errors; `Idempotency-Key` on unsafe POSTs. | [API guidelines](../04-api/api-guidelines.md) |
 | PHI fields use field-level envelope encryption with KMS keys (BR-011, NFR-SEC-01). | [Data classification](../03-design/data/data-classification-and-retention.md) |
@@ -317,7 +317,7 @@ Screen designs are in the [wireframes](../03-design/wireframes/README.md). These
 | Front camera | Selfie liveness and face match (FR-EVV-04) | The image is captured in-app, sent over TLS to the API, never written to the device gallery, and discarded on the device after upload. | If the tenant requires identity checks, the caregiver can retry. After three failed attempts the punch proceeds with Identity check failed (section 3.2.6). |
 | Rear camera | Incident photos (FR-DOC-03) | Up to 5 photos per incident, captured in-app, stored only in the encrypted queue until sync, with location metadata removed. | Photos are optional. The report can be submitted without them. |
 | Secure storage | Offline queue (FR-EVV-05) | SQLCipher database with its key in iOS Keychain or Android Keystore (NFR-MOB-02). | The app will not start capture on a device without a hardware-backed keystore. |
-| Device PIN or biometrics | Re-authentication every 12 h (FR-IAM-04) | Uses the OS authentication prompt; Tendwell never sees biometric data. | Falls back to password sign-in. |
+| Device PIN or biometrics | Re-authentication every 12 h (FR-IAM-04) | Uses the OS authentication prompt; the platform never sees biometric data. | Falls back to password sign-in. |
 | Device clock | Offline punch time (BR-025) | The device time is captured as the punch time and the server receipt time is stored separately. | See TBD-04 for detecting a changed device clock. |
 | Printer (web) | Monthly MAR grid (FR-MAR-09) | Browser print or PDF, with a watermark (FR-RPT-04). | Not applicable. |
 
@@ -379,7 +379,7 @@ Notes and edge cases:
 | Field | Type | Required | Validation | Error message shown to user |
 |---|---|---|---|---|
 | Owner first name; Owner last name | Text, 1-50 | Yes | Letters, spaces, apostrophes and hyphens | "Enter your first name using letters only (up to 50 characters)." |
-| Work email | Email | Yes | Valid address syntax; stored lowercase; not already the owner of a Trial or Active tenant | "Enter an email address in the form name@example.com." / "This email already owns a Tendwell agency. Sign in instead, or use a different email." |
+| Work email | Email | Yes | Valid address syntax; stored lowercase; not already the owner of a Trial or Active tenant | "Enter an email address in the form name@example.com." / "This email already owns a the platform agency. Sign in instead, or use a different email." |
 | Mobile phone | Phone (E.164) | Yes | 10-digit US number, stored as +1 | "Enter a 10-digit US mobile number, for example 614-555-0142." |
 | Password | Secret | Yes | 12-64 characters; not on the breached-password list; must not contain the email name; no composition rules (BR-007) | "Use at least 12 characters. A phrase of three or four unrelated words works well." / "This password has appeared in a known data breach. Choose a different one." |
 | Agency legal name | Text, 2-120 | Yes | As registered with the IRS | "Enter your agency's legal name as it appears on IRS records." |
@@ -568,7 +568,7 @@ Notes and edge cases:
 |---|---|---|---|---|
 | Visit | Selected from the Today list | Yes | Assigned to this caregiver; status Scheduled; current time from scheduled start minus 15 minutes to scheduled end (BR-023) | "Clock-in for this visit opens at 08:45, 15 minutes before it starts." / "This visit's scheduled time has ended. Call your coordinator to record it." |
 | Punch time | Timestamp (system) | Yes | Device time with UTC offset; server receipt time stored separately (BR-025) | n/a |
-| Coordinates | Latitude and longitude (system) | Yes (attempted) | Precise location requested; up to 5 s to obtain a fix; the punch is recorded even without one (BR-022) | "Turn on Location and Precise Location for Tendwell in Settings so your visit can be verified. You can still clock in now." |
+| Coordinates | Latitude and longitude (system) | Yes (attempted) | Precise location requested; up to 5 s to obtain a fix; the punch is recorded even without one (BR-022) | "Turn on Location and Precise Location for the platform in Settings so your visit can be verified. You can still clock in now." |
 | Horizontal accuracy (m) | Integer (system) | Yes (attempted) | Over 100 m raises Low GPS accuracy | Shown before submitting: "Your location is approximate (about 3.4 km). This visit will be reviewed. Turn on Precise Location to avoid this." |
 | Identity check | Selfie (front camera) | When the tenant enables it (FR-EVV-04) | A Pass result less than 90 seconds old and not yet used (BR-024) | "Your identity check expired after 90 seconds. Take a new selfie to clock in." / "We couldn't match your selfie. Face the light, remove hats or sunglasses, and try again." After the third failure: "You can clock in now. Your coordinator will review this visit." |
 | Device ID | Text (system) | Yes | The device registered to this user | "This phone isn't registered to your account. Sign in again to register it." |
@@ -729,7 +729,7 @@ Notes and edge cases:
 - **Overlaps** can arise from corrections or back-to-back visits in one household. They are merged so each minute is paid once (BR-045). Time is held to the second and rounded to 2 decimals only for display and export.
 - **Pre-export review** (FR-PAY-04) lists open exceptions, unverified visits and Pending travel estimates. Export is allowed with items outstanding: excluded time is paid as an adjustment once verified (BR-046). The decision is logged.
 - **Holiday boundaries.** A visit crossing midnight into a holiday has only its holiday-date minutes paid at the holiday rate.
-- CR-008 (in-app payroll processing) was rejected. Tendwell prepares and exports; the payroll provider pays.
+- CR-008 (in-app payroll processing) was rejected. The platform prepares and exports; the payroll provider pays.
 
 #### 3.2.11 BIL: Client Billing & Invoicing
 
@@ -875,7 +875,7 @@ The 29 NFRs are summarized below. Fit criteria, ISO/IEC 25010 classification, ve
 | NFR-MOB-02 | Mobile | The offline queue is encrypted, and local data is remotely wiped on deactivation. |
 | NFR-MNT-01 | Maintainability | Domain modules (EVV, payroll, billing, eMAR) have at least 80% line coverage, and every BR has at least one automated test. |
 | NFR-MNT-02 | Maintainability | Deployments have zero downtime. Migrations are backward-compatible for one release, and scheduled jobs are single-flight across deployments. |
-| NFR-CMP-01 | Compliance | Only HIPAA-eligible services are used, under a BAA, and Tendwell Labs signs a BAA with each agency. |
+| NFR-CMP-01 | Compliance | Only HIPAA-eligible services are used, under a BAA, and the vendor signs a BAA with each agency. |
 | NFR-CMP-02 | Compliance | EVV data export is available in a configurable aggregator CSV format. State-specific formats come in R2. |
 | NFR-I18N-01 | Internationalization | UI strings are externalized. R1 is English; Spanish for the caregiver app comes in R2. |
 | NFR-DAT-01 | Data | Timestamps are stored in UTC and shown in the tenant time zone. Durations that cross DST changes are computed correctly. |

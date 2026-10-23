@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This document defines when work is ready to enter a sprint and when it is done, at three levels: story, sprint and release. It is the working agreement for the Tendwell delivery team and is reviewed at every third retrospective. Items marked **[BA]** are owned by the Business Analyst; the BA confirms them in Jira before refinement closes. Version history:
+This document defines when work is ready to enter a sprint and when it is done, at three levels: story, sprint and release. It is the working agreement for the platform delivery team and is reviewed at every third retrospective. Items marked **[BA]** are owned by the Business Analyst; the BA confirms them in Jira before refinement closes. Version history:
 
 | Version | Date | Change |
 |---|---|---|

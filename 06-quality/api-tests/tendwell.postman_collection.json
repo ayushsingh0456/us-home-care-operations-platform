@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "6f1d2c3b-7a8e-4b9c-9d0e-1f2a3b4c5d6e",
-    "name": "Tendwell API - R1.1 regression (synthetic data)",
-    "description": "Business-rule API checks for Tendwell R1.1 against the staging environment. Synthetic data only; load the seed in 06-quality/test-data (data as of 2026-09-15T08:30:00-04:00), then pin the TEN-001 and TEN-003 virtual clocks to 2026-09-15T08:55:00-04:00 before running. Request bodies are copied from test-data/api-fixtures.json. Reset the seed after each run because the run creates punches, invoices and audit events. Run order matters: Auth first.",
+    "name": "the platform API - R1.1 regression (synthetic data)",
+    "description": "Business-rule API checks for the platform R1.1 against the staging environment. Synthetic data only; load the seed in 06-quality/test-data (data as of 2026-09-15T08:30:00-04:00), then pin the TEN-001 and TEN-003 virtual clocks to 2026-09-15T08:55:00-04:00 before running. Request bodies are copied from test-data/api-fixtures.json. Reset the seed after each run because the run creates punches, invoices and audit events. Run order matters: Auth first.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "auth": {
@@ -45,7 +45,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "https://api.tendwell.example/v1",
+      "value": "https://api.homecare.example/v1",
       "type": "string",
       "description": "Staging API base URL"
     },

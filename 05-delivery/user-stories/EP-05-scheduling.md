@@ -87,7 +87,7 @@ Scenario: US-020-AC4 Editing a pattern changes only future, not-yet-started visi
 
 Scenario: US-020-AC5 Notify the caregiver within 1 minute without PHI
   When the pattern above is saved at 14:20:00
-  Then Rosa receives one notification by 14:21:00 saying "You have 24 new visits. Open Tendwell to view your schedule."
+  Then Rosa receives one notification by 14:21:00 saying "You have 24 new visits. Open the app to view your schedule."
   And the notification contains no client name or address
 
 Scenario: US-020-AC6 Keep local times across a DST change

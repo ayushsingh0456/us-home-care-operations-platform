@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This log tracks the risks, assumptions, issues and dependencies for Tendwell Release 1 and R1.1, with items for Release 2 that are already known. The BA facilitates a weekly review with the Product Owner and Engineering Lead. Each item links to the requirements, stories, change requests and incidents it affects.
+This log tracks the risks, assumptions, issues and dependencies for the platform Release 1 and R1.1, with items for Release 2 that are already known. The BA facilitates a weekly review with the Product Owner and Engineering Lead. Each item links to the requirements, stories, change requests and incidents it affects.
 
 **Scoring.** Probability (P) and impact (I) are each scored 1 (very low) to 5 (very high). Score = P x I. A score of 15 or more is Red, 8 to 14 is Amber and 7 or less is Green. Scores shown are the latest assessment. For realized risks, the score shown is the one before realization.
 
@@ -40,7 +40,7 @@ This log tracks the risks, assumptions, issues and dependencies for Tendwell Rel
 | ASM-02 | Agencies keep their existing payroll provider and import a CSV file (ADR-005). | Demand for in-app payroll processing | Product Owner | Discovery interviews; CR-008 outcome | Validated (CR-008 rejected with agency agreement) |
 | ASM-03 | Agencies submit claims through their existing clearinghouse, and a CSV claim batch is acceptable in R1 (no EDI 837). | Manual re-keying of claims; OBJ-04 at risk | Product Owner | Clearinghouse template review with TEN-001 and TEN-003 | Validated |
 | ASM-04 | The pilot state's EVV aggregator accepts agency file submission, and the configurable aggregator CSV is enough for R1 (NFR-CMP-02). | State-specific format needed earlier than R2 | Compliance and Privacy Officer | Agency confirmation; aggregator documentation | Validated for the pilot; state formats planned for R2 (DEP-04) |
-| ASM-05 | Each agency is the HIPAA covered entity and Tendwell Labs is its business associate. Tendwell signs a BAA with each agency and holds BAAs with every subprocessor that handles PHI (NFR-CMP-01). | Contracting delays block go-live | Compliance and Privacy Officer | Contract register | Validated; BAAs in place before go-live |
+| ASM-05 | Each agency is the HIPAA covered entity and the vendor is its business associate. The platform signs a BAA with each agency and holds BAAs with every subprocessor that handles PHI (NFR-CMP-01). | Contracting delays block go-live | Compliance and Privacy Officer | Contract register | Validated; BAAs in place before go-live |
 | ASM-06 | Service addresses geocode to rooftop precision for at least 95% of clients; the rest are confirmed manually (US-012-AC2). | False Location mismatch exceptions at go-live | Business Analyst | Migration sample geocoding test (ISS-01) | Partly validated: 89% rooftop in the first sample; manual pin step added |
 | ASM-07 | Each agency has a Clinical Supervisor (RN) who can approve care plans and medication orders within 1 business day. | Care plans and orders stuck in PendingApproval; eMAR unusable | Customer Success Lead | Pilot agency staffing confirmation | Validated for TEN-001 and TEN-003; TEN-002 uses a contracted RN |
 | ASM-08 | The default PTO accrual (1 hour per 30 hours worked, 80-hour cap) and a Monday-to-Sunday workweek suit the pilot agencies; any differences are handled by configuration. | Payroll rework or new rules | Business Analyst | Pay-policy review with each pilot agency | Validated; TEN-002 uses a 60-hour cap through configuration |

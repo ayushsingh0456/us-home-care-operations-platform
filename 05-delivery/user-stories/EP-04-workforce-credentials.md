@@ -105,7 +105,7 @@ Scenario: US-017-AC6 Only Agency Administrators can deactivate
 - FR-WRK-06 (deactivation) sits in this story because invitation and deactivation are two ends of the same account lifecycle. Per FR-WRK-06 the actor for deactivation is the Agency Administrator, not the Coordinator.
 - A visit in progress at deactivation is not reassigned; it is flagged for Coordinator review.
 - Remote wipe on deactivation implements NFR-MOB-02.
-- Out of scope: background-check and I-9 workflows (handled outside Tendwell in R1).
+- Out of scope: background-check and I-9 workflows (handled outside the platform in R1).
 
 ### US-018 · Track caregiver credentials and expiry
 

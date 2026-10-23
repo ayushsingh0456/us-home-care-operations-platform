@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This document gives a one-page view of each of the 14 Tendwell epics: the goal, the outcome we expect and how we will measure it, scope boundaries, the functional requirements and stories it contains, dependencies and the main risks. It connects the business objectives (OBJ-01 to OBJ-06) and business needs (BN-01 to BN-14) in the BRD to the delivery backlog. Story detail and acceptance criteria are in the [user story files](user-stories/EP-01-agency-onboarding.md); risk and dependency IDs (RSK, DEP) are defined in the [RAID log](raid-log.md).
+This document gives a one-page view of each of the 14 the platform epics: the goal, the outcome we expect and how we will measure it, scope boundaries, the functional requirements and stories it contains, dependencies and the main risks. It connects the business objectives (OBJ-01 to OBJ-06) and business needs (BN-01 to BN-14) in the BRD to the delivery backlog. Story detail and acceptance criteria are in the [user story files](user-stories/EP-01-agency-onboarding.md); risk and dependency IDs (RSK, DEP) are defined in the [RAID log](raid-log.md).
 
 ## Business objectives referenced
 
@@ -77,7 +77,7 @@ Solid arrows show data dependencies along the value chain (authorization, schedu
 |---|---|---|---|---|
 | ONB | R1 | BN-01 | 6 | 29 |
 
-**Goal.** Let a care agency go from the public sign-up site to a provisioned, correctly billed tenant in one sitting, with no Tendwell Labs staff involvement, and make sure subscription problems never block care delivery.
+**Goal.** Let a care agency go from the public sign-up site to a provisioned, correctly billed tenant in one sitting, with no the vendor staff involvement, and make sure subscription problems never block care delivery.
 
 **Outcome hypothesis and success metric.** We believe that self-service sign-up with automatic provisioning and a setup checklist will let agencies configure themselves. We will know this is true when pilot tenants complete the 6-item setup checklist within 5 business days of activation, and when no tenant in Read-only status records a blocked caregiver visit action. This is an enabler for OBJ-01 to OBJ-06; it has no KPI of its own.
 
@@ -112,7 +112,7 @@ Solid arrows show data dependencies along the value chain (authorization, schedu
 |---|---|---|---|---|
 | IAM | R1 | BN-02 | 5 | 23 |
 
-**Goal.** Give every user secure, least-privilege access limited to their tenant and assigned locations, keep a complete sign-in and access trail, and let Tendwell Labs support staff into a tenant only with the agency's time-boxed consent.
+**Goal.** Give every user secure, least-privilege access limited to their tenant and assigned locations, keep a complete sign-in and access trail, and let the vendor support staff into a tenant only with the agency's time-boxed consent.
 
 **Outcome hypothesis and success metric.** We believe that database-enforced tenant isolation, mandatory MFA for privileged roles and consent-based support access will meet agency security reviews without slowing users down. Success: zero cross-tenant access findings in the pre-release penetration test (NFR-SEC-02), 100% MFA enrollment for MFA-mandatory roles, and no open Critical or High findings at release. This is an enabler for OBJ-01 to OBJ-06.
 
@@ -472,7 +472,7 @@ Solid arrows show data dependencies along the value chain (authorization, schedu
 
 **Goal.** Give agency leaders a live picture of today's operations and the standard reports they need, and give auditors an immutable trail of who did what, when and to which record.
 
-**Outcome hypothesis and success metric.** We believe that a single operations dashboard and standard reports will replace the spreadsheets agencies use today. Success: all six KPIs (OBJ-01 to OBJ-06) are reported from Tendwell data without manual compilation by the end of the pilot; 100% of exports are watermarked and audited.
+**Outcome hypothesis and success metric.** We believe that a single operations dashboard and standard reports will replace the spreadsheets agencies use today. Success: all six KPIs (OBJ-01 to OBJ-06) are reported from the platform data without manual compilation by the end of the pilot; 100% of exports are watermarked and audited.
 
 | In scope | Out of scope |
 |---|---|

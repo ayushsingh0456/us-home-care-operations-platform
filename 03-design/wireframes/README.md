@@ -172,7 +172,7 @@ The web app is designed to WCAG 2.2 AA, and the mobile app to 200% font scaling 
 - After 48 hours offline, the banner escalates to a persistent warning; capture continues.
 
 **Messages**
-- Every validation message states the problem and the fix and never shows a raw code (NFR-USE-03), for example "Resolve the hard block to save" and "Precise Location is off for Tendwell".
+- Every validation message states the problem and the fix and never shows a raw code (NFR-USE-03), for example "Resolve the hard block to save" and "Precise Location is off for the platform".
 
 **Privacy in the UI**
 - Lists show client first name and last initial with the client number. Full name, address and phone appear only in the caregiver's own visit detail (treatment-time access) or after an audited reveal on the web (FR-CLI-06).

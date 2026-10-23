@@ -21,7 +21,7 @@
 
 ## Purpose and scope
 
-[test-cases.csv](test-cases.csv) is the test case specification for Tendwell R1 and R1.1: 118 cases that cover every functional requirement and business rule in the [SRS](../02-requirements/SRS.md), plus 19 non-functional cases. This guide explains how to read the file, summarizes coverage, and writes out 15 cases in full. These are the cases where the arithmetic or the timing is the point, and where a reviewer should be able to check the expected result by hand.
+[test-cases.csv](test-cases.csv) is the test case specification for the platform R1 and R1.1: 118 cases that cover every functional requirement and business rule in the [SRS](../02-requirements/SRS.md), plus 19 non-functional cases. This guide explains how to read the file, summarizes coverage, and writes out 15 cases in full. These are the cases where the arithmetic or the timing is the point, and where a reviewer should be able to check the expected result by hand.
 
 ## How to read the CSV
 
@@ -346,7 +346,7 @@ The Postman eMAR folder checks the same rule on MO-0011 (maximum 3, already 3 in
 | 5 | `SET row_security = off` as the application role | Permission denied (the role does not have BYPASSRLS) |
 
 ```sql
-SET ROLE tendwell_app;
+SET ROLE homecare_app;
 SELECT set_config('app.tenant_id', '7e000000-0000-4000-8000-000000000002', false);  -- act as TEN-002
 SELECT id FROM clients WHERE id = 'c1000000-0000-4000-8000-000000010234';            -- expect 0 rows
 UPDATE clients SET primary_language = 'Spanish'
@@ -370,7 +370,7 @@ The API returns 404, not 403, so a caller cannot learn that the record exists. T
 | 1 | Raise a High incident for C-10234 | Step 1 goes to U-1003 |
 | 2 | Advance past the step 2 delay (AG-COORD, Lakemont North) | Step 2 goes to U-1002 and U-1007 only |
 | 3 | On a fresh run, deactivate U-1007 between step 1 and step 2 | Step 2 goes to U-1002 only |
-| 4 | Query `notifications` and the anomaly metric | No row for U-1005 in any channel. The email body is generic ("A client incident needs your review. Sign in to Tendwell to view it.") with a deep link that requires sign-in. `notifications_to_deactivated_users` = 0 |
+| 4 | Query `notifications` and the anomaly metric | No row for U-1005 in any channel. The email body is generic ("A client incident needs your review. Sign in to the platform to view it.") with a deep link that requires sign-in. `notifications_to_deactivated_users` = 0 |
 
 Before CR-006 the ladder cached recipients when it was configured, so step 2 would have gone to U-1005.
 

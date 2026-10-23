@@ -18,7 +18,7 @@
 
 This review contains no PHI. The client is referred to only as "a resident of one TEN-003 home", and the former employee by role. The details needed for the covered entity's determination were shared with TEN-003 through the secure support portal, not in this document.
 
-**Disclaimer:** the privacy assessment in section 11 is Tendwell Labs' input, as a business associate, to the covered entity's own determination. It is not legal advice. The final breach determination, and any notification it requires, rests with TEN-003 as the covered entity.
+**Disclaimer:** the privacy assessment in section 11 is the vendor' input, as a business associate, to the covered entity's own determination. It is not legal advice. The final breach determination, and any notification it requires, rests with TEN-003 as the covered entity.
 
 ## Incident summary
 
@@ -42,7 +42,7 @@ This review contains no PHI. The client is referred to only as "a resident of on
 
 ## 1. Executive summary
 
-On 2026-09-09 a caregiver reported a fall involving a resident of one TEN-003 supported living home. When the High-severity incident was not acknowledged within 30 minutes, the escalation ladder's second step emailed the home's Care Coordinators. One recipient was a former Care Coordinator whose Tendwell account had been deactivated 12 days earlier. The email reached her agency mailbox, which the agency had set to forward to her personal address. The email contained the resident's first name and last initial and the incident category. The cause was a design choice: escalation recipients were resolved and stored when the ladder was configured, not when the message was sent, and the email channel was allowed to carry minimum client identifiers. The former employee reported the email herself; Tendwell contained the risk within 42 minutes of the report by pausing escalation emails, notified TEN-003 under the BAA 2 hours 52 minutes after discovery, and obtained a signed deletion attestation the next morning. The Compliance and Privacy Officer completed the four-factor breach risk assessment, and TEN-003 made its own determination. CR-006 now resolves recipients at send time, removes PHI from all email bodies, and adds an alert on any notification to a deactivated user.
+On 2026-09-09 a caregiver reported a fall involving a resident of one TEN-003 supported living home. When the High-severity incident was not acknowledged within 30 minutes, the escalation ladder's second step emailed the home's Care Coordinators. One recipient was a former Care Coordinator whose the platform account had been deactivated 12 days earlier. The email reached her agency mailbox, which the agency had set to forward to her personal address. The email contained the resident's first name and last initial and the incident category. The cause was a design choice: escalation recipients were resolved and stored when the ladder was configured, not when the message was sent, and the email channel was allowed to carry minimum client identifiers. The former employee reported the email herself; the platform contained the risk within 42 minutes of the report by pausing escalation emails, notified TEN-003 under the BAA 2 hours 52 minutes after discovery, and obtained a signed deletion attestation the next morning. The Compliance and Privacy Officer completed the four-factor breach risk assessment, and TEN-003 made its own determination. CR-006 now resolves recipients at send time, removes PHI from all email bodies, and adds an alert on any notification to a deactivated user.
 
 ## 2. Customer and business impact
 
@@ -64,13 +64,13 @@ All times America/New_York (EDT).
 | Time | Event | Actor (role) |
 |---|---|---|
 | 2026-07-09 10:20 | TEN-003 Agency Administrator configures the client-incident escalation ladder. Step 2 (after 30 min) targets the Care Coordinator role at the home's location; on save, the system resolves the role into 2 user IDs and stores them in the ladder | Customer (AG-ADM), System |
-| 2026-08-28 16:45 | TEN-003 deactivates the departing Care Coordinator's Tendwell user; sessions and device tokens are revoked. The stored ladder still lists her user ID. Outside Tendwell, the agency keeps her mailbox with auto-forwarding to a personal address | Customer (AG-ADM) |
+| 2026-08-28 16:45 | TEN-003 deactivates the departing Care Coordinator's the platform user; sessions and device tokens are revoked. The stored ladder still lists her user ID. Outside the platform, the agency keeps her mailbox with auto-forwarding to a personal address | Customer (AG-ADM) |
 | 2026-09-09 14:05 | Caregiver reports a Fall, severity High, for a resident. Step 1 notifies the Clinical Supervisor and Agency Administrator immediately (FR-DOC-04) | Caregiver, System |
 | **14:35** | **Start:** step 2 fires because the incident is still Reported. Email goes to the stored recipients, including the deactivated former Care Coordinator. In-app and push to her are not delivered (no session or device token) | System |
 | 14:35 | Agency mail server forwards the email to her personal address | External (agency email) |
 | 14:52 | Former Care Coordinator opens the email | Recipient |
 | 15:02 | She emails the TEN-003 Agency Administrator that she received it and no longer works there | Recipient |
-| **15:28** | **Detected (discovery):** TEN-003 Agency Administrator calls Tendwell support and opens a ticket, "Possible privacy issue" | Customer (AG-ADM) |
+| **15:28** | **Detected (discovery):** TEN-003 Agency Administrator calls the platform support and opens a ticket, "Possible privacy issue" | Customer (AG-ADM) |
 | **15:41** | **Acknowledged:** Platform Support recognizes a privacy trigger and pages on-call and the Compliance and Privacy Officer | Platform Support |
 | 15:52 | SEV-1 (privacy) declared; Engineering Lead is IC; Compliance and Privacy Officer leads the privacy branch; channel `#inc-2026-015`; Business Analyst and Customer Success Lead join | IC |
 | **16:10** | **Contained:** feature flag disables the Email channel for all escalation steps in all tenants. Urgent escalations continue by in-app, push and SMS to active users | Technical Lead |
@@ -118,8 +118,8 @@ sequenceDiagram
 
 Detection took 53 minutes, and it came from the recipient.
 
-- **Tendwell had no signal of its own.** Nothing compared recipients to user status at send time, and no monitor looked for notifications to deactivated users.
-- **The in-app and push channels hid the problem.** They failed silently for the deactivated user because her sessions and device tokens were revoked, which made deactivation look effective from inside Tendwell.
+- **The platform had no signal of its own.** Nothing compared recipients to user status at send time, and no monitor looked for notifications to deactivated users.
+- **The in-app and push channels hid the problem.** They failed silently for the deactivated user because her sessions and device tokens were revoked, which made deactivation look effective from inside the platform.
 - **Detection relied on the recipient's good faith.** She reported it 27 minutes after receiving it, and the agency called within 26 minutes.
 - **With today's controls,** the dispatcher refuses to send to an inactive user (marking the row Suppressed), and the 15-minute reconciliation query under NFR-OBS-02 pages on-call and the Compliance and Privacy Officer on any delivered notification to a user deactivated before the send time.
 
@@ -150,7 +150,7 @@ Detection took 53 minutes, and it came from the recipient.
 4. **Why did the email contain client identifiers?** Because BR-056 and FR-NTF-05 in SRS v1.2 excluded PHI from SMS and push only. Discovery decision WS2-D7 allowed minimum identifiers in staff email, on the assumption that every recipient is current staff.
 5. **Why was that assumption never tested?** Because deactivation requirements and tests covered sign-in, sessions and devices, not outbound notifications, and nothing monitored notifications against user status.
 
-**Root cause statement:** Escalation recipients were bound at configuration time instead of send time, and the email channel was allowed to carry client identifiers, so deactivating a user in Tendwell did not stop PHI from reaching a former workforce member.
+**Root cause statement:** Escalation recipients were bound at configuration time instead of send time, and the email channel was allowed to carry client identifiers, so deactivating a user in the platform did not stop PHI from reaching a former workforce member.
 
 ### 6.2 Contributing factors
 
@@ -158,7 +158,7 @@ Detection took 53 minutes, and it came from the recipient.
 |---|---|
 | Requirements | BR-054 (v1.2) did not state when recipients are resolved or what happens on deactivation. BR-056 and FR-NTF-05 (v1.2) allowed minimum identifiers in email. Deactivation requirements did not mention notifications |
 | Technology | Ladder steps stored user IDs. The dispatcher checked session and device tokens for in-app and push, which masked the problem, but sent email to any stored address |
-| Process | Tendwell's administrator guide did not mention reviewing escalation ladders when deactivating staff. Outside Tendwell's control, the agency's offboarding kept mailbox forwarding active |
+| Process | The platform's administrator guide did not mention reviewing escalation ladders when deactivating staff. Outside the platform's control, the agency's offboarding kept mailbox forwarding active |
 | People | The support phone line was not on the paging path for privacy reports |
 
 ### 6.3 Requirement-gap classification
@@ -183,7 +183,7 @@ Detection took 53 minutes, and it came from the recipient.
 
 | What went well | What went poorly | Where we got lucky |
 |---|---|---|
-| The former employee reported the email promptly and cooperated with deletion | Tendwell did not detect its own disclosure | The recipient was a former workforce member with continuing confidentiality obligations who self-reported |
+| The former employee reported the email promptly and cooperated with deletion | The platform did not detect its own disclosure | The recipient was a former workforce member with continuing confidentiality obligations who self-reported |
 | The agency escalated within 26 minutes | Acknowledgement missed the 5-minute target | Step 2 used Email only. Had it included SMS, the message would have gone straight to the personal phone number still on her user record |
 | Containment in 18 minutes without stopping urgent alerts | A discovery decision (WS2-D7) assumed recipients are always current staff | Only first name, last initial and category were included, not a narrative |
 | BAA notice in under 3 hours, well inside the 24-hour target | 4 other ladders held deactivated users and could have fired | The other 4 ladders with deactivated users did not fire before the fix |
@@ -228,7 +228,7 @@ Detection took 53 minutes, and it came from the recipient.
 
 ## 11. Privacy assessment
 
-Completed by the Compliance and Privacy Officer with data facts from the Business Analyst. This is Tendwell's input to TEN-003's determination and is not legal advice.
+Completed by the Compliance and Privacy Officer with data facts from the Business Analyst. This is the platform's input to TEN-003's determination and is not legal advice.
 
 ### 11.1 Four-factor breach risk assessment (45 CFR 164.402)
 
@@ -239,14 +239,14 @@ Completed by the Compliance and Privacy Officer with data facts from the Busines
 | 3. Whether the PHI was actually acquired or viewed | She opened and read the email at 14:52 and reported it at 15:02 | Acquired and viewed |
 | 4. Extent to which the risk has been mitigated | Signed attestation of deletion from both mailboxes, including trash, with no forwarding, printing, screenshots or sharing; agency removed the forwarding rule and the message; root cause fixed and verified on 2026-09-10 | Substantially mitigated within 18 hours of discovery |
 
-**Preliminary assessment provided to TEN-003:** the documented facts support a low probability that the PHI has been compromised. Tendwell made no notification to the individual, regulators or media; those decisions rest with TEN-003. On 2026-09-15 TEN-003 confirmed it had completed and documented its own determination.
+**Preliminary assessment provided to TEN-003:** the documented facts support a low probability that the PHI has been compromised. The platform made no notification to the individual, regulators or media; those decisions rest with TEN-003. On 2026-09-15 TEN-003 confirmed it had completed and documented its own determination.
 
 ### 11.2 Notification timeline
 
 | Time (ET) | Event | Owner |
 |---|---|---|
 | 2026-09-09 14:35 | Disclosure (email sent and forwarded) | n/a |
-| 2026-09-09 15:28 | Discovery: first knowledge by a Tendwell workforce member (support call) | Platform Support |
+| 2026-09-09 15:28 | Discovery: first knowledge by a the platform workforce member (support call) | Platform Support |
 | 2026-09-09 15:52 | SEV-1 (privacy) declared; Compliance and Privacy Officer engaged | IC |
 | 2026-09-09 18:20 | Initial notice to TEN-003's BAA privacy contact by phone, then email without PHI (2 h 52 min after discovery) | Compliance and Privacy Officer |
 | 2026-09-10 09:30 | Attestation received; TEN-003 informed the same hour | Compliance and Privacy Officer |
@@ -258,8 +258,8 @@ Completed by the Compliance and Privacy Officer with data facts from the Busines
 | Field | Value |
 |---|---|
 | Requested | 2026-09-09 17:05, through the TEN-003 Agency Administrator |
-| Received | 2026-09-10 09:30, signed and dated, held by TEN-003 with a copy in Tendwell's privacy incident file |
-| Scope | The escalation email deleted from the personal mailbox, including the deleted-items folder; not forwarded, printed, photographed, screenshotted or shared; no other Tendwell messages received since leaving |
+| Received | 2026-09-10 09:30, signed and dated, held by TEN-003 with a copy in the platform's privacy incident file |
+| Scope | The escalation email deleted from the personal mailbox, including the deleted-items folder; not forwarded, printed, photographed, screenshotted or shared; no other the platform messages received since leaving |
 | Agency mailbox | TEN-003 removed the forwarding rule and deleted the message from the former employee's agency mailbox on 2026-09-10 08:30 under its own retention policy |
 | Retention | Incident file, assessment and attestation retained 7 years, aligned with audit retention |
 
@@ -281,7 +281,7 @@ Completed by the Compliance and Privacy Officer with data facts from the Busines
 Email to all tenant administrators, 2026-09-09 18:45 ET (no tenant or client details):
 
 ```text
-Subject: Tendwell notice: escalation emails temporarily paused
+Subject: the platform notice: escalation emails temporarily paused
 
 Hello,
 
@@ -295,12 +295,12 @@ What is still working:
 
 What you can do now:
 - Nothing is required. If you rely on email for escalations, please make sure
-  your on-call staff have the Tendwell app installed with notifications on.
+  your on-call staff have the platform app installed with notifications on.
 
 We will tell you as soon as escalation emails are back on. If we find that this
 affected your agency, we will contact your BAA privacy contact directly.
 
-Customer Success Lead, Tendwell Labs
+Customer Success Lead, the vendor
 ```
 
 ## Approval

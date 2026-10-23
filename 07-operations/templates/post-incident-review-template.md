@@ -41,7 +41,7 @@ How to use this template
 | Related CR | CR-00N or None |
 | Related ADR / NFR | ADR-00N, NFR-<CAT>-NN |
 
-> Guidance: "Start" is when the system first behaved incorrectly, which is often earlier than anyone noticed. "Detected" is when the first signal reached Tendwell Labs, even if nobody recognized it. Keep these honest; they drive MTTD and MTTA.
+> Guidance: "Start" is when the system first behaved incorrectly, which is often earlier than anyone noticed. "Detected" is when the first signal reached the vendor, even if nobody recognized it. Keep these honest; they drive MTTD and MTTA.
 
 ## 1. Executive summary
 
@@ -158,7 +158,7 @@ How to use this template
 
 ## 11. Privacy assessment (privacy incidents only)
 
-> Guidance: completed by the Compliance and Privacy Officer, with data facts from the Business Analyst. Delete this section for non-privacy incidents. The final breach determination rests with the covered entity; this section is Tendwell's input to that determination and is not legal advice.
+> Guidance: completed by the Compliance and Privacy Officer, with data facts from the Business Analyst. Delete this section for non-privacy incidents. The final breach determination rests with the covered entity; this section is the platform's input to that determination and is not legal advice.
 
 ### 11.1 Four-factor assessment (45 CFR 164.402)
 

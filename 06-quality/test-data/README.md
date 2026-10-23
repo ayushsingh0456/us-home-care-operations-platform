@@ -25,7 +25,7 @@ This folder holds the synthetic data set used by every test level after unit tes
 Ground rules:
 
 - **Synthetic only.** No production PHI is ever copied, masked or sampled into any non-production environment. Defects that need real data are reproduced with synthetic records (see [deployment and security](../../03-design/architecture/deployment-and-security.md)).
-- **Anonymization.** Phones are in the fictional range +1-614-555-01xx; emails use `@example.com` (agency users) or `@example.org` (Tendwell Labs staff); Medicaid IDs are `ZZ` plus 8 digits; addresses are on fictional streets in Lakemont, OH 43999; EINs are placeholders. People, agencies and prescribers are fictional.
+- **Anonymization.** Phones are in the fictional range +1-614-555-01xx; emails use `@example.com` (agency users) or `@example.org` (the vendor staff); Medicaid IDs are `ZZ` plus 8 digits; addresses are on fictional streets in Lakemont, OH 43999; EINs are placeholders. People, agencies and prescribers are fictional.
 - **One clock.** The data describes the world **as of 2026-09-15 08:30 America/New_York**. Timestamps are written in local ISO 8601 with offset (for example `2026-09-15T08:30:00-04:00`); the loader stores them in UTC (NFR-DAT-01). Tests that need another time move the tenant's virtual clock, a non-production test-harness control that is absent from production builds.
 - **Validated.** `validate_test_data.py` checks keys, foreign keys, same-tenant references, recomputed GPS distances, credential statuses, dose windows, vital flags, expected totals, anonymization formats and the Postman collection. It must pass before any seed is published.
 

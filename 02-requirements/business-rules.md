@@ -1,4 +1,4 @@
-# Business Rules Catalog and Decision Tables: Tendwell
+# Business Rules Catalog and Decision Tables: US Home-Care Operations Platform
 
 ## Document control
 
@@ -11,7 +11,7 @@
 | Last updated | 2026-09-24 |
 | Reviewers | Product Owner; Engineering Lead; QA Lead; Clinical SME (RN advisor); Compliance and Privacy Officer; Customer Success Lead (pilot) |
 
-**Purpose and scope.** This document holds the full catalog of the 58 business rules that constrain Tendwell's behavior, independent of any screen or API. It also gives decision tables for the rules whose combinations are easy to get wrong. The rule wording is canonical. The decision tables are the specification that developers implement and QA tests against, and every business rule needs at least one automated test (NFR-MNT-01).
+**Purpose and scope.** This document holds the full catalog of the 58 business rules that constrain the platform's behavior, independent of any screen or API. It also gives decision tables for the rules whose combinations are easy to get wrong. The rule wording is canonical. The decision tables are the specification that developers implement and QA tests against, and every business rule needs at least one automated test (NFR-MNT-01).
 
 ## 1. Conventions
 
@@ -494,7 +494,7 @@ CR-002 (open-shift confirmation) changed FR-SCH-05 but no business rule. CR-008 
 | 7 | BR-027 (auto-close at 14 h) vs long supported-living shifts | Visits must end within 13 h 55 min; longer shifts are split (TBD-15). |
 | 8 | BR-050 (one invoice per key) vs BR-051 (void and reissue) | The key is unique among non-Void invoices only (table 3.2d). |
 | 9 | BR-046 (adjustments) vs BR-015 (effective-dated rates) | Adjustments are priced at the rate effective on the original visit date. |
-| 10 | BR-013 and BR-057 (7-year retention) vs deletion after cancellation (NFR-PRIV-03) | The agency keeps its records through the export. Tendwell keeps audit metadata without PHI (TBD-17). |
+| 10 | BR-013 and BR-057 (7-year retention) vs deletion after cancellation (NFR-PRIV-03) | The agency keeps its records through the export. The platform keeps audit metadata without PHI (TBD-17). |
 | 11 | BR-036 deadlines name "Serious injury" and "Medication error with harm", which are not incident categories | Mapped through category and severity (TBD-08). |
 
 ## Related documents

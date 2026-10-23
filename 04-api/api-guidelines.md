@@ -1,4 +1,4 @@
-# Tendwell API Design Guidelines
+# US Home-Care Operations Platform API Design Guidelines
 
 ## Document control
 
@@ -13,7 +13,7 @@
 
 ## 1. Purpose and scope
 
-These guidelines define the conventions that every Tendwell REST endpoint follows. Developers use them to build the API, QA uses them to test it, and integrators use them to call it.
+These guidelines define the conventions that every the platform REST endpoint follows. Developers use them to build the API, QA uses them to test it, and integrators use them to call it.
 
 The contract itself is [openapi.yaml](openapi.yaml), OpenAPI 3.1, covering 105 operations. Domain events and the payment webhook are in [events and webhooks](events-and-webhooks.md).
 
@@ -46,7 +46,7 @@ The rules apply to all `/v1` endpoints used by:
 
 | Topic | Rule |
 |---|---|
-| Major version | In the URL path: `https://api.tendwell.example/v1`. A new major version (`/v2`) is introduced only for breaking changes, and both versions run in parallel during the deprecation period. |
+| Major version | In the URL path: `https://api.homecare.example/v1`. A new major version (`/v2`) is introduced only for breaking changes, and both versions run in parallel during the deprecation period. |
 | Contract version | `info.version` uses semantic versioning and moves with the SRS: `1.3.0` corresponds to SRS v1.3. |
 | Non-breaking changes (allowed in `/v1`) | New endpoints; new optional request fields; new response fields; new optional query parameters; new error codes; relaxed validation. |
 | Breaking changes (need `/v2` or a new operation) | Removing or renaming a field, parameter or endpoint; changing a type or format; making an optional field required; tightening validation; changing the meaning of a status or an enum value. |
@@ -119,7 +119,7 @@ Every error response is an RFC 9457 problem document with media type `applicatio
 
 ```json
 {
-  "type": "https://api.tendwell.example/problems/EVV_CLOCK_IN_WINDOW_NOT_OPEN",
+  "type": "https://api.homecare.example/problems/EVV_CLOCK_IN_WINDOW_NOT_OPEN",
   "title": "It is too early to clock in",
   "status": 422,
   "detail": "Clock-in opens at 08:45, 15 minutes before the 09:00 start. Try again then.",
@@ -169,7 +169,7 @@ The HTTP status for warnings is "200 (warning)": warnings are returned as `Compl
 | API_PRECONDITION_FAILED | 412 | Stale `If-Match` | Someone else saved a change to this record. Reload it, review the changes and try again. | FR-SCH-04 |
 | API_PRECONDITION_REQUIRED | 428 | `If-Match` missing | Reload the record and try again. | FR-SCH-04 |
 | API_RATE_LIMITED | 429 | Rate limit exceeded | You are sending requests too quickly. Wait a moment and try again. | NFR-AVL-01 |
-| API_SERVICE_UNAVAILABLE | 503 | Planned maintenance or overload | Tendwell is briefly unavailable. Clock-ins are saved on your phone and will sync automatically. | NFR-AVL-01, NFR-AVL-02 |
+| API_SERVICE_UNAVAILABLE | 503 | Planned maintenance or overload | The platform is briefly unavailable. Clock-ins are saved on your phone and will sync automatically. | NFR-AVL-01, NFR-AVL-02 |
 | **Identity and access** | | | | |
 | IAM_UNAUTHENTICATED | 401 | Token missing or expired | Your session has ended. Sign in again to continue. | FR-IAM-04 |
 | IAM_INVALID_CREDENTIALS | 401 | Email or password wrong (same response for unknown email) | Email or password is incorrect. After 5 failed attempts your account is locked for 15 minutes. | FR-IAM-01, FR-IAM-03 |
@@ -360,9 +360,9 @@ Limits are enforced per caller and route class at the edge (WAF) and in the API 
 
 | Claim | Example | Meaning |
 |---|---|---|
-| `iss` | `https://auth.tendwell.example/` | Issuer |
+| `iss` | `https://auth.homecare.example/` | Issuer |
 | `sub` | `3d9b6c3a-5b2e-4f14-a7e2-c0000000a001` | User ID |
-| `aud` | `https://api.tendwell.example` | Audience |
+| `aud` | `https://api.homecare.example` | Audience |
 | `iat`, `exp` | `1790942400`, `1790943300` | Issued at and expiry (15 minutes) |
 | `jti` | `0f4c2e8a-...` | Token ID |
 | `sid` | `5b7d...` | Session ID, checked against the revocation deny-list |
@@ -376,9 +376,9 @@ Limits are enforced per caller and route class at the edge (WAF) and in the API 
 
 ```json
 {
-  "iss": "https://auth.tendwell.example/",
+  "iss": "https://auth.homecare.example/",
   "sub": "3d9b6c3a-5b2e-4f14-a7e2-c0000000a001",
-  "aud": "https://api.tendwell.example",
+  "aud": "https://api.homecare.example",
   "iat": 1790942400,
   "exp": 1790943300,
   "jti": "0f4c2e8a-6d1b-4a3e-9c5f-7b2d8e1a4c60",
@@ -518,7 +518,7 @@ Full design: [events and webhooks, section 7](events-and-webhooks.md#7-inbound-p
 ### 15.2 Outbound: agency webhooks (Release 2)
 
 Not available in Release 1. The planned design is:
-- HMAC-SHA256 signatures in a `Tendwell-Signature` header with a timestamp;
+- HMAC-SHA256 signatures in a `the platform-Signature` header with a timestamp;
 - thin, PHI-minimized payloads;
 - retries with backoff and a dead-letter view.
 

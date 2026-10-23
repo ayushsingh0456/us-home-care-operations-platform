@@ -19,7 +19,7 @@
 
 ### Purpose and scope
 
-This page explains how the Business Analyst used AI assistants on Tendwell, what the BA let them do, what the BA never delegated, and what the review of their output caught. It covers six activities: elicitation synthesis, first-draft user stories and Gherkin, test idea generation, consistency and traceability checks, Mermaid diagram drafting, and spec-driven development with GitHub Spec Kit (`/specify`, `/plan`, `/tasks`). The worked example of the last one is [spec 001: offline EVV capture](specs/001-offline-evv-capture/spec.md).
+This page explains how the Business Analyst used AI assistants on the platform, what the BA let them do, what the BA never delegated, and what the review of their output caught. It covers six activities: elicitation synthesis, first-draft user stories and Gherkin, test idea generation, consistency and traceability checks, Mermaid diagram drafting, and spec-driven development with GitHub Spec Kit (`/specify`, `/plan`, `/tasks`). The worked example of the last one is [spec 001: offline EVV capture](specs/001-offline-evv-capture/spec.md).
 
 The short version: AI made the BA faster at producing first drafts and at finding inconsistencies across a large document set. It did not make decisions, own IDs, set business rules or see real data.
 

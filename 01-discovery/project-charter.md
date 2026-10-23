@@ -1,4 +1,4 @@
-# Project Charter: Tendwell Release 1
+# Project Charter: US Home-Care Operations Platform Release 1
 
 ## Document control
 
@@ -19,13 +19,13 @@
 
 ### Purpose and scope of this document
 
-This charter authorizes the Tendwell Release 1 (R1) project, states why it exists, and sets the objectives, scope boundaries, milestones, budget envelope and governance that every later artifact traces to. The Business Analyst drafted it from discovery evidence (see [discovery workshop notes](discovery-workshop-notes.md)) and maintains it; the Executive Sponsor and Product Owner approve it. Detailed requirements live in the [BRD](../02-requirements/BRD.md) and [SRS](../02-requirements/SRS.md), not here.
+This charter authorizes the platform Release 1 (R1) project, states why it exists, and sets the objectives, scope boundaries, milestones, budget envelope and governance that every later artifact traces to. The Business Analyst drafted it from discovery evidence (see [discovery workshop notes](discovery-workshop-notes.md)) and maintains it; the Executive Sponsor and Product Owner approve it. Detailed requirements live in the [BRD](../02-requirements/BRD.md) and [SRS](../02-requirements/SRS.md), not here.
 
 All organizations, people and figures in this case study are fictional.
 
 ## 1. Vision statement
 
-> For home and community-based care agencies that run on phone calls, paper timesheets and MAR binders, **Tendwell** is a multi-tenant operations platform that connects every authorized hour of care to a verified visit, a documented dose, a correct paycheck and a clean invoice. Unlike generic scheduling tools, Tendwell treats EVV, medication safety and payroll and billing rules as one connected chain, so agency staff spend their time on care rather than on reconciliation.
+> For home and community-based care agencies that run on phone calls, paper timesheets and MAR binders, **the platform** is a multi-tenant operations platform that connects every authorized hour of care to a verified visit, a documented dose, a correct paycheck and a clean invoice. Unlike generic scheduling tools, the platform treats EVV, medication safety and payroll and billing rules as one connected chain, so agency staff spend their time on care rather than on reconciliation.
 
 ## 2. Problem statement
 
@@ -78,15 +78,15 @@ Service lines: `HOME_VISIT`, `ADULT_DAY` and `SUPPORTED_LIVING`. Applications: A
 | Item | Disposition |
 |---|---|
 | EP-14 Family Portal (BN-14) | Deferred to Release 2 by CR-003 (charter v1.1) |
-| Payroll processing (tax withholding, pay stubs, direct deposit) | Not built; Tendwell exports payroll to the agency's payroll provider (FR-PAY-05). Later confirmed by the rejection of CR-008 |
+| Payroll processing (tax withholding, pay stubs, direct deposit) | Not built; the platform exports payroll to the agency's payroll provider (FR-PAY-05). Later confirmed by the rejection of CR-008 |
 | EDI 837 claim submission | Not built in R1; claim batches are CSV for the agency's clearinghouse (FR-BIL-06) |
 | State-specific EVV aggregator formats | R2; R1 provides a configurable aggregator CSV (NFR-CMP-02) |
 | Spanish caregiver app | R2 (NFR-I18N-01); strings are externalized in R1 |
-| Clinical assessments (OASIS), skilled nursing visit documentation | Not planned; Tendwell targets non-medical and paraprofessional care with eMAR support |
+| Clinical assessments (OASIS), skilled nursing visit documentation | Not planned; the platform targets non-medical and paraprofessional care with eMAR support |
 
 ### Assumptions and constraints
 
-- Each agency remains the HIPAA covered entity; Tendwell Labs acts as a business associate and signs a BAA with each agency (NFR-CMP-01).
+- Each agency remains the HIPAA covered entity; the vendor acts as a business associate and signs a BAA with each agency (NFR-CMP-01).
 - R1 is built by one cross-functional team in six two-week sprints; scope changes go through change control (section 9).
 - Compliance features are designed to support agency obligations. The agency remains responsible for its own regulatory compliance.
 
@@ -96,7 +96,7 @@ The full register, power/interest grid and RACI are in the [stakeholder register
 
 | Group | Roles |
 |---|---|
-| Sponsor and product | Executive Sponsor (Tendwell Labs), Product Owner |
+| Sponsor and product | Executive Sponsor (the vendor), Product Owner |
 | Delivery team | Business Analyst, Engineering Lead, 4 developers (2 backend, 1 web, 1 mobile), QA Lead and 1 QA engineer, UX Designer |
 | Domain and assurance | Clinical SME (RN advisor), Compliance and Privacy Officer |
 | Customer-facing | Customer Success Lead (pilot), Platform Support |

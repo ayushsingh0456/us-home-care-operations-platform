@@ -21,13 +21,13 @@ Pilot agencies reported proxy clock-ins: one caregiver clocking in for another, 
 
 Face images and templates are biometric identifiers. They are sensitive under HIPAA when linked to care records and are regulated by some state biometric privacy laws. The team has no computer-vision specialists, and presentation-attack detection (printed photos, screen replays, masks) is a specialized field with its own test standard (ISO/IEC 30107-3).
 
-How should Tendwell verify that the enrolled caregiver is physically present at clock-in without building biometric technology in-house or retaining images?
+How should the platform verify that the enrolled caregiver is physically present at clock-in without building biometric technology in-house or retaining images?
 
 ## Decision drivers
 
 1. Server authority: the device must not be able to declare a pass (the same principle as server-computed distance in BR-021).
 2. Resistance to presentation attacks, evidenced by independent testing.
-3. No raw images retained by Tendwell; minimum biometric data overall (NFR-PRIV-01).
+3. No raw images retained by the platform; minimum biometric data overall (NFR-PRIV-01).
 4. Vendor replaceability as the market changes; no vendor types in domain code.
 5. Latency within NFR-PERF-02 and a graceful path when the vendor is down, because care must never be blocked.
 6. Coverage under a BAA (NFR-CMP-01).
@@ -49,7 +49,7 @@ The app compares a selfie with a reference template stored on the device and sen
 | Pros | Cons |
 |---|---|
 | Server authority; no per-check vendor fee | No in-house expertise for model accuracy, demographic bias testing or presentation-attack detection |
-| | Tendwell would process and transiently hold raw images, enlarging the security scope |
+| | The platform would process and transiently hold raw images, enlarging the security scope |
 | | Ongoing model maintenance competes with the core roadmap |
 
 ### Option 3: Third-party liveness and face match behind `IdentityVerificationPort` (chosen)
@@ -60,7 +60,7 @@ The vendor SDK guides capture on the device and produces an encrypted, vendor-si
 |---|---|
 | Server-side result; the device cannot read or alter the package | Per-check vendor cost |
 | Vendor provides independently tested presentation-attack detection | Dependency on vendor availability and latency |
-| Tendwell stores no images; the vendor holds the enrolled template under contract | Vendor must sign a BAA and meet deletion terms |
+| The platform stores no images; the vendor holds the enrolled template under contract | Vendor must sign a BAA and meet deletion terms |
 | Port isolates vendor specifics; switching vendors means a new adapter and re-enrollment | Matching needs connectivity, so offline captures are matched only at sync |
 
 ### Option 4: Alternatives without biometrics (PIN, client signature, telephony)
@@ -72,7 +72,7 @@ The vendor SDK guides capture on the device and produces an encrypted, vendor-si
 
 ## Decision outcome
 
-**Chosen option: Option 3, a third-party liveness and face-match vendor behind `IdentityVerificationPort`**, because it keeps the result under server authority (driver 1), gives tested presentation-attack detection (driver 2) and keeps raw images out of Tendwell (driver 3), while the port keeps the vendor replaceable (driver 4).
+**Chosen option: Option 3, a third-party liveness and face-match vendor behind `IdentityVerificationPort`**, because it keeps the result under server authority (driver 1), gives tested presentation-attack detection (driver 2) and keeps raw images out of the platform (driver 3), while the port keeps the vendor replaceable (driver 4).
 
 ### Port
 
@@ -87,7 +87,7 @@ Domain code depends only on this interface. The adapter handles vendor authentic
 
 ### Rules
 
-1. **Enrollment.** At onboarding, the caregiver consents in the app and enrolls through the SDK. Tendwell stores only `caregivers.identity_enrolled = true` and the vendor `enrollmentRef` (encrypted). The agency remains responsible for any state biometric-privacy notice and consent obligations; the consent text is tenant-configurable.
+1. **Enrollment.** At onboarding, the caregiver consents in the app and enrolls through the SDK. The platform stores only `caregivers.identity_enrolled = true` and the vendor `enrollmentRef` (encrypted). The agency remains responsible for any state biometric-privacy notice and consent obligations; the consent text is tenant-configurable.
 2. **Verification.** `POST /visits/{visitId}/identity-checks` receives the capture package. The API calls `verify`, then inserts an `identity_checks` row with `result` (Pass when liveness passed and the score meets the platform threshold), `match_score`, `liveness_passed` and `expires_at = now() + 90 s`. The package is held in memory only, never written to disk, logs, traces or S3.
 3. **Single use.** `POST /visits/{visitId}/clock-in` (or clock-out) includes `identityCheckId`. The server consumes it atomically: `UPDATE identity_checks SET consumed_at = now() WHERE id = $1 AND caregiver_id = $2 AND visit_id = $3 AND result = 'Pass' AND consumed_at IS NULL AND expires_at > now() RETURNING id`. No row means expired, reused or mismatched (BR-024).
 4. **Failure handling.** A Fail result lets the caregiver try again, up to three attempts. After the third failure, or when the vendor is unavailable, the caregiver may still clock in; the punch is accepted and IDENTITY_CHECK_FAILED is raised with the reason (failed match or vendor unavailable) for Coordinator review (FR-EVV-07). Vendor-unavailable exceptions can be bulk-resolved because they are systemic. Care is never blocked.
@@ -99,7 +99,7 @@ Domain code depends only on this interface. The adapter handles vendor authentic
 
 **Positive**
 
-- Proxy clock-ins become detectable and attributable without Tendwell holding images.
+- Proxy clock-ins become detectable and attributable without the platform holding images.
 - The vendor can be replaced through a new adapter; domain logic, data model and API stay unchanged.
 - The 90-second, single-use token prevents a passing check from being reused for a second visit or a colleague's punch.
 

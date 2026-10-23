@@ -53,7 +53,7 @@ Version 1.3 aligns US-049 and US-050 with CR-006 (SRS v1.3, raised from INC-2026
 | Dependencies | US-007, DEP-01 |
 
 **Story**
-As a caregiver, I want to choose how Tendwell contacts me and not be disturbed at night by anything that can wait, so that I see what matters without my phone buzzing all evening.
+As a caregiver, I want to choose how the platform contacts me and not be disturbed at night by anything that can wait, so that I see what matters without my phone buzzing all evening.
 
 **Acceptance criteria**
 
@@ -84,9 +84,9 @@ Scenario Outline: US-049-AC3 Keep PHI out of every external channel
 
   Examples:
     | channel | text                                                                         |
-    | SMS     | Tendwell: your schedule changed. Open the app to see details.                |
+    | SMS     | The platform: your schedule changed. Open the app to see details.                |
     | Push    | Your schedule changed. Tap to see details.                                   |
-    | Email   | Your schedule changed. Sign in to Tendwell to see details. (with deep link)  |
+    | Email   | Your schedule changed. Sign in to the platform to see details. (with deep link)  |
 
 Scenario: US-049-AC4 Deep links require sign-in
   Given Rosa's session has expired

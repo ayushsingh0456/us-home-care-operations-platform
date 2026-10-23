@@ -1,4 +1,4 @@
-# Glossary: Tendwell
+# Glossary: US Home-Care Operations Platform
 
 ## Document control
 
@@ -11,7 +11,7 @@
 | Last updated | 2026-09-24 |
 | Reviewers | Product Owner; Clinical SME (RN advisor); Compliance and Privacy Officer; Engineering Lead |
 
-**Purpose and scope.** This glossary defines 114 domain, regulatory and technical terms used across the Tendwell case study, so that requirements, stories, tests and conversations mean the same thing.
+**Purpose and scope.** This glossary defines 114 domain, regulatory and technical terms used across the platform case study, so that requirements, stories, tests and conversations mean the same thing.
 - Where a term is governed by a business rule or requirement, the definition cites it, and the rule wins if they ever differ.
 - Regulatory definitions are summarized for readability. The cited regulation is authoritative.
 - Requirement IDs follow the conventions in [SRS section 1.4](SRS.md#14-definitions-acronyms-and-conventions).
@@ -22,13 +22,13 @@
 
 | Term | Definition |
 |---|---|
-| **837P** | The HIPAA X12 electronic claim transaction for professional services. Out of R1 scope; Tendwell exports a claim batch CSV for the agency's clearinghouse instead (FR-BIL-06). |
+| **837P** | The HIPAA X12 electronic claim transaction for professional services. Out of R1 scope; the platform exports a claim batch CSV for the agency's clearinghouse instead (FR-BIL-06). |
 
 ### A
 
 | Term | Definition |
 |---|---|
-| **Accrual** | Leave earned in proportion to time worked. The Tendwell default is 1 h of PTO per 30 h worked, capped at an 80 h balance (BR-040). |
+| **Accrual** | Leave earned in proportion to time worked. The platform default is 1 h of PTO per 30 h worked, capped at an 80 h balance (BR-040). |
 | **Addendum** | A signed, time-stamped addition to a locked visit note that never changes the original text (BR-035). Plural: addenda. |
 | **ADL (activities of daily living)** | Basic self-care tasks: bathing, dressing, toileting, transferring, continence and eating. Care-plan tasks are categorized ADL, IADL or Clinical. |
 | **Administration window** | The period around a scheduled dose in which documenting it counts as on time. Scheduled time plus or minus 60 minutes by default, configurable per order from 15 to 120 minutes (BR-029). |
@@ -44,12 +44,12 @@
 | Term | Definition |
 |---|---|
 | **BA** | In this repository BA means Business Analyst. "Business associate" is always written out to avoid confusion. |
-| **BAA (business associate agreement)** | The contract HIPAA requires before a business associate handles PHI for a covered entity, and between a business associate and its own subcontractors. Tendwell Labs signs one with each agency (NFR-CMP-01). |
+| **BAA (business associate agreement)** | The contract HIPAA requires before a business associate handles PHI for a covered entity, and between a business associate and its own subcontractors. the vendor signs one with each agency (NFR-CMP-01). |
 | **Billing model** | How an authorization is priced: Hourly (15-minute units), Per visit, Daily or Fixed monthly (BR-047, BR-048). |
 | **Billing run** | A batch job that creates or updates Draft invoices for a period from Verified visits. Idempotent per tenant, client, payer and period (BR-050). |
 | **Blocking credential** | A credential type that, once Expired, stops the caregiver from being assigned new visits (FR-WRK-03, BR-014). |
 | **Breach (HIPAA)** | An acquisition, access, use or disclosure of PHI not permitted by the Privacy Rule that compromises its security or privacy. It is presumed to be a breach unless a four-factor risk assessment shows a low probability of compromise (45 CFR 164.402). |
-| **Business associate** | A person or organization that creates, receives, maintains or transmits PHI on behalf of a covered entity. Tendwell Labs is a business associate of each agency. |
+| **Business associate** | A person or organization that creates, receives, maintains or transmits PHI on behalf of a covered entity. the vendor is a business associate of each agency. |
 
 ### C
 
@@ -76,7 +76,7 @@
 | **Deduplication key** | Event ID plus recipient plus escalation step. A notification whose key has already been sent is suppressed (BR-055). |
 | **Deep link** | A link that opens a specific screen and requires sign-in, so a message can point to PHI without containing it (BR-056). |
 | **DOL Home Care Rule** | The US Department of Labor's 2013 final rule, effective 2015, that extended FLSA minimum wage and overtime to most home care workers employed by third-party agencies. |
-| **DST (daylight saving time)** | The seasonal clock change. In 2026, America/New_York changes on 2026-03-08 and 2026-11-01. Tendwell computes durations on elapsed time (NFR-DAT-01). |
+| **DST (daylight saving time)** | The seasonal clock change. In 2026, America/New_York changes on 2026-03-08 and 2026-11-01. The platform computes durations on elapsed time (NFR-DAT-01). |
 
 ### E
 
@@ -84,11 +84,11 @@
 |---|---|
 | **Effective permissions** | Role-template permissions, plus granted overrides, minus denied overrides; a deny always wins (BR-005). |
 | **Effective-dated** | Valid from a given date, so history keeps the value in force at the time. Used for pay rates (BR-015). |
-| **eMAR** | Electronic medication administration record: Tendwell's digital record of medication orders, scheduled doses and their outcomes (EP-07). |
+| **eMAR** | Electronic medication administration record: the platform's digital record of medication orders, scheduled doses and their outcomes (EP-07). |
 | **Envelope encryption** | Encrypting data with a data key that is itself encrypted by a master key held in a key management service. Used for PHI fields (NFR-SEC-01). |
 | **ePHI** | Electronic protected health information: PHI created, received, maintained or transmitted electronically. The subject of the HIPAA Security Rule. |
 | **Escalation ladder** | A tenant-configured sequence of notification steps for one event type, each with a delay, recipient role and channels. It stops when the triggering condition resolves (FR-NTF-03). |
-| **EVV aggregator** | A state system that collects EVV data from agencies' own EVV systems. Tendwell exports a configurable CSV for it (NFR-CMP-02). |
+| **EVV aggregator** | A state system that collects EVV data from agencies' own EVV systems. The platform exports a configurable CSV for it (NFR-CMP-02). |
 | **EVV (electronic visit verification)** | Electronic capture of the six data elements that the 21st Century Cures Act section 12006 requires for Medicaid personal care and home health services: type of service, individual receiving it, date, location, individual providing it, and begin and end time (BR-020). |
 | **EVV exception** | A flag on a visit that must be resolved or waived, with a reason code, before the visit can be Verified. Examples: Late start, Location mismatch, Low GPS accuracy (FR-EVV-07). |
 
@@ -122,7 +122,7 @@
 |---|---|
 | **IADL (instrumental activities of daily living)** | Tasks needed to live independently: meal preparation, housekeeping, laundry, shopping, medication reminders and arranging transport. |
 | **ICD-10-CM** | The International Classification of Diseases, 10th Revision, Clinical Modification: the US diagnosis code set recorded on client records and claims (FR-CLI-01). |
-| **Idempotency** | The property that repeating an operation has the same effect as doing it once. Tendwell uses an Idempotency-Key header on unsafe POSTs, a unique key per billing run (BR-050) and per scheduled job (ADR-003). |
+| **Idempotency** | The property that repeating an operation has the same effect as doing it once. The platform uses an Idempotency-Key header on unsafe POSTs, a unique key per billing run (BR-050) and per scheduled job (ADR-003). |
 | **Identity check** | A selfie liveness and face-match check against the caregiver's enrolled reference. A pass is valid for 90 seconds and one punch (FR-EVV-04, BR-024). |
 
 ### K
@@ -145,7 +145,7 @@
 
 | Term | Definition |
 |---|---|
-| **MAR** | Medication administration record: the per-client record of each scheduled dose and its outcome. Tendwell prints a monthly MAR grid (FR-MAR-09). |
+| **MAR** | Medication administration record: the per-client record of each scheduled dose and its outcome. The platform prints a monthly MAR grid (FR-MAR-09). |
 | **Medicaid ID** | The state-issued member identifier for a Medicaid client. PHI; synthetic samples use ZZ followed by 8 digits. |
 | **MFA (multi-factor authentication)** | Sign-in with a second factor, either an authenticator-app TOTP or an SMS code. Mandatory for the roles listed in BR-006. |
 | **Mileage reimbursement** | Miles between consecutive visits times the tenant's rate, for mileage-eligible caregivers. A reimbursement, not wages; it never changes hours (BR-044). |
@@ -157,18 +157,18 @@
 
 | Term | Definition |
 |---|---|
-| **Net 30** | Payment due 30 days after the invoice date; the Tendwell default (BR-052). |
-| **NIST SP 800-63B** | The NIST guideline on authentication and authenticator management; the basis of Tendwell's password rules (BR-007). |
-| **Non-exempt** | An employee entitled to FLSA minimum wage and overtime. Agency-employed caregivers are non-exempt under the DOL Home Care Rule; in Tendwell this is the pay profile's overtime-eligible flag. |
+| **Net 30** | Payment due 30 days after the invoice date; the platform default (BR-052). |
+| **NIST SP 800-63B** | The NIST guideline on authentication and authenticator management; the basis of the platform's password rules (BR-007). |
+| **Non-exempt** | An employee entitled to FLSA minimum wage and overtime. Agency-employed caregivers are non-exempt under the DOL Home Care Rule; in the platform this is the pay profile's overtime-eligible flag. |
 
 ### O
 
 | Term | Definition |
 |---|---|
-| **OIDC (OpenID Connect)** | An identity layer on OAuth 2.0. Used by Tendwell's managed identity provider (IF-10). |
+| **OIDC (OpenID Connect)** | An identity layer on OAuth 2.0. Used by the platform's managed identity provider (IF-10). |
 | **Open shift** | An unassigned visit offered to eligible caregivers to claim. The first eligible claim wins, optionally confirmed by a Coordinator (FR-SCH-05, CR-002). |
 | **Overtime** | Hours worked over 40 in the workweek, paid at 1.5x to overtime-eligible caregivers, plus optional daily overtime (BR-041). |
-| **OWASP ASVS** | The OWASP Application Security Verification Standard. Tendwell targets version 4.0.3, Level 2 (NFR-SEC-02). |
+| **OWASP ASVS** | The OWASP Application Security Verification Standard. The platform targets version 4.0.3, Level 2 (NFR-SEC-02). |
 
 ### P
 
@@ -177,12 +177,12 @@
 | **Pay period** | The span of a payroll run (weekly, bi-weekly or semi-monthly per tenant). It is locked when exported (FR-PAY-01, BR-046). |
 | **Payer** | An organization that pays for client services: Medicaid, Medicaid managed care, long-term care insurance, private pay or the VA. |
 | **Per diem** | (1) A daily billing unit, such as adult day care billed per day (Daily billing model). (2) An employment type for as-needed staff with no fixed hours. |
-| **PHI (protected health information)** | Individually identifiable health information held or transmitted by a covered entity or business associate, in any form. In Tendwell: client names linked to services, date of birth, Medicaid ID, diagnoses, medications, service address and incident details. |
+| **PHI (protected health information)** | Individually identifiable health information held or transmitted by a covered entity or business associate, in any form. In the platform: client names linked to services, date of birth, Medicaid ID, diagnoses, medications, service address and incident details. |
 | **PHI reveal** | Unmasking a masked PHI field after entering a reason. Every reveal is audited (FR-CLI-06). |
-| **Platform Console** | The web application Tendwell Labs staff use to manage plans, promo codes and the tenant lifecycle. |
+| **Platform Console** | The web application the vendor staff use to manage plans, promo codes and the tenant lifecycle. |
 | **Pre-signed URL** | A time-limited URL that grants access to one stored object without other credentials. Used for documents and photos. |
 | **PRN (pro re nata)** | "As needed": medication given for a stated indication, limited by a maximum number of doses in any 24 hours and a minimum interval (FR-MAR-05, BR-033). |
-| **Problem details (RFC 9457)** | The standard JSON error format (`application/problem+json`) that the Tendwell API returns. |
+| **Problem details (RFC 9457)** | The standard JSON error format (`application/problem+json`) that the platform API returns. |
 | **Proration** | Charging part of a fixed monthly rate for a partial month: rate times active days divided by days in the month (BR-048). |
 | **Punch** | One EVV record of type In or Out in the append-only punch ledger, from source Mobile, MobileOffline, Manual or System. |
 
@@ -207,9 +207,9 @@
 
 | Term | Definition |
 |---|---|
-| **Seat** | The unit of the Tendwell subscription: one active client, meaning a client with at least one scheduled visit in the billing cycle (BR-002). |
+| **Seat** | The unit of the platform subscription: one active client, meaning a client with at least one scheduled visit in the billing cycle (BR-002). |
 | **Service authorization** | A payer's approval for a client to receive a service: payer, service code, units, unit type, period, billing model and rate (FR-CLI-03). |
-| **Service line** | One of the three kinds of care Tendwell supports: HOME_VISIT, ADULT_DAY or SUPPORTED_LIVING. |
+| **Service line** | One of the three kinds of care the platform supports: HOME_VISIT, ADULT_DAY or SUPPORTED_LIVING. |
 | **SEV (severity level)** | The severity of a production incident; SEV-1 is the most severe. Levels are defined in the incident management process. INC-2026-015 was SEV-1 (privacy); INC-2026-007 and INC-2026-011 were SEV-2. |
 | **Short notice** | The flag on a time-off request made less than 7 days ahead, except Sick leave (BR-038). |
 | **Single-flight** | The guarantee that a scheduled job runs once per idempotency key, even with several workers or during a deployment (ADR-003, NFR-MNT-02). |
@@ -223,7 +223,7 @@
 |---|---|
 | **Tenant** | One customer agency and all of its data, isolated from every other tenant (BR-001). |
 | **TOTP (time-based one-time password)** | A short-lived code generated by an authenticator app (RFC 6238). |
-| **Travel time** | Time between consecutive visits on the same day. FLSA treats it as hours worked; Tendwell pays min(gap, estimated drive time + 10 minutes) when the gap is 2 hours or less (BR-043). |
+| **Travel time** | Time between consecutive visits on the same day. FLSA treats it as hours worked; the platform pays min(gap, estimated drive time + 10 minutes) when the gap is 2 hours or less (BR-043). |
 
 ### U
 
@@ -243,8 +243,8 @@
 | Term | Definition |
 |---|---|
 | **Warning** | A scheduling compliance result that allows saving once a Coordinator gives a reason (FR-SCH-03). Contrast: hard block. |
-| **WCAG** | The Web Content Accessibility Guidelines. Tendwell targets version 2.2, Level AA (NFR-ACC-01). |
-| **Webhook** | An HTTP callback one system sends to another when an event happens. Tendwell receives signed payment webhooks (IF-01). |
+| **WCAG** | The Web Content Accessibility Guidelines. The platform targets version 2.2, Level AA (NFR-ACC-01). |
+| **Webhook** | An HTTP callback one system sends to another when an event happens. The platform receives signed payment webhooks (IF-01). |
 | **Workweek** | A fixed, recurring period of 168 hours (seven consecutive 24-hour periods), set per tenant, over which FLSA overtime is calculated. |
 
 ## Related documents

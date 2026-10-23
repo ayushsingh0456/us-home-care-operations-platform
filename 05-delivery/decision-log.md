@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This log records the product and delivery decisions that shape Tendwell, with their context, the options considered and the reasoning, so that later readers can tell why the product works the way it does. Architecture decisions are recorded in full in the ADRs; this log keeps a product-level summary and links to them. Change request outcomes that set direction are also logged here. Decisions are not reopened without new evidence; a reversal gets a new DEC ID that references the original.
+This log records the product and delivery decisions that shape the platform, with their context, the options considered and the reasoning, so that later readers can tell why the product works the way it does. Architecture decisions are recorded in full in the ADRs; this log keeps a product-level summary and links to them. Change request outcomes that set direction are also logged here. Decisions are not reopened without new evidence; a reversal gets a new DEC ID that references the original.
 
 ## Summary
 
@@ -40,7 +40,7 @@ This log records the product and delivery decisions that shape Tendwell, with th
 |---|---|
 | Date | 2026-02-05 |
 | Decision | All tenants share one PostgreSQL schema. Every business table carries `tenant_id`, and row-level security policies enforce isolation in the database for every query. |
-| Context | Tendwell must scale to 500 tenants (NFR-SCL-01), most of them small agencies, at a low cost per tenant. BR-001 requires that isolation is enforced in the database, not only in the UI. |
+| Context | The platform must scale to 500 tenants (NFR-SCL-01), most of them small agencies, at a low cost per tenant. BR-001 requires that isolation is enforced in the database, not only in the UI. |
 | Options considered | (1) Database per tenant. (2) Schema per tenant. (3) Shared schema with row-level security. (4) Shared schema with application-level filtering only. |
 | Rationale | Option 3 gives database-enforced isolation with one migration path and low operating cost. Options 1 and 2 multiply migrations, connections and backups at 500 tenants. Option 4 was rejected because one missing filter in one query would expose PHI across tenants. |
 | Decided by | Engineering Lead and Product Owner; Compliance and Privacy Officer consulted |
@@ -75,10 +75,10 @@ This log records the product and delivery decisions that shape Tendwell, with th
 | Field | Value |
 |---|---|
 | Date | 2026-02-17; reaffirmed 2026-05-22 |
-| Decision | Tendwell calculates pay lines and exports a CSV with a configurable column mapping. It does not withhold tax, move money or issue pay stubs. |
+| Decision | The platform calculates pay lines and exports a CSV with a configurable column mapping. It does not withhold tax, move money or issue pay stubs. |
 | Context | Discovery showed that the 14 hours of payroll preparation per period (OBJ-02) go into assembling and checking hours, not into running payroll. Agencies already use payroll providers (ASM-02). |
 | Options considered | (1) CSV export with mapping. (2) API integrations with major payroll providers. (3) Full payroll processing. |
-| Rationale | Option 1 removes the preparation work at low risk and cost. Option 3 brings tax-engine, filing and money-movement liabilities outside Tendwell's core. Option 2 stays on the Later roadmap. CR-008 asked for option 3 and was rejected on 2026-05-22 for the same reasons. |
+| Rationale | Option 1 removes the preparation work at low risk and cost. Option 3 brings tax-engine, filing and money-movement liabilities outside the platform's core. Option 2 stays on the Later roadmap. CR-008 asked for option 3 and was rejected on 2026-05-22 for the same reasons. |
 | Decided by | Product Owner |
 | Links | ADR-005, FR-PAY-05, CR-008, US-042, ASM-02 |
 

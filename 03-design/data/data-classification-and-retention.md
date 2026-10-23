@@ -13,7 +13,7 @@
 
 ## 1. Purpose and scope
 
-This document defines how Tendwell classifies, protects, retains and disposes of the data it holds for agencies (tenants). It covers:
+This document defines how the platform classifies, protects, retains and disposes of the data it holds for agencies (tenants). It covers:
 - the classification scheme;
 - handling, masking and encryption rules for each class;
 - the field-level encryption list;
@@ -22,17 +22,17 @@ This document defines how Tendwell classifies, protects, retains and disposes of
 
 It applies to the PostgreSQL database, S3 documents and export files, the caregiver app's offline store, logs and telemetry, and the sub-processors listed in section 9.
 
-Tendwell Labs acts as a business associate of each agency, which is the HIPAA covered entity, under a business associate agreement (NFR-CMP-01). The controls below are designed to support the agency's compliance with the HIPAA Privacy and Security Rules, including 45 CFR 164.312, and with state record-keeping rules. **The agency remains responsible for its own retention and disclosure obligations.** Retention values in section 6 are configurable defaults, and **each agency confirms the values for its state** during onboarding. This document is not legal advice.
+the vendor acts as a business associate of each agency, which is the HIPAA covered entity, under a business associate agreement (NFR-CMP-01). The controls below are designed to support the agency's compliance with the HIPAA Privacy and Security Rules, including 45 CFR 164.312, and with state record-keeping rules. **The agency remains responsible for its own retention and disclosure obligations.** Retention values in section 6 are configurable defaults, and **each agency confirms the values for its state** during onboarding. This document is not legal advice.
 
 Column-level classifications are recorded in the [data dictionary](data-dictionary.md).
 
 ## 2. Classification scheme
 
-| Class | Definition | Examples in Tendwell | Highest-risk failure |
+| Class | Definition | Examples in the platform | Highest-risk failure |
 |---|---|---|---|
 | **PHI** (Protected Health Information) | Information about a client's health, care, or payment for care that identifies the client or could reasonably identify them. It includes the client's identifiers and those of their relatives and household members. | Client name with any care fact, date of birth, Medicaid ID, service address and geocode, diagnoses, care plan tasks, visit times, EVV punch locations, medication orders and doses, vitals, notes, incidents, invoices and invoice lines, authorization numbers, client contacts | Reportable breach under 45 CFR 164.402; harm to clients |
 | **PII** (Personally Identifiable Information) | Information that identifies a workforce member or user and is not PHI. | Caregiver and user names, emails, phones, employee numbers, home geolocation, IP addresses, device IDs, identity check results, time-off and leave balances | State breach notification; identity theft; employee harm |
-| **Confidential** | Non-personal business information whose disclosure would harm the agency or Tendwell Labs. | EIN, pay rates and payroll amounts, authorization rates, plan prices, payment references, export file keys, support grant reasons | Commercial harm; fraud |
+| **Confidential** | Non-personal business information whose disclosure would harm the agency or the vendor. | EIN, pay rates and payroll amounts, authorization rates, plan prices, payment references, export file keys, support grant reasons | Commercial harm; fraud |
 | **Internal** | Operational data with no personal or sensitive business content. | UUIDs, statuses, enumerations, configuration, timestamps not tied to a person, aggregate counts | Low |
 
 **Assignment rules**
@@ -40,7 +40,7 @@ Column-level classifications are recorded in the [data dictionary](data-dictiona
 1. **The highest class wins.** A record, file, export or message takes the highest class of any field it contains. A payroll CSV that contains caregiver names is PII and Confidential. An invoice that names a client is PHI.
 2. **Joins inherit.** An Internal field joined to a client becomes PHI. A visit `status` on its own is Internal; "C-10234 was Missed on 2026-09-08" is PHI.
 3. **Aggregates are Internal only when no individual can be singled out.** Dashboard counts are Internal. A report row for one client is PHI.
-4. **Biometric data is handled as at least PII.** Tendwell stores only the identity check result and score (`identity_checks`), never images or face templates.
+4. **Biometric data is handled as at least PII.** the platform stores only the identity check result and score (`identity_checks`), never images or face templates.
 
 ## 3. Handling rules per class
 
@@ -118,7 +118,7 @@ Other PHI, such as visit times, medication names, dose statuses and vital values
 
 Retention runs from the trigger event. A disposal job runs monthly per tenant. It deletes records whose retention has ended, skips any record under legal hold (section 10), and writes a `retention.disposed` audit event with row counts per table. The Agency Administrator receives the list of records due 30 days before disposal.
 
-> **Agency confirmation required.** The periods below are Tendwell defaults. State Medicaid provider agreements, licensure rules and payer contracts differ by state and can require longer periods; for minors, a period can run from the age of majority. During onboarding, each agency confirms or changes these values in tenant settings for its state. Tendwell enforces the configured values and does not determine which law applies.
+> **Agency confirmation required.** The periods below are the platform defaults. State Medicaid provider agreements, licensure rules and payer contracts differ by state and can require longer periods; for minors, a period can run from the age of majority. During onboarding, each agency confirms or changes these values in tenant settings for its state. The platform enforces the configured values and does not determine which law applies.
 
 | # | Record type | Tables and files | Retention | Trigger | Disposal method | Basis and rationale |
 |---|---|---|---|---|---|---|
@@ -134,7 +134,7 @@ Retention runs from the trigger event. A disposal job runs monthly per tenant. I
 | 10 | User accounts | `users`, `user_roles`, `user_locations`, `user_permission_overrides`, `notification_preferences` | 7 years after deactivation for `users` (audit actor references). Child rows are deleted at deactivation. | User deactivation | Hard delete; phone and email nulled at deactivation + 90 days | Audit integrity; data minimization |
 | 11 | Notifications | `notifications` | 13 months | Creation | Drop monthly partitions | Operational evidence of escalations; content holds no PHI (BR-056). Escalation outcomes are also in `audit_events`. |
 | 12 | Tenant configuration | `tenant_settings`, `reason_codes`, `escalation_ladders`, `credential_types`, `locations`, `service_lines`, `payers`, `roles`, `role_permissions` | Life of the tenant | Tenant deletion (section 8) | Hard delete | Needed to interpret retained records |
-| 13 | Tendwell commercial records | `tenants` (legal name, code, status), `subscriptions`, `plans`, `promo_codes`, payment-provider subscription history | 7 years | Tenant cancellation | Hard delete | Tendwell Labs' own financial records; contain no PHI |
+| 13 | The platform commercial records | `tenants` (legal name, code, status), `subscriptions`, `plans`, `promo_codes`, payment-provider subscription history | 7 years | Tenant cancellation | Hard delete | the vendor' own financial records; contain no PHI |
 | 14 | Technical records | `job_executions` 90 days; `event_outbox` 30 days after publication; API idempotency keys 24 hours; application logs and traces 30 days hot and 1 year archived; WAF logs 90 days; error tracking 90 days | As listed | Creation | TTL expiry; S3 lifecycle rules | Operations and security investigation. Logs carry no PHI (NFR-OBS-01). |
 | 15 | Generated exports and reports | Report CSV and PDF files, audit log exports | 7 days in S3; download links valid for 15 minutes | Generation | S3 lifecycle rule | The export is already audited and watermarked (BR-058). Payroll and claim files follow rows 7 and 8. |
 | 16 | Mobile offline queue | SQLCipher queue on the device | Until the server acknowledges sync; at most 72 hours of punches by design (NFR-AVL-02) | Sync acknowledgement or remote wipe | Secure delete on device; remote wipe on deactivation | NFR-MOB-02 |
@@ -192,7 +192,7 @@ flowchart LR
    - the row counts per table;
    - the KMS key destruction reference;
    - the backup expiry date.
-4. **What Tendwell keeps.** Tendwell retains only:
+4. **What the platform keeps.** the platform retains only:
    - its own commercial records (row 13 in section 6);
    - the deletion certificate;
    - platform-level audit entries that contain no PHI: tenant lifecycle events, support access grant metadata and deletion job results.

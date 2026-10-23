@@ -20,7 +20,7 @@
 
 ### Purpose and scope
 
-This document describes Tendwell's architecture at C4 Levels 1 (system context) and 2 (containers). It names the people and external systems Tendwell interacts with, the deployable containers and their responsibilities, the internal modules of the API and how they map to epics, and the quality attribute scenarios that the architecture must satisfy. It is written for the delivery team, reviewers and auditors who need a shared mental model before reading the ADRs, sequence diagrams and data model.
+This document describes the platform's architecture at C4 Levels 1 (system context) and 2 (containers). It names the people and external systems the platform interacts with, the deployable containers and their responsibilities, the internal modules of the API and how they map to epics, and the quality attribute scenarios that the architecture must satisfy. It is written for the delivery team, reviewers and auditors who need a shared mental model before reading the ADRs, sequence diagrams and data model.
 
 Out of scope: AWS network layout, CI/CD and security controls (see [Deployment and security](deployment-and-security.md)); table-level design (see [ERD](../data/erd.md)); endpoint contracts (see [OpenAPI](../../04-api/openapi.yaml)). C4 views are drawn as Mermaid flowcharts with subgraphs so they render on GitHub.
 
@@ -51,11 +51,11 @@ flowchart TB
     prospect(["Prospective agency owner<br/>becomes AG-ADM"]):::person
     office(["Agency office staff<br/>AG-ADM, AG-COORD, AG-SUPV, AG-FIN"]):::person
     cg(["Caregiver<br/>CG"]):::person
-    plt(["Tendwell Labs staff<br/>PLT-ADM, PLT-SUP"]):::person
+    plt(["the vendor staff<br/>PLT-ADM, PLT-SUP"]):::person
     fam(["Family contact<br/>FAM, Release 2"]):::offline
   end
 
-  tw["Tendwell<br/>Care operations SaaS platform<br/>scheduling, EVV, eMAR, documentation,<br/>payroll preparation, billing"]:::system
+  tw["the platform<br/>Care operations SaaS platform<br/>scheduling, EVV, eMAR, documentation,<br/>payroll preparation, billing"]:::system
 
   subgraph Runtime["External systems with runtime integration"]
     oidc["Managed OIDC identity provider"]:::external
@@ -93,7 +93,7 @@ flowchart TB
   tw -.->|"EVV export CSV"| aggregator
 ```
 
-*Figure 1. Tendwell system context. Solid arrows are runtime integrations; dotted arrows are file exports that an agency user downloads and submits outside Tendwell (FR-PAY-05, FR-BIL-06, NFR-CMP-02), or Release 2 scope (CR-003). Notification channels carry no PHI (BR-056, FR-NTF-05).*
+*Figure 1. The platform system context. Solid arrows are runtime integrations; dotted arrows are file exports that an agency user downloads and submits outside the platform (FR-PAY-05, FR-BIL-06, NFR-CMP-02), or Release 2 scope (CR-003). Notification channels carry no PHI (BR-056, FR-NTF-05).*
 
 ### 2.1 People
 
@@ -120,9 +120,9 @@ flowchart TB
 | Amazon SES (IF-03) | Transactional email | AWS SDK inside the prod account | Email address, generic message, deep link | No (BR-056) | NFR-PRIV-01, NFR-CMP-01 |
 | FCM / APNs (IF-04) | Push notifications to the Caregiver Mobile App | HTTP v1 / APNs token-based | Device token, generic title and body, deep link | No (BR-056) | NFR-PRIV-01 |
 | Google Maps Platform (IF-05) | Geocode client service addresses at intake; estimate drive time for travel pay and travel-buffer checks | REST over HTTPS | Address string or coordinate pairs; no names or client identifiers | No identifiers sent | NFR-CMP-01, NFR-PERF-01 |
-| Identity verification vendor (IF-06) | Liveness detection and face match against the caregiver's enrolled reference | Vendor SDK on device; server-to-vendor API behind `IdentityVerificationPort` | Encrypted capture package, enrollment reference, match score | Biometric (transient; not retained by Tendwell) | NFR-PERF-02, NFR-CMP-01 |
-| Agency payroll provider (IF-07) | Runs payroll from Tendwell's CSV export | File download by AG-FIN; no integration | Caregiver hours, rates, amounts | No PHI; PII | FR-PAY-05 |
-| Clearinghouse / payers (IF-08) | Receives claims prepared from Tendwell's claim batch CSV | File download by AG-FIN; no EDI 837 in R1 | Client identifiers, service codes, units | Yes | FR-BIL-06 |
+| Identity verification vendor (IF-06) | Liveness detection and face match against the caregiver's enrolled reference | Vendor SDK on device; server-to-vendor API behind `IdentityVerificationPort` | Encrypted capture package, enrollment reference, match score | Biometric (transient; not retained by the platform) | NFR-PERF-02, NFR-CMP-01 |
+| Agency payroll provider (IF-07) | Runs payroll from the platform's CSV export | File download by AG-FIN; no integration | Caregiver hours, rates, amounts | No PHI; PII | FR-PAY-05 |
+| Clearinghouse / payers (IF-08) | Receives claims prepared from the platform's claim batch CSV | File download by AG-FIN; no EDI 837 in R1 | Client identifiers, service codes, units | Yes | FR-BIL-06 |
 | State EVV aggregator (IF-09) | Receives EVV visit data where the state requires it | Configurable aggregator CSV export | Six EVV data elements per visit | Yes | NFR-CMP-02 |
 
 ## 3. C4 Level 2: containers
@@ -137,9 +137,9 @@ flowchart TB
   prospect(["Prospective agency owner"]):::person
   office(["Agency office staff<br/>AG-ADM, AG-COORD, AG-SUPV, AG-FIN"]):::person
   cg(["Caregiver<br/>CG"]):::person
-  plt(["Tendwell Labs staff<br/>PLT-ADM, PLT-SUP"]):::person
+  plt(["the vendor staff<br/>PLT-ADM, PLT-SUP"]):::person
 
-  subgraph TW["Tendwell platform boundary: AWS prod account under BAA"]
+  subgraph TW["the platform boundary: AWS prod account under BAA"]
     signup["Public sign-up site<br/>Static React site on CloudFront<br/>Stripe Elements for card entry"]:::container
     web["Agency Web App<br/>React 18 + TypeScript SPA, Vite"]:::container
     console["Platform Console<br/>React 18 + TypeScript SPA<br/>restricted origin"]:::container
@@ -197,17 +197,17 @@ flowchart TB
   worker -->|"Push"| push
 ```
 
-*Figure 2. Tendwell containers. The API and the Worker share one codebase and one database but run as separate ECS services so that background load never competes with interactive requests. The mobile app writes to its encrypted offline store first and syncs through `POST /evv/punches/sync` (FR-EVV-05, BR-025). All PHI stays inside the AWS boundary except the transient identity-verification capture package (FR-EVV-04) and the file exports an agency user downloads.*
+*Figure 2. The platform containers. The API and the Worker share one codebase and one database but run as separate ECS services so that background load never competes with interactive requests. The mobile app writes to its encrypted offline store first and syncs through `POST /evv/punches/sync` (FR-EVV-05, BR-025). All PHI stays inside the AWS boundary except the transient identity-verification capture package (FR-EVV-04) and the file exports an agency user downloads.*
 
 ### 3.1 Container element table
 
 | Container | Responsibility | Technology | Key data | Related NFRs |
 |---|---|---|---|---|
-| Public sign-up site | Plan selection, promo validation, agency registration, email verification landing page | Static React site served by CloudFront; Stripe Elements for card capture so card data never reaches Tendwell | Plans, promo code effect, sign-up form (EIN encrypted on receipt) | NFR-USE-03, NFR-ACC-01, NFR-SEC-01 |
+| Public sign-up site | Plan selection, promo validation, agency registration, email verification landing page | Static React site served by CloudFront; Stripe Elements for card capture so card data never reaches the platform | Plans, promo code effect, sign-up form (EIN encrypted on receipt) | NFR-USE-03, NFR-ACC-01, NFR-SEC-01 |
 | Agency Web App | All office workflows: clients, scheduling board, exception queue, eMAR oversight, incidents, payroll, billing, reports, settings | React 18 + TypeScript (Vite) SPA on CloudFront; OIDC PKCE; 15 min idle timeout with 60 s warning | Masked PHI until revealed (FR-CLI-06); no PHI in browser storage | NFR-PERF-03, NFR-ACC-01, NFR-USE-02, NFR-USE-03 |
 | Caregiver Mobile App | Today's visits, clock-in and out with GPS and identity check, tasks, doses, vitals, notes, incidents, time off, open shifts | React Native (Expo); vendor liveness SDK; device PIN or biometric re-authentication every 12 h | Assigned visits for the next 72 h, care plan tasks, due doses, vital ranges | NFR-USE-01, NFR-MOB-01, NFR-ACC-01, NFR-I18N-01 |
 | Offline store | Read cache of the caregiver's assigned work and an ordered command outbox of punches, task results, dose outcomes, vitals, notes | SQLCipher (AES-256) with a key held in iOS Keychain or Android Keystore | Minimum necessary PHI for assigned visits; purged after sync and visit completion window | NFR-AVL-02, NFR-MOB-02 |
-| Platform Console | Plans, promo codes, tenant lifecycle, support access requests | React 18 + TypeScript SPA on a separate origin; WAF IP allowlist for Tendwell Labs network; MFA mandatory (BR-006) | Plans, promo codes, tenant status; tenant data only under an Active grant | NFR-SEC-02, NFR-SEC-04 |
+| Platform Console | Plans, promo codes, tenant lifecycle, support access requests | React 18 + TypeScript SPA on a separate origin; WAF IP allowlist for the vendor network; MFA mandatory (BR-006) | Plans, promo codes, tenant status; tenant data only under an Active grant | NFR-SEC-02, NFR-SEC-04 |
 | API | REST `/v1` for all clients; authorization, validation, domain logic, audit; webhooks from Stripe | Node.js / NestJS modular monolith on ECS Fargate; OpenAPI-first; RFC 9457 problem details; `Idempotency-Key` on unsafe POSTs; cursor pagination | All tenant data through RLS; PHI decrypted only when the caller holds the permission | NFR-PERF-01, NFR-PERF-02, NFR-SEC-02, NFR-OBS-01 |
 | Worker / Scheduler | Scheduled jobs (materialization, dose generation and escalation, auto-close, credential status, billing, overdue, lifecycle), notification dispatch with retries, exports | Same NestJS codebase, BullMQ consumers; separate ECS service; single-flight via `job_executions` unique key | Job payloads carry IDs only, never PHI | NFR-MNT-02, NFR-PERF-04, NFR-OBS-02 |
 | PostgreSQL | System of record for all tenant and platform data, audit log | PostgreSQL 16 on RDS Multi-AZ; RLS forced on every tenant table; field-level envelope encryption for PHI with KMS keys | Everything in the [data dictionary](../data/data-dictionary.md) | NFR-DR-01, NFR-SEC-01, NFR-SCL-01, NFR-DAT-01 |

@@ -19,7 +19,7 @@
 
 ## Purpose and scope
 
-User acceptance testing (UAT) is where the three pilot agencies confirm that Tendwell R1 supports their real work before the pilot go-live on 2026-07-06. SIT has already proven that each requirement works as specified ([test strategy](test-strategy-and-plan.md)). UAT asks a different question: can an agency's own staff run a full day, a pay period and a month-end with it, and do the results match what the agency would expect? The 12 scenarios below follow the core value chain end to end: authorization, schedule, EVV and care documentation, verified visit, payroll export and client billing.
+User acceptance testing (UAT) is where the three pilot agencies confirm that the platform R1 supports their real work before the pilot go-live on 2026-07-06. SIT has already proven that each requirement works as specified ([test strategy](test-strategy-and-plan.md)). UAT asks a different question: can an agency's own staff run a full day, a pay period and a month-end with it, and do the results match what the agency would expect? The 12 scenarios below follow the core value chain end to end: authorization, schedule, EVV and care documentation, verified visit, payroll export and client billing.
 
 In scope: R1 functionality across the Agency Web App, the Caregiver Mobile App and the public sign-up site. Out of scope: the Family Portal (R2, CR-003), the agencies' payroll providers and clearinghouses (agencies import the export files themselves after UAT), and performance and security, which were accepted in SIT.
 
@@ -52,14 +52,14 @@ Participants are pilot staff, by role, using synthetic accounts. Personas (PER-0
 | | Direct support staff (CG) | 3 | UAT-07, UAT-08 |
 | **Total** | | **21** | |
 
-**Tendwell facilitators:** Business Analyst (UAT lead, scripts, triage of findings), Customer Success Lead (scheduling, agency liaison), QA Engineer (environment, data resets, device support), UX Designer (observer), Clinical SME (eMAR and incident scenarios), Compliance and Privacy Officer (UAT-02 PHI reveal and UAT-12). A separate moderated usability session on 2026-06-16 with 10 office staff new to Tendwell measured NFR-USE-02 (TC-NFR-018).
+**The platform facilitators:** Business Analyst (UAT lead, scripts, triage of findings), Customer Success Lead (scheduling, agency liaison), QA Engineer (environment, data resets, device support), UX Designer (observer), Clinical SME (eMAR and incident scenarios), Compliance and Privacy Officer (UAT-02 PHI reveal and UAT-12). A separate moderated usability session on 2026-06-16 with 10 office staff new to the platform measured NFR-USE-02 (TC-NFR-018).
 
 ## 3. Schedule (June 2026)
 
 | Date | Activity | Tenants |
 |---|---|---|
 | 2026-06-08 to 06-10 | Participant training: 30 minutes per role, on the UAT tenants in demo mode | All |
-| 2026-06-10 | UAT readiness review (entry criteria) | Tendwell |
+| 2026-06-10 | UAT readiness review (entry criteria) | The platform |
 | 2026-06-11 (Thu) | Round 1: UAT-01, UAT-12, UAT-11 adult-day part; UAT-07 medication pass | TEN-002, TEN-003 |
 | 2026-06-12 (Fri) | Round 1: UAT-08, UAT-11 fixed-monthly part; UAT-02, UAT-03. SRS v1.2 baselined with UAT clarifications | TEN-003, TEN-001 |
 | 2026-06-15 (Mon) | Round 1: UAT-04, UAT-05, UAT-06, UAT-09 | TEN-001 |
@@ -117,7 +117,7 @@ Each script records the round 2 result (v1.0.0-rc.5). Comments note round 1 fail
 
 | Field | Value |
 |---|---|
-| Business scenario | An agency owner signs up online with a trial code and gets the agency ready for its first visit without help from Tendwell |
+| Business scenario | An agency owner signs up online with a trial code and gets the agency ready for its first visit without help from the platform |
 | Persona | PER-05 Tom Brennan (AG-ADM) |
 | Participants | TEN-002 Agency Administrator |
 | Preconditions | Public sign-up site on staging; trial code TRIAL21 and promo codes LAKEMONT20 and WELCOME50 active; plan Core at $14.00 per active client seat |
@@ -325,9 +325,9 @@ Note: the separate Low GPS accuracy exception did not exist in R1. It was added 
 
 | Field | Value |
 |---|---|
-| Business scenario | The administrator sets up escalations that respect staff quiet hours, checks the dashboard and audit log, and controls when Tendwell Support can see agency data |
+| Business scenario | The administrator sets up escalations that respect staff quiet hours, checks the dashboard and audit log, and controls when the platform Support can see agency data |
 | Persona | PER-05 Tom Brennan (AG-ADM) |
-| Participants | Agency Administrators of TEN-002 and TEN-003; TEN-002 Care Coordinator; Platform Support Agent (Tendwell); Compliance and Privacy Officer observing |
+| Participants | Agency Administrators of TEN-002 and TEN-003; TEN-002 Care Coordinator; Platform Support Agent (the platform); Compliance and Privacy Officer observing |
 | Preconditions | Default escalation ladders provisioned; virtual clock 2026-09-15 20:55 |
 | Linked stories / requirements | US-049, US-050, US-051, US-052, US-011 / FR-NTF-01 to FR-NTF-05, FR-RPT-01 to FR-RPT-04, FR-IAM-07 |
 
@@ -347,9 +347,9 @@ Note: the separate Low GPS accuracy exception did not exist in R1. It was added 
 | TEN-001 Harborview Home Care | Agency Administrator | Accept with known issues | DEF-059, DEF-061 | 2026-06-25 | Signed (e-signature on file) |
 | TEN-002 Cedar Lane Adult Day Center | Agency Administrator | Accept | None affecting adult day | 2026-06-25 | Signed (e-signature on file) |
 | TEN-003 Northgate Supported Living | Agency Administrator and Clinical Supervisor | Accept with known issues | DEF-055 | 2026-06-25 | Signed (e-signature on file) |
-| Tendwell Labs | Clinical SME (RN advisor), for UAT-07 and UAT-08 | Accept | DEF-055 | 2026-06-25 | Signed (e-signature on file) |
-| Tendwell Labs | Compliance and Privacy Officer, for UAT-02 and UAT-12 | Accept | None | 2026-06-25 | Signed (e-signature on file) |
-| Tendwell Labs | Product Owner | Accept; recommends Go | All 4 UAT known issues | 2026-06-25 | Signed (e-signature on file) |
+| the vendor | Clinical SME (RN advisor), for UAT-07 and UAT-08 | Accept | DEF-055 | 2026-06-25 | Signed (e-signature on file) |
+| the vendor | Compliance and Privacy Officer, for UAT-02 and UAT-12 | Accept | None | 2026-06-25 | Signed (e-signature on file) |
+| the vendor | Product Owner | Accept; recommends Go | All 4 UAT known issues | 2026-06-25 | Signed (e-signature on file) |
 
 ## 9. UAT outcome summary
 

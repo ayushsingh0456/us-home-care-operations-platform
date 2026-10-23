@@ -250,7 +250,7 @@ sequenceDiagram
   N->>DB: Resolve recipients now: caregiver clocked in to the covering visit, user Active
   N->>DB: INSERT notifications dedupe_key E1:Tasha:1:Push ON CONFLICT DO NOTHING
   N->>Q: Enqueue send
-  Q->>P: "A medication task is due. Open Tendwell to review." with deep link
+  Q->>P: "A medication task is due. Open the app to review." with deep link
   J->>DB: 09:00 window closed with no outcome, status Overdue
   J->>N: DoseOverdue event E2, step 2
   N->>DB: Resolve recipients now: caregiver and active AG-COORD users for the client's location
@@ -269,7 +269,7 @@ sequenceDiagram
     N->>DB: Resolve recipients now: active AG-SUPV users for the location
     N->>DB: Dispatch guard re-checks user status immediately before send
     N->>P: Urgent push, bypasses quiet hours
-    N->>T: Urgent SMS "A medication dose needs review. Sign in to Tendwell."
+    N->>T: Urgent SMS "A medication dose needs review. Sign in to the platform."
     T-->>N: Delivery failed
     N->>Q: Retry at +1, +4 and +16 min, at most 3 attempts
     SU->>API: Signs in from the deep link, GET /dose-tasks for the client

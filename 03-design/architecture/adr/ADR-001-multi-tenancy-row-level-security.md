@@ -22,11 +22,11 @@
 
 ## Context and problem statement
 
-Tendwell is a multi-tenant SaaS product. Each agency (tenant) is a HIPAA covered entity whose client records, care documentation and payroll data must never be visible to another agency. BR-001 requires that isolation is enforced in the database, not only in the user interface or application code. At the same time the platform must scale to 500 tenants, 50,000 caregivers and 2 million visits per month (NFR-SCL-01) with a delivery team of two backend developers, and support per-tenant export within 5 business days and deletion within 90 days of cancellation (NFR-PRIV-03).
+The platform is a multi-tenant SaaS product. Each agency (tenant) is a HIPAA covered entity whose client records, care documentation and payroll data must never be visible to another agency. BR-001 requires that isolation is enforced in the database, not only in the user interface or application code. At the same time the platform must scale to 500 tenants, 50,000 caregivers and 2 million visits per month (NFR-SCL-01) with a delivery team of two backend developers, and support per-tenant export within 5 business days and deletion within 90 days of cancellation (NFR-PRIV-03).
 
 Pilot tenants range from 14 staff (TEN-002 Cedar Lane Adult Day Center) to 62 caregivers and 180 clients (TEN-001 Harborview Home Care). Most future tenants are similar in size, so per-tenant infrastructure would be mostly idle.
 
-How should Tendwell partition tenant data so that isolation is enforced by the database while the system stays affordable and operable by a small team?
+How should the platform partition tenant data so that isolation is enforced by the database while the system stays affordable and operable by a small team?
 
 ## Decision drivers
 
@@ -86,7 +86,7 @@ Implementation rules:
 
 1. **Every tenant-owned table has `tenant_id uuid NOT NULL`**, including child tables such as `evv_punches`, `visit_exceptions`, `dose_tasks`, `invoice_lines` and `care_plan_tasks`. The value is copied from the parent and protected by a composite foreign key `(tenant_id, parent_id)`, so a child row can never point to another tenant's parent. Global tables without tenant data (`plans`, `promo_codes`, `permissions`, `job_executions`) have no RLS.
 2. **Policies** on each table: `USING (tenant_id = current_setting('app.tenant_id', true)::uuid)` and the same expression in `WITH CHECK`, so writes cannot target another tenant. `ALTER TABLE ... FORCE ROW LEVEL SECURITY` applies policies even to the table owner.
-3. **Roles.** The application connects as `tendwell_app`, which owns no tables and has no `BYPASSRLS`. Migrations run as `tendwell_owner` in the pipeline only. Platform jobs that must iterate tenants connect as `tendwell_app` and set the context per tenant; there is no bypass role in the application.
+3. **Roles.** The application connects as `homecare_app`, which owns no tables and has no `BYPASSRLS`. Migrations run as `homecare_owner` in the pipeline only. Platform jobs that must iterate tenants connect as `homecare_app` and set the context per tenant; there is no bypass role in the application.
 4. **Context.** The `tenancy` module opens every transaction with `SET LOCAL app.tenant_id = <tenant from JWT>` and, for platform support, `SET LOCAL app.support_grant_id`. Because `SET LOCAL` ends with the transaction, pooled connections (RDS Proxy in transaction mode) cannot carry a stale context. If the setting is missing, `current_setting(..., true)` returns null and policies return no rows: the system fails closed.
 5. **Support access.** Under an Active grant (BR-008), the context is the granted tenant; a read-only grant sets `app.access_mode = 'read_only'`, and write policies reject rows when that mode is set, in addition to the permission guard.
 6. **Users.** `users.tenant_id` is nullable for platform staff; platform users never receive tenant rows except through a grant.

@@ -20,16 +20,16 @@
 
 ### Purpose and scope
 
-This process defines how Tendwell Labs detects, responds to, communicates about and learns from production incidents in the Tendwell platform. It covers:
+This process defines how the vendor detects, responds to, communicates about and learns from production incidents in the platform. It covers:
 
 - **Production incidents:** unplanned loss or degradation of service, incorrect business outcomes (for example wrong invoices, false EVV exceptions, missed escalations) and data integrity problems in production, across all tenants and applications (Agency Web App, Caregiver Mobile App, Platform Console, public sign-up site and API).
-- **Privacy incidents:** any suspected unauthorized use, disclosure, access, alteration or loss of PHI or other personal data that Tendwell Labs handles as a business associate of an agency.
+- **Privacy incidents:** any suspected unauthorized use, disclosure, access, alteration or loss of PHI or other personal data that the vendor handles as a business associate of an agency.
 
-It does not cover client incidents recorded by agencies inside Tendwell (falls, medication errors and so on, FR-DOC-03), which are the agency's clinical process, or defects found before release, which follow the [defect process](../06-quality/defect-report-example.md).
+It does not cover client incidents recorded by agencies inside the platform (falls, medication errors and so on, FR-DOC-03), which are the agency's clinical process, or defects found before release, which follow the [defect process](../06-quality/defect-report-example.md).
 
 The Business Analyst owns this document because most of what goes wrong in this domain is a business outcome rather than an outage: an invoice that should not exist, a dose alert that did not fire, an email that went to the wrong person. Engineering owns the technical runbooks that this process calls.
 
-**Disclaimer:** this process is designed to support Tendwell Labs' contractual and regulatory obligations as a business associate. It is not legal advice. Each agency, as the covered entity, remains responsible for its own breach determinations and notifications.
+**Disclaimer:** this process is designed to support the vendor' contractual and regulatory obligations as a business associate. It is not legal advice. Each agency, as the covered entity, remains responsible for its own breach determinations and notifications.
 
 ## 1. Definitions
 
@@ -38,18 +38,18 @@ The Business Analyst owns this document because most of what goes wrong in this 
 | Incident | An unplanned event in production that degrades service, produces an incorrect business outcome, or puts data confidentiality, integrity or availability at risk |
 | Privacy incident | An incident involving suspected unauthorized use or disclosure of PHI or personal data, including a security incident as defined in 45 CFR 164.304 |
 | Care hours | 06:00-22:00 tenant local time for `HOME_VISIT` and `ADULT_DAY`; 24 hours a day for tenants with `SUPPORTED_LIVING` |
-| Detection time | When the first signal reaches Tendwell Labs (alert, ticket, call or email), whether or not it is recognized as an incident |
+| Detection time | When the first signal reaches the vendor (alert, ticket, call or email), whether or not it is recognized as an incident |
 | Acknowledgement time | When a responder (on-call engineer or Platform Support triage) accepts the signal and starts triage |
 | Mitigation time | When customer impact stops growing (feature flag off, job paused, workaround published) |
 | Resolution time | When service is restored and affected data is corrected or a correction is agreed with every affected tenant |
-| Discovery (privacy) | The first day the breach is known, or by exercising reasonable diligence would have been known, to any Tendwell Labs workforce member, consistent with 45 CFR 164.410(a)(2) |
+| Discovery (privacy) | The first day the breach is known, or by exercising reasonable diligence would have been known, to any the vendor workforce member, consistent with 45 CFR 164.410(a)(2) |
 | CAPA | Corrective and preventive action arising from a review |
 
 ## 2. Severity matrix
 
 When in doubt, choose the higher severity; the Incident Commander may downgrade later. Every suspected privacy incident starts at SEV-1 and only the Compliance and Privacy Officer may downgrade it.
 
-| Severity | Definition | Tendwell examples | Acknowledge | Incident Commander assigned | First status page post | Update cadence | Review |
+| Severity | Definition | The platform examples | Acknowledge | Incident Commander assigned | First status page post | Update cadence | Review |
 |---|---|---|---|---|---|---|---|
 | SEV-1 Critical | Care delivery or clinical safety blocked, platform-wide outage, or any suspected PHI disclosure | EVV clock-in unavailable for more than 15 min during care hours for any tenant, online and offline; missed-dose escalation (BR-030) or urgent alerts not firing for more than 15 min; web or API unavailable for more than 15 min (NFR-AVL-01); cross-tenant data visible (BR-001); any suspected PHI disclosure, such as INC-2026-015; data loss beyond RPO (NFR-DR-01) | 5 min, 24x7 | 15 min | 30 min (privacy: per Privacy Officer) | Every 30 min | Full PIR within 5 business days |
 | SEV-2 Major | Significant business impact on several tenants, financial or data integrity errors, or a core workflow degraded with a workaround | Duplicate or incorrect invoices (INC-2026-007); false EVV exceptions at scale threatening payroll (INC-2026-011); payroll export or billing run failing on a pay or billing day; a core API p95 more than 3 times its NFR-PERF target for 30 min during care hours | 15 min, 24x7 | 30 min | 60 min | Every 60 min | Full PIR within 5 business days |
@@ -169,7 +169,7 @@ Next update by <HH:MM> ET. | This incident is resolved. A summary will be shared
 ### 5.4 Customer email to affected tenant administrators
 
 ```text
-Subject: Tendwell incident <INC-YYYY-NNN>: <short description> - <status>
+Subject: the platform incident <INC-YYYY-NNN>: <short description> - <status>
 
 Hello <Agency Administrator role or first name>,
 
@@ -188,7 +188,7 @@ What we need from you:
 
 We will send a written post-incident summary by <date>. If you have questions, reply to this email or call Customer Success at +1-614-555-0142.
 
-Customer Success Lead, Tendwell Labs
+Customer Success Lead, the vendor
 ```
 
 ### 5.5 Internal update (team chat)
@@ -205,7 +205,7 @@ Next update: <HH:MM> ET
 
 ## 6. Privacy incident branch
 
-Tendwell Labs is a business associate of each agency (the covered entity) under a Business Associate Agreement (NFR-CMP-01). The Compliance and Privacy Officer leads every privacy incident; the IC continues to run the technical response.
+the vendor is a business associate of each agency (the covered entity) under a Business Associate Agreement (NFR-CMP-01). The Compliance and Privacy Officer leads every privacy incident; the IC continues to run the technical response.
 
 ```mermaid
 flowchart TD
@@ -218,7 +218,7 @@ flowchart TD
     F --> H["Written report to covered entity with facts and assessment"]
     G --> H
     H --> I["Covered entity makes breach determination and any notifications"]
-    I --> J["Tendwell supports with facts and records on request"]
+    I --> J["the platform supports with facts and records on request"]
     J --> K["PIR and CAPA; retain records 7 years"]
 ```
 
@@ -228,12 +228,12 @@ flowchart TD
 |---|---|---|
 | Containment action in place | Within 1 hour of declaration | IC with Technical Lead |
 | Impact analysis of affected records, data elements, tenants and recipients | Within 2 hours of declaration | Business Analyst |
-| Initial notice to the covered entity's BAA contact (phone and email) | Without unreasonable delay; Tendwell's internal target is 24 hours from discovery | Compliance and Privacy Officer, delivered with the Customer Success Lead |
+| Initial notice to the covered entity's BAA contact (phone and email) | Without unreasonable delay; the platform's internal target is 24 hours from discovery | Compliance and Privacy Officer, delivered with the Customer Success Lead |
 | Recipient deletion request and written attestation | Requested within 4 hours; attestation within 48 hours | Compliance and Privacy Officer, via the covered entity where the recipient is its former workforce member |
 | Four-factor breach risk assessment documented | Within 3 business days | Compliance and Privacy Officer |
 | Written incident report to the covered entity | Within 5 business days, updated as facts change | Compliance and Privacy Officer |
 
-The BAA sets the binding notification period. Regulation sets an outer limit for business associates of no later than 60 calendar days after discovery (45 CFR 164.410(b)); Tendwell's 24-hour internal target is deliberately much shorter.
+The BAA sets the binding notification period. Regulation sets an outer limit for business associates of no later than 60 calendar days after discovery (45 CFR 164.410(b)); the platform's 24-hour internal target is deliberately much shorter.
 
 ### 6.2 Breach risk assessment (45 CFR 164.402)
 
@@ -246,7 +246,7 @@ An impermissible use or disclosure of PHI is presumed to be a breach unless a ri
 | 3. Whether PHI was actually acquired or viewed | Was the message opened, forwarded, downloaded? | Delivery logs; recipient statement; mailbox evidence provided by the covered entity |
 | 4. Extent of mitigation | Was deletion confirmed in writing? Were further disclosures prevented? | Signed attestation; containment and fix records |
 
-The assessment also records whether a regulatory exception might apply (for example an unintentional, good-faith acquisition by a workforce member acting within scope). Tendwell provides its assessment to the covered entity as input. **The final breach determination, and any notification to individuals, regulators or media, rests with the covered entity.** Tendwell does not contact affected individuals unless the covered entity asks it to in writing.
+The assessment also records whether a regulatory exception might apply (for example an unintentional, good-faith acquisition by a workforce member acting within scope). The platform provides its assessment to the covered entity as input. **The final breach determination, and any notification to individuals, regulators or media, rests with the covered entity.** the platform does not contact affected individuals unless the covered entity asks it to in writing.
 
 ### 6.3 What the notice to the covered entity contains
 
@@ -254,7 +254,7 @@ The assessment also records whether a regulatory exception might apply (for exam
 - What happened, in plain language, and the containment taken.
 - The data elements involved and the number of individuals (identified to the covered entity through the secure channel only, never in email bodies).
 - The recipient type and what is known about access, deletion and attestation.
-- Tendwell's preliminary four-factor assessment, clearly marked as input to the covered entity's determination.
+- The platform's preliminary four-factor assessment, clearly marked as input to the covered entity's determination.
 - Contact for the Compliance and Privacy Officer, and when the next update will come.
 
 ## 7. Post-incident review policy
@@ -293,7 +293,7 @@ Computed from the [incident register](incident-register.csv) for 2026-07-06 to 2
 
 What the numbers say:
 
-- **Detection is the weak point for business-logic failures.** Incidents found by automated alerts were detected in 25 minutes on average; incidents found by customers took 4 hours 55 minutes. None of the three major incidents was detected by Tendwell. NFR-OBS-02 business anomaly alerts were added in SRS v1.3 for exactly this reason.
+- **Detection is the weak point for business-logic failures.** Incidents found by automated alerts were detected in 25 minutes on average; incidents found by customers took 4 hours 55 minutes. None of the three major incidents was detected by the platform. NFR-OBS-02 business anomaly alerts were added in SRS v1.3 for exactly this reason.
 - **MTTA for SEV-1 and SEV-2 is skewed by INC-2026-011,** where the first customer report was triaged as a training issue for 18 hours. The two-reports-in-24-hours upgrade rule (section 2) addresses this.
 - **MTTR for major incidents includes data correction:** refunds and credit notes (INC-2026-007), bulk exception resolution (INC-2026-011) and attestation and fix verification (INC-2026-015). Time to mitigate was much shorter: 1 h 16 min, 52 h 30 min and 42 min respectively; INC-2026-011 is the outlier and its PIR explains why.
 - **Repeat incident:** INC-2026-014 (duplicate reminder emails after a retry) belongs to the same failure class as INC-2026-007, a non-idempotent operation repeated under failure. The INC-2026-007 CAPA fixed billing but did not sweep other at-least-once operations; a sweep of all scheduled jobs and outbound sends was added as a CAPA of INC-2026-014.

@@ -22,7 +22,7 @@ This file holds the user stories and acceptance criteria for EP-02. It covers si
 | Epic ID | EP-02 |
 | Name | Identity & Access Management |
 | Module | IAM |
-| Goal | Give every user secure, least-privilege access limited to their tenant and assigned locations, keep a complete sign-in and access trail, and let Tendwell Labs support staff into a tenant only with the agency's time-boxed consent. |
+| Goal | Give every user secure, least-privilege access limited to their tenant and assigned locations, keep a complete sign-in and access trail, and let the vendor support staff into a tenant only with the agency's time-boxed consent. |
 | Objectives | Enabler for OBJ-01 to OBJ-06 (no direct KPI). Guardrails: zero cross-tenant access findings in the penetration test (NFR-SEC-02); 100% MFA enrollment for MFA-mandatory roles. |
 | Business need | BN-02 |
 | Release | R1 |
@@ -109,12 +109,12 @@ Scenario: US-007-AC5 No forced periodic rotation
 Scenario: US-007-AC6 Use an SMS one-time code without PHI
   Given Tom chose SMS as his second factor with verified phone "+1-614-555-0142"
   When he passes the password step
-  Then an SMS is sent containing only a one-time code and the text "Tendwell sign-in code. Do not share it."
+  Then an SMS is sent containing only a one-time code and the text "the platform sign-in code. Do not share it."
 ```
 
 **Notes**
 - MFA uses TOTP or SMS one-time codes through the managed OIDC provider; access tokens live 15 minutes and refresh tokens rotate on use.
-- Recovery when an MFA device is lost: another Agency Administrator resets the factor, or Tendwell Support does so under a support grant (US-011). The reset is audited.
+- Recovery when an MFA device is lost: another Agency Administrator resets the factor, or the platform Support does so under a support grant (US-011). The reset is audited.
 - Analytics: sign-in success rate and MFA failure rate per tenant feed the security dashboard.
 - Out of scope: SSO with agency identity providers (backlog candidate); WebAuthn passkeys (R2 candidate).
 

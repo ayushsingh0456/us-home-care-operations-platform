@@ -19,7 +19,7 @@
 
 ### Purpose and scope
 
-This document records how the Business Analyst elicited Tendwell R1 requirements during discovery (January and February 2026) and what was learned. It contains the elicitation plan, the records of the three discovery workshops, the interview synthesis, and the insights that changed scope. Workshop records were circulated to attendees within 2 business days and approved by reply. Quotes are paraphrased and fictional; participants are identified by role and agency only.
+This document records how the Business Analyst elicited the platform R1 requirements during discovery (January and February 2026) and what was learned. It contains the elicitation plan, the records of the three discovery workshops, the interview synthesis, and the insights that changed scope. Workshop records were circulated to attendees within 2 business days and approved by reply. Quotes are paraphrased and fictional; participants are identified by role and agency only.
 
 ## 1. Elicitation plan
 
@@ -185,7 +185,7 @@ gantt
 | Date and place | 2026-02-17, 09:30-13:30, TEN-001 office with video link for TEN-002 and TEN-003 |
 | Facilitator | Business Analyst |
 | Attendees (by role) | Product Owner; Engineering Lead; QA Lead; Customer Success Lead; Compliance and Privacy Officer (first hour); TEN-001 Billing and Payroll Specialist; TEN-001 Agency Administrator; TEN-001 Care Coordinator; TEN-002 Agency Administrator (also runs billing); TEN-003 Billing and Payroll Specialist |
-| Objective | Agree pay and billing rules with worked examples, and decide whether Tendwell processes payroll |
+| Objective | Agree pay and billing rules with worked examples, and decide whether the platform processes payroll |
 
 **Agenda**
 
@@ -209,7 +209,7 @@ gantt
 
 | Ref | Decision | Decided by | Traced to |
 |---|---|---|---|
-| WS3-D1 | Tendwell prepares payroll and exports a CSV with configurable column mapping; it does not process payroll | Product Owner with agency attendees | FR-PAY-05, ADR-005, DEC-04; later basis for rejecting CR-008 |
+| WS3-D1 | The platform prepares payroll and exports a CSV with configurable column mapping; it does not process payroll | Product Owner with agency attendees | FR-PAY-05, ADR-005, DEC-04; later basis for rejecting CR-008 |
 | WS3-D2 | Paid travel = min(actual gap, estimated drive time + 10 min), only when the gap is 2 hours or less | Product Owner, agency attendees | BR-043 |
 | WS3-D3 | Holiday 1.5x; no stacking of overtime and holiday (pay the higher multiplier) | Agency attendees | BR-042 |
 | WS3-D4 | 15-minute units; round up when the remainder is 8 minutes or more | Agency attendees | BR-047; confirmed as DEC-06 after review of denial data |
@@ -265,7 +265,7 @@ The worked examples agreed in this session became the canonical examples in the 
 
 The Business Analyst coded the 26 interview notes into an affinity map with the UX Designer. A count is the number of interviews (of 26) in which the theme appeared at least once.
 
-| Theme | Count | Roles most represented | Representative quote (fictional) | Led to |
+| Theme | Count | Roles most represented | Representative quote | Led to |
 |---|---|---|---|---|
 | Proof of visit depends on paper and goodwill | 17 | CG, AG-COORD, AG-FIN | "Half my Friday is chasing signatures." | EP-06 |
 | Phone tag runs the coordinator day | 14 | AG-COORD, CG | "I call to confirm, they call to confirm, nobody is caring for anyone." | FR-SCH-07, FR-EVV-07 |

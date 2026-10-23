@@ -20,7 +20,7 @@
 
 ### Purpose and scope
 
-This document describes the seven end-to-end business processes of Tendwell Release 1 as BPMN-style swimlane flowcharts. Each lane is a role or system; numbered steps match the table under each diagram, which lists the actor, the rule or requirement that governs the step and the exceptions to handle. The flows are the to-be state; the as-is processes are in [current vs future state](../../01-discovery/current-vs-future-state.md).
+This document describes the seven end-to-end business processes of the platform Release 1 as BPMN-style swimlane flowcharts. Each lane is a role or system; numbered steps match the table under each diagram, which lists the actor, the rule or requirement that governs the step and the exceptions to handle. The flows are the to-be state; the as-is processes are in [current vs future state](../../01-discovery/current-vs-future-state.md).
 
 Notation: rounded boxes are start and end events, rectangles are tasks, diamonds are gateways, and dotted arrows are messages or notifications. Lanes are drawn as Mermaid subgraphs, so the renderer may place them side by side rather than strictly stacked; the step numbers give the sequence.
 
@@ -41,11 +41,11 @@ flowchart LR
     a11["11. Work through setup checklist"]
     e1(["End: agency operational"])
   end
-  subgraph SITE["Tendwell sign-up site"]
+  subgraph SITE["the platform sign-up site"]
     b3{"Code valid for plan?"}
     b4{"Trial code applied?"}
   end
-  subgraph API["Tendwell API and Worker"]
+  subgraph API["the platform API and Worker"]
     c5["Create tenant Pending,<br/>owner Invited, EIN encrypted"]
     c7{"Link valid and unused?"}
     c8["8. Provision tenant defaults,<br/>idempotent"]
@@ -75,7 +75,7 @@ flowchart LR
 | 1 | Agency owner | Selects an Active plan (for example "Core") and one or more service lines from `GET /plans` | FR-ONB-01 | Retired plans are not offered (FR-ONB-08) |
 | 2 | Agency owner | Enters name, email (for example tom.brennan@example.com), phone, legal name, EIN, registered address and time zone | FR-ONB-01, NFR-USE-03 | Field-level messages state the problem and the fix; an EIN that already has an Active or Trial tenant is routed to Customer Success without confirming the agency is a customer |
 | 3 | Agency owner, sign-up site | Optionally enters a code; `POST /promo-codes/validate` checks existence, status, expiry, redemptions and plan eligibility and shows the price effect | FR-ONB-03, BR-004 | Invalid code: reason shown, owner may continue without a code; one code per subscription |
-| 4 | Stripe | Without a trial code, a hosted card form collects the payment method; card data never reaches Tendwell | BR-002, NFR-SEC-01 | Card declined: owner may retry or apply a trial code |
+| 4 | Stripe | Without a trial code, a hosted card form collects the payment method; card data never reaches the platform | BR-002, NFR-SEC-01 | Card declined: owner may retry or apply a trial code |
 | 5 | Agency owner, API | Accepts the terms and the BAA and submits `POST /signups`; the API creates the tenant (Pending) and the owner user (Invited) | FR-ONB-01, NFR-CMP-01 | Duplicate submission is idempotent through `Idempotency-Key` |
 | 6 | Amazon SES | Sends a single-use verification link valid for 24 hours | FR-ONB-02 | Bounce: shown on the confirmation page with a "change email" option |
 | 7 | Agency owner, API | Opens the link (`POST /signups/{signupId}/verify-email`) | FR-ONB-02 | Expired or used link: "This link has expired. We sent a new one to your email." |
@@ -99,7 +99,7 @@ flowchart LR
     k9["9. Submit for approval"]
     k10["Revise draft"]
   end
-  subgraph TW["Tendwell"]
+  subgraph TW["the platform"]
     t2["2. Geocode service address,<br/>default geofence 150 m"]
     t3{"3. Duplicate match?<br/>name plus DOB, or Medicaid ID"}
     t7["7. Compute remaining units,<br/>watch 90% and 14 days"]
@@ -130,16 +130,16 @@ flowchart LR
 | Step | Actor | Description | Rule / FR refs | Exceptions |
 |---|---|---|---|---|
 | 1 | AG-COORD | Creates the client (`POST /clients`) with demographics, service address, contacts, primary language, allergies, ICD-10-CM diagnoses and payer; PHI fields are encrypted and masked | FR-CLI-01, BR-011 | Required field missing: inline message with the fix |
-| 2 | Tendwell, Google Maps | Geocodes the address (address string only); stores latitude, longitude and the default 150 m geofence radius | BR-021 | Low-precision result (for example rural route): Coordinator places the pin on a map and confirms |
-| 3 | Tendwell | Checks for a possible duplicate (same first name, last name and date of birth, or same Medicaid ID such as `ZZ48105522`) | FR-CLI-02 | Match found: go to step 4 |
+| 2 | The platform, Google Maps | Geocodes the address (address string only); stores latitude, longitude and the default 150 m geofence radius | BR-021 | Low-precision result (for example rural route): Coordinator places the pin on a map and confirms |
+| 3 | The platform | Checks for a possible duplicate (same first name, last name and date of birth, or same Medicaid ID such as `ZZ48105522`) | FR-CLI-02 | Match found: go to step 4 |
 | 4 | AG-COORD | Opens the existing record or confirms the new client is distinct, with a reason | FR-CLI-02 | Confirmation is audited |
 | 5 | AG-COORD | Records preferred and excluded caregivers with reasons | FR-CLI-08, BR-017 | Exclusions become hard blocks in scheduling |
 | 6 | AG-COORD or AG-FIN | Records the authorization (`POST /clients/{clientId}/authorizations`): payer, service line, service code (for example T1019), units, unit type, period, billing model, rate | FR-CLI-03, BR-009 | No Active authorization: visits cannot be scheduled (hard block) |
-| 7 | Tendwell | Calculates remaining units (authorized minus scheduled minus delivered) and flags 90% or more utilization or expiry within 14 days | FR-CLI-04, BR-010 | Alert routed to AG-COORD and AG-FIN |
+| 7 | The platform | Calculates remaining units (authorized minus scheduled minus delivered) and flags 90% or more utilization or expiry within 14 days | FR-CLI-04, BR-010 | Alert routed to AG-COORD and AG-FIN |
 | 8 | AG-COORD | Drafts care plan version 1 (`POST /clients/{clientId}/care-plans`) with tasks by category and the visit-note requirement | FR-CLI-05 | Only one open draft per client |
 | 9 | AG-COORD | Submits the draft; status PendingApproval; the Clinical Supervisor is notified | FR-CLI-05, FR-NTF-01 | Notification carries no PHI (BR-056) |
 | 10 | AG-SUPV | Reviews tasks and instructions; approves or returns with comments | FR-CLI-05, BR-012 | Returned: status Draft, comments kept |
-| 11 | Tendwell | `POST /care-plans/{carePlanId}/approve` makes the plan Active and the prior Active version Superseded in one transaction | BR-012 | Visits already in progress keep the version Active at their clock-in |
+| 11 | The platform | `POST /care-plans/{carePlanId}/approve` makes the plan Active and the prior Active version Superseded in one transaction | BR-012 | Visits already in progress keep the version Active at their clock-in |
 
 ## Flow 3: End-to-end visit lifecycle
 
@@ -159,7 +159,7 @@ flowchart LR
     m7["7. Tasks, doses, vitals, note"]
     m8["8. Clock out with task statuses"]
   end
-  subgraph TW["Tendwell API and Worker"]
+  subgraph TW["the platform API and Worker"]
     w3["3. Materialize visits for 8 weeks,<br/>notify caregiver within 1 min"]
     w6["Evaluate geofence, accuracy,<br/>timing; visit In progress"]
     w9{"9. Six EVV elements and<br/>no open exception?"}
@@ -190,16 +190,16 @@ flowchart LR
 | Step | Actor | Description | Rule / FR refs | Exceptions |
 |---|---|---|---|---|
 | 1 | AG-COORD | Creates a recurring pattern (`POST /visit-patterns`), for example Tue, Thu and Sat 08:00-10:00 for C-10234 with Maya Ortiz on authorization PA-2026-55871 (T1019) | FR-SCH-01 | Open-ended or with end date |
-| 2 | Tendwell | Runs compliance checks: overlap, travel buffer, blocking credentials, exclusions, authorization coverage and remaining units, approved time off | FR-SCH-03, BR-009, BR-010, BR-014, BR-016, BR-017, BR-039 | Hard block stops the save; a units warning needs an override reason |
+| 2 | The platform | Runs compliance checks: overlap, travel buffer, blocking credentials, exclusions, authorization coverage and remaining units, approved time off | FR-SCH-03, BR-009, BR-010, BR-014, BR-016, BR-017, BR-039 | Hard block stops the save; a units warning needs an override reason |
 | 3 | Worker | Materializes visits nightly for a rolling 8 weeks; caregivers are notified of new, changed and cancelled visits within 1 minute | BR-018, FR-SCH-07 | Pattern edits change only future, not-started visits |
 | 4 | Caregiver | Opens the app; today's visits come from the local cache when offline | NFR-USE-01, ADR-006 | Offline banner shows queued items |
 | 5 | Caregiver | Completes the selfie check where the tenant requires it; a Pass is valid 90 s, single use | FR-EVV-04, BR-024 | Fail or vendor down: may proceed, IDENTITY_CHECK_FAILED |
 | 6 | Caregiver, API | Clocks in from 15 min before start to scheduled end; server computes distance and evaluates accuracy and timing; visit In progress | FR-EVV-01, FR-EVV-02, BR-021, BR-022, BR-023 | LOCATION_MISMATCH, LOW_GPS_ACCURACY, LATE_START raised without blocking |
 | 7 | Caregiver | Documents tasks, due doses, vitals and the visit note during the visit | FR-MAR-03, FR-MAR-07, FR-DOC-01 | See flow 4 for undocumented doses |
 | 8 | Caregiver | Clocks out; each care-plan task needs Done or Not done with a reason; note required where the care plan says so | FR-EVV-06 | EARLY_END beyond 10 min tolerance |
-| 9 | Tendwell | Checks the six EVV elements and open exceptions | FR-EVV-10, BR-020 | Open exception: Needs review |
+| 9 | The platform | Checks the six EVV elements and open exceptions | FR-EVV-10, BR-020 | Open exception: Needs review |
 | 10 | AG-COORD | Resolves or waives each exception; time corrections add a Manual punch with reason code and note | FR-EVV-08, BR-026 | Bulk resolve for same-code exceptions (CR-004) |
-| 11 | Tendwell | Marks the visit Verified | FR-EVV-10, BR-028 | No clock-in by scheduled end: Missed; open 14 h: auto-closed and excluded until resolved (BR-027) |
+| 11 | The platform | Marks the visit Verified | FR-EVV-10, BR-028 | No clock-in by scheduled end: Missed; open 14 h: auto-closed and excluded until resolved (BR-027) |
 | 12 | AG-FIN | Pay calculation, pre-export review, export and lock | FR-PAY-02 to FR-PAY-05 | Later changes become adjustment lines (FR-PAY-06) |
 | 13 | AG-FIN | Billing run, draft review, approval and issue | FR-BIL-01 to FR-BIL-04 | See flow 7 |
 
@@ -207,7 +207,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  subgraph WK["Tendwell Worker"]
+  subgraph WK["the platform Worker"]
     s4(["Start: Active scheduled order"])
     w1["1. Generate dose tasks for 7 days,<br/>status Due"]
     w2["2. At scheduled time:<br/>reminder to caregiver"]
@@ -269,7 +269,7 @@ flowchart LR
     r1["1. Report incident with category,<br/>severity, details, photos"]
     r8["8. Complete assigned actions"]
   end
-  subgraph TW["Tendwell"]
+  subgraph TW["the platform"]
     t2{"2. High severity or suspected<br/>abuse or neglect?"}
     t3["3. Urgent notify Supervisor<br/>and Administrator"]
     t5["5. Compute report deadline,<br/>alert at 50% and 90%"]
@@ -284,8 +284,8 @@ flowchart LR
   subgraph AD["Agency Administrator, AG-ADM"]
     a3["Acknowledge and support review"]
   end
-  subgraph ST["State agency, outside Tendwell"]
-    x6["6. Receive external report;<br/>reference recorded in Tendwell"]
+  subgraph ST["State agency, outside the platform"]
+    x6["6. Receive external report;<br/>reference recorded in the platform"]
   end
 
   s5 --> r1 --> t2
@@ -301,19 +301,19 @@ flowchart LR
   v9 -->|"Yes"| v10
 ```
 
-*Figure 5. Incident reporting with the reportable branch. Supports FR-DOC-03 to FR-DOC-06, BR-036, BR-037 and BR-053. Tendwell tracks deadlines and references; the agency submits the external report and remains responsible for meeting state requirements.*
+*Figure 5. Incident reporting with the reportable branch. Supports FR-DOC-03 to FR-DOC-06, BR-036, BR-037 and BR-053. The platform tracks deadlines and references; the agency submits the external report and remains responsible for meeting state requirements.*
 
 | Step | Actor | Description | Rule / FR refs | Exceptions |
 |---|---|---|---|---|
 | 1 | Caregiver or AG-COORD | Records the incident (`POST /client-incidents`): category, severity, time, place, description, people involved, immediate actions, photos; status Reported | FR-DOC-03 | Offline: queued with photos (ADR-006) |
-| 2 | Tendwell | Evaluates urgency | FR-DOC-04 | Medium or Low: standard in-app and email notice |
-| 3 | Tendwell | Notifies the Clinical Supervisor and Agency Administrator immediately; urgent events bypass quiet hours; no PHI in SMS, push or email | FR-DOC-04, BR-053, BR-056 | Recipients resolved at send time (BR-054, INC-2026-015) |
+| 2 | The platform | Evaluates urgency | FR-DOC-04 | Medium or Low: standard in-app and email notice |
+| 3 | The platform | Notifies the Clinical Supervisor and Agency Administrator immediately; urgent events bypass quiet hours; no PHI in SMS, push or email | FR-DOC-04, BR-053, BR-056 | Recipients resolved at send time (BR-054, INC-2026-015) |
 | 4 | AG-SUPV | Starts the review (status UnderReview) and records investigation notes | FR-DOC-05 | Only AG-SUPV can move past review |
-| 5 | Tendwell | For reportable incidents, sets `report_deadline_at` from `occurred_at`: suspected abuse or neglect 24 h; serious injury (Fall or Injury with High severity) 24 h; medication error with harm (MedicationError with Medium or High severity) 72 h, per SRS TBD-08 and tenant-configurable to state rules; alerts at 50% and 90% | FR-DOC-06, BR-036 | Deadline passed: alert escalates to AG-ADM |
-| 6 | AG-SUPV or AG-ADM | Submits the report to the state agency outside Tendwell and records the external reference | FR-DOC-05 | Missing reference shows a warning on close |
+| 5 | The platform | For reportable incidents, sets `report_deadline_at` from `occurred_at`: suspected abuse or neglect 24 h; serious injury (Fall or Injury with High severity) 24 h; medication error with harm (MedicationError with Medium or High severity) 72 h, per SRS TBD-08 and tenant-configurable to state rules; alerts at 50% and 90% | FR-DOC-06, BR-036 | Deadline passed: alert escalates to AG-ADM |
+| 6 | AG-SUPV or AG-ADM | Submits the report to the state agency outside the platform and records the external reference | FR-DOC-05 | Missing reference shows a warning on close |
 | 7 | AG-SUPV | Records root cause and corrective actions with owner and due date (`POST /client-incidents/{incidentId}/actions`); status ActionsOpen | FR-DOC-05 | Actions can be added until close |
 | 8 | Action owners | Complete actions, or the Supervisor waives an action with a reason | BR-037 | Overdue actions appear on the dashboard |
-| 9 | Tendwell | Checks that every action is Done or Waived | BR-037 | Open action blocks close with a message naming it |
+| 9 | The platform | Checks that every action is Done or Waived | BR-037 | Open action blocks close with a message naming it |
 | 10 | AG-SUPV | Closes the incident (`POST /client-incidents/{incidentId}/close`) | FR-DOC-05, BR-037 | Only a Clinical Supervisor can close |
 
 ## Flow 6: Time-off request and approval with visit reassignment
@@ -325,7 +325,7 @@ flowchart LR
     q1["1. Submit request: type, dates,<br/>partial hours, note"]
     q6["6. Receive decision"]
   end
-  subgraph TW["Tendwell"]
+  subgraph TW["the platform"]
     t2["2. Flag Short notice if under 7 days,<br/>except Sick; check balance"]
     t5["5. Block dates, move affected<br/>visits to Open Shifts"]
     t7["7. Publish open shifts to<br/>eligible caregivers"]
@@ -359,15 +359,15 @@ flowchart LR
 | Step | Actor | Description | Rule / FR refs | Exceptions |
 |---|---|---|---|---|
 | 1 | Caregiver | Submits `POST /time-off-requests` with leave type (PTO, Sick, Unpaid, Bereavement), dates, optional partial-day hours and note | FR-TOF-01 | Overlapping pending request: message with a link to it |
-| 2 | Tendwell | Flags Short notice when under 7 days (Sick exempt); shows PTO balance against requested hours | FR-TOF-02, FR-TOF-04, BR-038, BR-040 | Insufficient PTO balance: shown to approver as a warning |
+| 2 | The platform | Flags Short notice when under 7 days (Sick exempt); shows PTO balance against requested hours | FR-TOF-02, FR-TOF-04, BR-038, BR-040 | Insufficient PTO balance: shown to approver as a warning |
 | 3 | AG-COORD | Opens the impact view (`GET /time-off-requests/{requestId}/impact`) listing affected visits, clients and authorizations | FR-TOF-03 | Coordinator scope limited to assigned locations (FR-IAM-06) |
 | 4 | AG-COORD | Decides (`POST /time-off-requests/{requestId}/decision`) | FR-TOF-03 | Decline requires a reason |
-| 5 | Tendwell | On approval, blocks the dates for scheduling (hard block) and moves already-assigned visits to Open Shifts | BR-039 | Visits already in progress are not moved |
+| 5 | The platform | On approval, blocks the dates for scheduling (hard block) and moves already-assigned visits to Open Shifts | BR-039 | Visits already in progress are not moved |
 | 6 | Caregiver | Receives the decision in-app and by push with generic text | FR-NTF-01, BR-056 | Quiet hours hold non-urgent notices (BR-053) |
-| 7 | Tendwell | Publishes open shifts to caregivers who pass compliance checks | FR-SCH-05, BR-014, BR-016, BR-017 | Excluded or credential-blocked caregivers do not see the shift |
+| 7 | The platform | Publishes open shifts to caregivers who pass compliance checks | FR-SCH-05, BR-014, BR-016, BR-017 | Excluded or credential-blocked caregivers do not see the shift |
 | 8 | Eligible caregiver | Claims a shift (`POST /visits/{visitId}/claim`); the first eligible claim wins | FR-SCH-05 | Second claimant sees "This shift was just taken." |
-| 9 | Tendwell | Applies the tenant's confirmation setting | CR-002 | Rejected claim returns the shift to Open Shifts |
-| 10 | Tendwell | Assigns the visit and notifies the caregiver within 1 minute | FR-SCH-07 | |
+| 9 | The platform | Applies the tenant's confirmation setting | CR-002 | Rejected claim returns the shift to Open Shifts |
+| 10 | The platform | Assigns the visit and notifies the caregiver within 1 minute | FR-SCH-07 | |
 | 11 | AG-COORD | Assigns directly from the schedule board when a shift stays unfilled near its start | FR-SCH-06 | Compliance checks still apply |
 
 ## Flow 7: Monthly billing, collections and credit notes
@@ -383,7 +383,7 @@ flowchart LR
     f9["9. Export claim batch CSV"]
     f12["12. Credit note with reason,<br/>or void unpaid and reissue"]
   end
-  subgraph TW["Tendwell API and Worker"]
+  subgraph TW["the platform API and Worker"]
     t3["3. Claim job; price Verified visits;<br/>cap at authorized units"]
     t4["4. Upsert one draft per client,<br/>payer and period; anomaly check"]
     t7{"7. Pre-issue duplicate check"}
@@ -398,7 +398,7 @@ flowchart LR
   subgraph RP["Responsible party, private pay"]
     r8["Pay through link"]
   end
-  subgraph CH["Clearinghouse or payer, outside Tendwell"]
+  subgraph CH["Clearinghouse or payer, outside the platform"]
     h9["Adjudicate claims, remit"]
   end
 
@@ -426,10 +426,10 @@ Worked example (US-045): client C-10234 on T1019 at $7.25 per 15-minute unit; vi
 | 4 | Worker | Upserts one Draft per tenant, client, payer and period; compares invoice count with the previous run | BR-050, NFR-OBS-02 | Deviation over 20%: alert and auto-issue paused |
 | 5 | AG-FIN | Reviews drafts; corrects source data (for example resolves exceptions) and re-runs; re-runs update Drafts only | BR-050 | Approved or Issued invoices are skipped |
 | 6 | AG-FIN | Approves invoices (`POST /invoices/{invoiceId}/approve`) | FR-BIL-04 | |
-| 7 | Tendwell | Before issue, checks for another non-void invoice for the same client and payer with an overlapping period | CR-005 | Blocked with both invoice numbers named |
-| 8 | Tendwell, Stripe | Issues (`POST /invoices/{invoiceId}/issue`); private pay gets a payment link (`POST /invoices/{invoiceId}/payment-links`); the email carries invoice number, amount, due date and link only, with the itemized invoice behind a verification step (SRS TBD-13) | FR-BIL-05, BR-051, BR-056 | Issued invoices are immutable |
+| 7 | The platform | Before issue, checks for another non-void invoice for the same client and payer with an overlapping period | CR-005 | Blocked with both invoice numbers named |
+| 8 | The platform, Stripe | Issues (`POST /invoices/{invoiceId}/issue`); private pay gets a payment link (`POST /invoices/{invoiceId}/payment-links`); the email carries invoice number, amount, due date and link only, with the itemized invoice behind a verification step (SRS TBD-13) | FR-BIL-05, BR-051, BR-056 | Issued invoices are immutable |
 | 9 | AG-FIN | Exports the claim batch CSV (`POST /claim-batches`) for the clearinghouse | FR-BIL-06, BR-058 | Export watermarked and audited |
-| 10 | Tendwell | Records Stripe payments from signature-verified webhooks; payer remittances and checks are entered by AG-FIN | FR-BIL-05 | Manual payment entry endpoint to be confirmed in the API contract |
+| 10 | The platform | Records Stripe payments from signature-verified webhooks; payer remittances and checks are entered by AG-FIN | FR-BIL-05 | Manual payment entry endpoint to be confirmed in the API contract |
 | 11 | Worker | Marks invoices Overdue after the due date (net 30) and sends reminders at +1, +7 and +14 days | FR-BIL-08, BR-052 | Reminders stop when the balance reaches zero |
 | 12 | AG-FIN | Issues a credit note with reason (`POST /invoices/{invoiceId}/credit-notes`) or voids an unpaid invoice and reissues | FR-BIL-07, BR-051 | Void is not allowed once any payment is recorded |
 

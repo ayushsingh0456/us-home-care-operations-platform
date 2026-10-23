@@ -1,14 +1,14 @@
-# Tendwell API - OpenAPI 3.1 contract (fictional case study)
+# US Home-Care Operations Platform API - OpenAPI 3.1 contract (fictional case study)
 # Document ID: TW-API-01 | Version 1.3.0 | Owner: Business Analyst | Last updated: 2026-09-24
 # Aligned to SRS v1.3. Conventions: api-guidelines.md. Events: events-and-webhooks.md.
 # Data model: ../03-design/data/data-dictionary.md
 openapi: 3.1.0
 info:
-  title: Tendwell API
+  title: the platform API
   version: 1.3.0
   summary: Operations API for home and community-based care agencies (fictional case study).
   description: |
-    REST API for **Tendwell**, the operations platform for home and community-based care agencies
+    REST API for **the platform**, the operations platform for home and community-based care agencies
     (fictional case study). It serves the Agency Web App, the Caregiver Mobile App, the Platform Console and the public
     sign-up site.
 
@@ -28,17 +28,17 @@ info:
 
     All names, agencies, people, identifiers and data in this document are fictional.
   contact:
-    name: Tendwell Labs API team (fictional)
+    name: the vendor API team
     email: api-team@example.com
-    url: https://developer.tendwell.example
+    url: https://developer.homecare.example
   license:
     name: Proprietary (case study)
     identifier: LicenseRef-Proprietary
   x-srs-version: v1.3 (2026-09-24)
 servers:
-- url: https://api.tendwell.example/v1
+- url: https://api.homecare.example/v1
   description: Production (US regions only)
-- url: https://sandbox.api.tendwell.example/v1
+- url: https://sandbox.api.homecare.example/v1
   description: Sandbox with synthetic data only
 security:
 - bearerAuth: []
@@ -156,7 +156,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_INVALID_CREDENTIALS
+                type: https://api.homecare.example/problems/IAM_INVALID_CREDENTIALS
                 title: Email or password is incorrect
                 status: 401
                 detail: Check your email and password and try again. After 5 failed attempts your account is locked for 15
@@ -172,7 +172,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_ACCOUNT_LOCKED
+                type: https://api.homecare.example/problems/IAM_ACCOUNT_LOCKED
                 title: Account temporarily locked
                 status: 403
                 detail: Too many failed sign-in attempts. Try again after 15 minutes or reset your password.
@@ -227,7 +227,7 @@ paths:
                 invalid:
                   summary: IAM_MFA_CODE_INVALID
                   value:
-                    type: https://api.tendwell.example/problems/IAM_MFA_CODE_INVALID
+                    type: https://api.homecare.example/problems/IAM_MFA_CODE_INVALID
                     title: The code is not correct
                     status: 401
                     detail: Enter the current 6-digit code from your authenticator app, or request a new SMS code.
@@ -237,7 +237,7 @@ paths:
                 expired:
                   summary: IAM_MFA_CHALLENGE_EXPIRED
                   value:
-                    type: https://api.tendwell.example/problems/IAM_MFA_CHALLENGE_EXPIRED
+                    type: https://api.homecare.example/problems/IAM_MFA_CHALLENGE_EXPIRED
                     title: The sign-in attempt timed out
                     status: 401
                     detail: Sign in again with your email and password to get a new code.
@@ -252,7 +252,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_ACCOUNT_LOCKED
+                type: https://api.homecare.example/problems/IAM_ACCOUNT_LOCKED
                 title: Account temporarily locked
                 status: 403
                 detail: Too many incorrect codes. Try again after 15 minutes.
@@ -302,7 +302,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_REFRESH_TOKEN_INVALID
+                type: https://api.homecare.example/problems/IAM_REFRESH_TOKEN_INVALID
                 title: Sign-in required
                 status: 401
                 detail: Your session has ended. Sign in again to continue.
@@ -422,7 +422,7 @@ paths:
                 token:
                   summary: IAM_RESET_TOKEN_INVALID
                   value:
-                    type: https://api.tendwell.example/problems/IAM_RESET_TOKEN_INVALID
+                    type: https://api.homecare.example/problems/IAM_RESET_TOKEN_INVALID
                     title: This reset link is no longer valid
                     status: 422
                     detail: Reset links work once and expire after 30 minutes. Request a new link.
@@ -432,7 +432,7 @@ paths:
                 policy:
                   summary: IAM_PASSWORD_POLICY_VIOLATION
                   value:
-                    type: https://api.tendwell.example/problems/IAM_PASSWORD_POLICY_VIOLATION
+                    type: https://api.homecare.example/problems/IAM_PASSWORD_POLICY_VIOLATION
                     title: Choose a stronger password
                     status: 422
                     detail: Use at least 12 characters. This password appears in a list of breached passwords.
@@ -544,7 +544,7 @@ paths:
                 expired:
                   summary: ONB_PROMO_CODE_EXPIRED
                   value:
-                    type: https://api.tendwell.example/problems/ONB_PROMO_CODE_EXPIRED
+                    type: https://api.homecare.example/problems/ONB_PROMO_CODE_EXPIRED
                     title: This code has expired
                     status: 422
                     detail: The code LAKEMONT21 expired on 2026-09-30. Remove it or enter a different code.
@@ -554,7 +554,7 @@ paths:
                 notEligible:
                   summary: ONB_PROMO_CODE_NOT_ELIGIBLE
                   value:
-                    type: https://api.tendwell.example/problems/ONB_PROMO_CODE_NOT_ELIGIBLE
+                    type: https://api.homecare.example/problems/ONB_PROMO_CODE_NOT_ELIGIBLE
                     title: This code does not apply to the selected plan
                     status: 422
                     detail: Choose an eligible plan or remove the code.
@@ -707,7 +707,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/ONB_VERIFICATION_LINK_EXPIRED
+                type: https://api.homecare.example/problems/ONB_VERIFICATION_LINK_EXPIRED
                 title: This verification link has expired
                 status: 422
                 detail: Verification links are valid for 24 hours. Request a new link from the sign-in page.
@@ -813,7 +813,7 @@ paths:
                 seats:
                   summary: ONB_SEATS_BELOW_ACTIVE
                   value:
-                    type: https://api.tendwell.example/problems/ONB_SEATS_BELOW_ACTIVE
+                    type: https://api.homecare.example/problems/ONB_SEATS_BELOW_ACTIVE
                     title: Seat count is below your active clients
                     status: 422
                     detail: You have 176 active clients this cycle. Choose at least 176 seats.
@@ -823,7 +823,7 @@ paths:
                 retired:
                   summary: ONB_PLAN_RETIRED
                   value:
-                    type: https://api.tendwell.example/problems/ONB_PLAN_RETIRED
+                    type: https://api.homecare.example/problems/ONB_PLAN_RETIRED
                     title: This plan is no longer offered
                     status: 422
                     detail: Choose one of the current plans.
@@ -904,7 +904,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/ONB_PLAN_CODE_EXISTS
+                type: https://api.homecare.example/problems/ONB_PLAN_CODE_EXISTS
                 title: A plan with this code already exists
                 status: 409
                 detail: Use a different plan code.
@@ -1004,7 +1004,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/ONB_PROMO_CODE_EXISTS
+                type: https://api.homecare.example/problems/ONB_PROMO_CODE_EXISTS
                 title: This code already exists
                 status: 409
                 detail: Choose a different code.
@@ -1162,7 +1162,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_EMAIL_IN_USE
+                type: https://api.homecare.example/problems/IAM_EMAIL_IN_USE
                 title: This email already has an account
                 status: 409
                 detail: Each person signs in with one email. Use a different email or contact support to move the account.
@@ -1220,7 +1220,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_LAST_ADMINISTRATOR
+                type: https://api.homecare.example/problems/IAM_LAST_ADMINISTRATOR
                 title: Your agency needs at least one administrator
                 status: 422
                 detail: Assign the Agency Administrator role to another active user first.
@@ -1284,7 +1284,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_LAST_ADMINISTRATOR
+                type: https://api.homecare.example/problems/IAM_LAST_ADMINISTRATOR
                 title: Your agency needs at least one administrator
                 status: 422
                 detail: Assign the Agency Administrator role to another active user first.
@@ -1378,7 +1378,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_UNKNOWN_PERMISSION
+                type: https://api.homecare.example/problems/IAM_UNKNOWN_PERMISSION
                 title: Unknown permission
                 status: 422
                 detail: One of the permissions does not exist. Choose permissions from the list.
@@ -1508,7 +1508,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_SUPPORT_GRANT_ALREADY_ACTIVE
+                type: https://api.homecare.example/problems/IAM_SUPPORT_GRANT_ALREADY_ACTIVE
                 title: A grant is already open for this tenant
                 status: 409
                 detail: Use the existing grant or ask the agency to revoke it first.
@@ -1523,7 +1523,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_SUPPORT_GRANT_DURATION_EXCEEDED
+                type: https://api.homecare.example/problems/IAM_SUPPORT_GRANT_DURATION_EXCEEDED
                 title: Support access is limited to 4 hours
                 status: 422
                 detail: Request 240 minutes or less.
@@ -1588,7 +1588,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_SUPPORT_GRANT_NOT_PENDING
+                type: https://api.homecare.example/problems/IAM_SUPPORT_GRANT_NOT_PENDING
                 title: This request was already handled
                 status: 409
                 detail: The request is no longer waiting for approval. Refresh to see its status.
@@ -1642,7 +1642,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/IAM_SUPPORT_GRANT_NOT_ACTIVE
+                type: https://api.homecare.example/problems/IAM_SUPPORT_GRANT_NOT_ACTIVE
                 title: This grant has already ended
                 status: 409
                 detail: No action is needed.
@@ -1845,7 +1845,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/CLI_POSSIBLE_DUPLICATE
+                type: https://api.homecare.example/problems/CLI_POSSIBLE_DUPLICATE
                 title: This client may already exist
                 status: 409
                 detail: An existing client (C-10234) matches on name and date of birth. Open that record, or confirm this
@@ -1865,7 +1865,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/CLI_ADDRESS_NOT_GEOCODED
+                type: https://api.homecare.example/problems/CLI_ADDRESS_NOT_GEOCODED
                 title: We could not locate this address
                 status: 422
                 detail: Check the street, city and ZIP code. EVV location checks need a mappable address.
@@ -1994,7 +1994,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/CLI_CLIENT_DISCHARGED
+                type: https://api.homecare.example/problems/CLI_CLIENT_DISCHARGED
                 title: This client has been discharged
                 status: 409
                 detail: Discharged records are read-only. Readmit the client to make changes.
@@ -2061,7 +2061,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/CLI_PHI_REVEAL_REASON_REQUIRED
+                type: https://api.homecare.example/problems/CLI_PHI_REVEAL_REASON_REQUIRED
                 title: Enter a reason to view this information
                 status: 422
                 detail: Describe why you need to see these fields (at least 10 characters). The reason is recorded in the
@@ -2142,7 +2142,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/CLI_CLIENT_DISCHARGED
+                type: https://api.homecare.example/problems/CLI_CLIENT_DISCHARGED
                 title: This client is already discharged
                 status: 409
                 detail: No action is needed.
@@ -2157,7 +2157,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/CLI_DISCHARGE_DATE_INVALID
+                type: https://api.homecare.example/problems/CLI_DISCHARGE_DATE_INVALID
                 title: Discharge date is before admission
                 status: 422
                 detail: Choose a discharge date on or after the admission date (2025-11-03).
@@ -2285,7 +2285,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/CLI_AUTHORIZATION_OVERLAP
+                type: https://api.homecare.example/problems/CLI_AUTHORIZATION_OVERLAP
                 title: This authorization overlaps an active one
                 status: 409
                 detail: Another active authorization for this payer and service covers 2026-01-01 to 2026-07-15. Adjust the
@@ -2304,7 +2304,7 @@ paths:
                 period:
                   summary: CLI_AUTHORIZATION_PERIOD_INVALID
                   value:
-                    type: https://api.tendwell.example/problems/CLI_AUTHORIZATION_PERIOD_INVALID
+                    type: https://api.homecare.example/problems/CLI_AUTHORIZATION_PERIOD_INVALID
                     title: The end date is before the start date
                     status: 422
                     detail: Choose an end date on or after the start date.
@@ -2314,7 +2314,7 @@ paths:
                 unit:
                   summary: CLI_UNIT_TYPE_MISMATCH
                   value:
-                    type: https://api.tendwell.example/problems/CLI_UNIT_TYPE_MISMATCH
+                    type: https://api.homecare.example/problems/CLI_UNIT_TYPE_MISMATCH
                     title: Unit type does not match the billing model
                     status: 422
                     detail: Hourly authorizations use 15-minute units. Daily uses Day, Per visit uses Visit and Fixed monthly
@@ -2408,7 +2408,7 @@ paths:
                 pending:
                   summary: CLI_CARE_PLAN_PENDING_EXISTS
                   value:
-                    type: https://api.tendwell.example/problems/CLI_CARE_PLAN_PENDING_EXISTS
+                    type: https://api.homecare.example/problems/CLI_CARE_PLAN_PENDING_EXISTS
                     title: A version is already waiting for approval
                     status: 409
                     detail: Version 3 is pending approval. Ask the Clinical Supervisor to approve or return it before creating
@@ -2419,7 +2419,7 @@ paths:
                 disc:
                   summary: CLI_CLIENT_DISCHARGED
                   value:
-                    type: https://api.tendwell.example/problems/CLI_CLIENT_DISCHARGED
+                    type: https://api.homecare.example/problems/CLI_CLIENT_DISCHARGED
                     title: This client has been discharged
                     status: 409
                     detail: Discharged records are read-only.
@@ -2497,7 +2497,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/CLI_CARE_PLAN_NOT_PENDING
+                type: https://api.homecare.example/problems/CLI_CARE_PLAN_NOT_PENDING
                 title: This version is not waiting for approval
                 status: 409
                 detail: Only versions in Pending approval can be approved. Refresh to see the current status.
@@ -2640,7 +2640,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/WRK_EMPLOYEE_NUMBER_EXISTS
+                type: https://api.homecare.example/problems/WRK_EMPLOYEE_NUMBER_EXISTS
                 title: This employee number is already used
                 status: 409
                 detail: E-2041 belongs to another caregiver. Check the number from your payroll system.
@@ -2762,7 +2762,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/WRK_CAREGIVER_INACTIVE
+                type: https://api.homecare.example/problems/WRK_CAREGIVER_INACTIVE
                 title: This caregiver is already inactive
                 status: 409
                 detail: No action is needed.
@@ -2821,7 +2821,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/WRK_CREDENTIAL_DATES_INVALID
+                type: https://api.homecare.example/problems/WRK_CREDENTIAL_DATES_INVALID
                 title: Expiry date must be after the issue date
                 status: 422
                 detail: Check the dates on the certificate.
@@ -2986,7 +2986,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/PAY_PERIOD_LOCKED
+                type: https://api.homecare.example/problems/PAY_PERIOD_LOCKED
                 title: That date is in a pay period that has been exported
                 status: 409
                 detail: The period 2026-09-07 to 2026-09-13 is locked. Choose an effective date in an open period; differences
@@ -3069,7 +3069,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/SCH_AUTHORIZATION_EXPIRED
+                type: https://api.homecare.example/problems/SCH_AUTHORIZATION_EXPIRED
                 title: The authorization has expired
                 status: 422
                 detail: The selected authorization ended on 2026-07-15. Select a current authorization or record the renewal
@@ -3254,7 +3254,7 @@ paths:
                 overlap:
                   summary: SCH_CAREGIVER_OVERLAP
                   value:
-                    type: https://api.tendwell.example/problems/SCH_CAREGIVER_OVERLAP
+                    type: https://api.homecare.example/problems/SCH_CAREGIVER_OVERLAP
                     title: The caregiver already has a visit at this time
                     status: 422
                     detail: Maya Ortiz is scheduled 09:30-11:30 with another client. Choose a different time or caregiver.
@@ -3268,7 +3268,7 @@ paths:
                 override:
                   summary: SCH_OVERRIDE_REASON_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/SCH_OVERRIDE_REASON_REQUIRED
+                    type: https://api.homecare.example/problems/SCH_OVERRIDE_REASON_REQUIRED
                     title: Enter a reason to schedule beyond the authorization
                     status: 422
                     detail: This visit needs 8 units but only 4 remain on the selected authorization. Enter an override reason
@@ -3334,7 +3334,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/SCH_VISIT_ALREADY_STARTED
+                type: https://api.homecare.example/problems/SCH_VISIT_ALREADY_STARTED
                 title: This visit has already started
                 status: 409
                 detail: Visits that are in progress or completed cannot be rescheduled. Use a time correction instead.
@@ -3350,7 +3350,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/SCH_CLIENT_EXCLUSION
+                type: https://api.homecare.example/problems/SCH_CLIENT_EXCLUSION
                 title: The client has declined this caregiver
                 status: 422
                 detail: This client has declined Jordan Pike. Choose another caregiver.
@@ -3415,7 +3415,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/SCH_VISIT_ALREADY_STARTED
+                type: https://api.homecare.example/problems/SCH_VISIT_ALREADY_STARTED
                 title: This visit has already started
                 status: 409
                 detail: A visit in progress cannot be cancelled. Ask the caregiver to clock out.
@@ -3430,7 +3430,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/SCH_CANCEL_REASON_REQUIRED
+                type: https://api.homecare.example/problems/SCH_CANCEL_REASON_REQUIRED
                 title: Choose a cancellation reason
                 status: 422
                 detail: Select a reason from the list to cancel this visit.
@@ -3602,7 +3602,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/SCH_OPEN_SHIFT_ALREADY_CLAIMED
+                type: https://api.homecare.example/problems/SCH_OPEN_SHIFT_ALREADY_CLAIMED
                 title: Someone else claimed this shift first
                 status: 409
                 detail: This shift is no longer available. Check the list for other open shifts.
@@ -3617,7 +3617,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/SCH_NOT_ELIGIBLE_FOR_SHIFT
+                type: https://api.homecare.example/problems/SCH_NOT_ELIGIBLE_FOR_SHIFT
                 title: You cannot take this shift
                 status: 422
                 detail: It overlaps another visit on your schedule.
@@ -3634,7 +3634,7 @@ paths:
         Sends a live selfie for liveness detection and a server-side match against the caregiver's enrolled reference
         (through the identity verification adapter). A `Pass` result is valid for 90 seconds and for one punch only. A
         `Fail` result does not block the punch: the punch is accepted and raises `IDENTITY_CHECK_FAILED` for review.
-        Images are not stored by Tendwell.
+        Images are not stored by the platform.
 
         Requirements: FR-EVV-04. Business rules: BR-024. Non-functional: NFR-PERF-02.
       x-requirements: [FR-EVV-04]
@@ -3676,7 +3676,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/EVV_VISIT_NOT_ASSIGNED
+                type: https://api.homecare.example/problems/EVV_VISIT_NOT_ASSIGNED
                 title: This visit is not assigned to you
                 status: 403
                 detail: You can only clock in to your own visits. Contact the office if this visit should be yours.
@@ -3692,7 +3692,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/EVV_IDENTITY_NOT_ENROLLED
+                type: https://api.homecare.example/problems/EVV_IDENTITY_NOT_ENROLLED
                 title: Identity check is not set up for you
                 status: 422
                 detail: Ask the office to enroll your reference photo before your next visit.
@@ -3831,7 +3831,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/EVV_VISIT_NOT_ASSIGNED
+                type: https://api.homecare.example/problems/EVV_VISIT_NOT_ASSIGNED
                 title: This visit is not assigned to you
                 status: 403
                 detail: You can only clock in to your own visits. Contact the office if this visit should be yours.
@@ -3847,7 +3847,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/EVV_ALREADY_CLOCKED_IN
+                type: https://api.homecare.example/problems/EVV_ALREADY_CLOCKED_IN
                 title: You are already clocked in to this visit
                 status: 409
                 detail: Clock out when the visit ends.
@@ -3865,7 +3865,7 @@ paths:
                 window:
                   summary: EVV_CLOCK_IN_WINDOW_NOT_OPEN
                   value:
-                    type: https://api.tendwell.example/problems/EVV_CLOCK_IN_WINDOW_NOT_OPEN
+                    type: https://api.homecare.example/problems/EVV_CLOCK_IN_WINDOW_NOT_OPEN
                     title: It is too early to clock in
                     status: 422
                     detail: Clock-in opens at 08:45, 15 minutes before the 09:00 start. Try again then.
@@ -3879,7 +3879,7 @@ paths:
                 closed:
                   summary: EVV_CLOCK_IN_WINDOW_CLOSED
                   value:
-                    type: https://api.tendwell.example/problems/EVV_CLOCK_IN_WINDOW_CLOSED
+                    type: https://api.homecare.example/problems/EVV_CLOCK_IN_WINDOW_CLOSED
                     title: This visit has ended
                     status: 422
                     detail: The scheduled end time has passed. Ask the office to record the visit.
@@ -3889,7 +3889,7 @@ paths:
                 idRequired:
                   summary: EVV_IDENTITY_CHECK_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/EVV_IDENTITY_CHECK_REQUIRED
+                    type: https://api.homecare.example/problems/EVV_IDENTITY_CHECK_REQUIRED
                     title: Take a selfie to clock in
                     status: 422
                     detail: Your agency requires a quick selfie check before each clock-in.
@@ -3899,7 +3899,7 @@ paths:
                 idExpired:
                   summary: EVV_IDENTITY_CHECK_EXPIRED
                   value:
-                    type: https://api.tendwell.example/problems/EVV_IDENTITY_CHECK_EXPIRED
+                    type: https://api.homecare.example/problems/EVV_IDENTITY_CHECK_EXPIRED
                     title: Your selfie check has expired
                     status: 422
                     detail: Selfie checks are valid for 90 seconds. Take a new selfie and clock in right away.
@@ -3914,7 +3914,7 @@ paths:
                 idUsed:
                   summary: EVV_IDENTITY_CHECK_ALREADY_USED
                   value:
-                    type: https://api.tendwell.example/problems/EVV_IDENTITY_CHECK_ALREADY_USED
+                    type: https://api.homecare.example/problems/EVV_IDENTITY_CHECK_ALREADY_USED
                     title: This selfie check was already used
                     status: 422
                     detail: Each selfie check works for one clock-in or clock-out. Take a new selfie.
@@ -4023,7 +4023,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/EVV_NOT_CLOCKED_IN
+                type: https://api.homecare.example/problems/EVV_NOT_CLOCKED_IN
                 title: You have not clocked in to this visit
                 status: 409
                 detail: Clock in first. If you forgot, ask the office to add the missing time.
@@ -4041,7 +4041,7 @@ paths:
                 tasks:
                   summary: EVV_TASK_STATUS_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/EVV_TASK_STATUS_REQUIRED
+                    type: https://api.homecare.example/problems/EVV_TASK_STATUS_REQUIRED
                     title: Mark every task before clocking out
                     status: 422
                     detail: Mark each task as Done or Not done. 1 task has no status.
@@ -4056,7 +4056,7 @@ paths:
                 reason:
                   summary: EVV_TASK_REASON_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/EVV_TASK_REASON_REQUIRED
+                    type: https://api.homecare.example/problems/EVV_TASK_REASON_REQUIRED
                     title: Add a reason for tasks not done
                     status: 422
                     detail: Add a reason for each task marked Not done.
@@ -4070,7 +4070,7 @@ paths:
                 note:
                   summary: EVV_VISIT_NOTE_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/EVV_VISIT_NOTE_REQUIRED
+                    type: https://api.homecare.example/problems/EVV_VISIT_NOTE_REQUIRED
                     title: Add a visit note
                     status: 422
                     detail: This client's care plan requires a note for every visit. Add a short note and clock out again.
@@ -4272,7 +4272,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/EVV_SYNC_BATCH_TOO_LARGE
+                type: https://api.homecare.example/problems/EVV_SYNC_BATCH_TOO_LARGE
                 title: Too many punches in one upload
                 status: 400
                 detail: Send at most 200 punches per batch. The app splits larger queues automatically.
@@ -4441,7 +4441,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/EVV_EXCEPTION_ALREADY_RESOLVED
+                type: https://api.homecare.example/problems/EVV_EXCEPTION_ALREADY_RESOLVED
                 title: This exception is already resolved
                 status: 409
                 detail: Refresh the queue.
@@ -4456,7 +4456,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/EVV_CORRECTION_REQUIRED
+                type: https://api.homecare.example/problems/EVV_CORRECTION_REQUIRED
                 title: Add the actual clock-out time first
                 status: 422
                 detail: This visit was auto-closed. Record the actual end time with a time correction, then resolve the exception.
@@ -4546,7 +4546,7 @@ paths:
                 reason:
                   summary: EVV_CORRECTION_REASON_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/EVV_CORRECTION_REASON_REQUIRED
+                    type: https://api.homecare.example/problems/EVV_CORRECTION_REASON_REQUIRED
                     title: Enter a reason and note for this correction
                     status: 422
                     detail: Choose a reason code and describe how the time was confirmed.
@@ -4556,7 +4556,7 @@ paths:
                 time:
                   summary: EVV_CORRECTION_TIME_INVALID
                   value:
-                    type: https://api.tendwell.example/problems/EVV_CORRECTION_TIME_INVALID
+                    type: https://api.homecare.example/problems/EVV_CORRECTION_TIME_INVALID
                     title: The corrected time is not valid
                     status: 422
                     detail: The clock-out time must be after the clock-in time and not in the future.
@@ -4653,7 +4653,7 @@ paths:
                 win:
                   summary: MAR_WINDOW_OUT_OF_RANGE
                   value:
-                    type: https://api.tendwell.example/problems/MAR_WINDOW_OUT_OF_RANGE
+                    type: https://api.homecare.example/problems/MAR_WINDOW_OUT_OF_RANGE
                     title: Administration window must be 15 to 120 minutes
                     status: 422
                     detail: Enter a window between 15 and 120 minutes, or leave it blank for the 60-minute default.
@@ -4663,7 +4663,7 @@ paths:
                 prn:
                   summary: MAR_PRN_LIMITS_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/MAR_PRN_LIMITS_REQUIRED
+                    type: https://api.homecare.example/problems/MAR_PRN_LIMITS_REQUIRED
                     title: PRN orders need dosing limits
                     status: 422
                     detail: Enter the indication, the maximum doses in 24 hours and the minimum interval.
@@ -4742,7 +4742,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/MAR_ORDER_NOT_PENDING
+                type: https://api.homecare.example/problems/MAR_ORDER_NOT_PENDING
                 title: This order is not waiting for approval
                 status: 409
                 detail: Refresh to see the current status.
@@ -4801,7 +4801,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/MAR_ORDER_NOT_ACTIVE
+                type: https://api.homecare.example/problems/MAR_ORDER_NOT_ACTIVE
                 title: This order is not active
                 status: 409
                 detail: Only active orders can be discontinued.
@@ -5006,7 +5006,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/MAR_DOSE_ALREADY_RECORDED
+                type: https://api.homecare.example/problems/MAR_DOSE_ALREADY_RECORDED
                 title: This dose already has an outcome
                 status: 409
                 detail: This dose was already recorded at 08:58. Ask the Clinical Supervisor to annotate it if it is wrong.
@@ -5024,7 +5024,7 @@ paths:
                 reason:
                   summary: MAR_REASON_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/MAR_REASON_REQUIRED
+                    type: https://api.homecare.example/problems/MAR_REASON_REQUIRED
                     title: Add a reason
                     status: 422
                     detail: A reason is required when a dose is refused, held or not available.
@@ -5039,7 +5039,7 @@ paths:
                 late:
                   summary: MAR_LATE_ENTRY_WINDOW_EXPIRED
                   value:
-                    type: https://api.tendwell.example/problems/MAR_LATE_ENTRY_WINDOW_EXPIRED
+                    type: https://api.homecare.example/problems/MAR_LATE_ENTRY_WINDOW_EXPIRED
                     title: Too late to record this dose
                     status: 422
                     detail: Doses can be recorded up to 24 hours after the scheduled time. Ask the Clinical Supervisor to
@@ -5112,7 +5112,7 @@ paths:
                 max:
                   summary: MAR_PRN_MAX_DOSES_EXCEEDED
                   value:
-                    type: https://api.tendwell.example/problems/MAR_PRN_MAX_DOSES_EXCEEDED
+                    type: https://api.homecare.example/problems/MAR_PRN_MAX_DOSES_EXCEEDED
                     title: Maximum doses reached
                     status: 422
                     detail: This order allows 4 doses in any 24 hours and 4 have been given since 2026-09-07 at 11:20. The
@@ -5127,7 +5127,7 @@ paths:
                 interval:
                   summary: MAR_PRN_MIN_INTERVAL_NOT_MET
                   value:
-                    type: https://api.tendwell.example/problems/MAR_PRN_MIN_INTERVAL_NOT_MET
+                    type: https://api.homecare.example/problems/MAR_PRN_MIN_INTERVAL_NOT_MET
                     title: Too soon since the last dose
                     status: 422
                     detail: The last dose was at 10:10; the minimum interval is 4 hours. The next dose is allowed at 14:10.
@@ -5137,7 +5137,7 @@ paths:
                 indication:
                   summary: MAR_PRN_INDICATION_REQUIRED
                   value:
-                    type: https://api.tendwell.example/problems/MAR_PRN_INDICATION_REQUIRED
+                    type: https://api.homecare.example/problems/MAR_PRN_INDICATION_REQUIRED
                     title: Enter the reason for this dose
                     status: 422
                     detail: Describe the symptom, for example pain score, before giving an as-needed dose.
@@ -5426,7 +5426,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/DOC_NOTE_LOCKED
+                type: https://api.homecare.example/problems/DOC_NOTE_LOCKED
                 title: This note is locked
                 status: 409
                 detail: Notes lock 24 hours after clock-out. Add an addendum to record more information.
@@ -5494,7 +5494,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/DOC_NOTE_NOT_LOCKED
+                type: https://api.homecare.example/problems/DOC_NOTE_NOT_LOCKED
                 title: This note can still be edited
                 status: 409
                 detail: Edit the note directly until it locks.
@@ -5509,7 +5509,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/DOC_SIGNATURE_REQUIRED
+                type: https://api.homecare.example/problems/DOC_SIGNATURE_REQUIRED
                 title: Sign the addendum
                 status: 422
                 detail: Re-enter your password and confirm the attestation to sign.
@@ -5646,7 +5646,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/DOC_INCIDENT_CLOSED
+                type: https://api.homecare.example/problems/DOC_INCIDENT_CLOSED
                 title: This incident is closed
                 status: 409
                 detail: Closed incidents are read-only.
@@ -5662,7 +5662,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/DOC_WAIVER_REASON_REQUIRED
+                type: https://api.homecare.example/problems/DOC_WAIVER_REASON_REQUIRED
                 title: Enter a reason to waive this action
                 status: 422
                 detail: Explain why the corrective action is not needed.
@@ -5721,7 +5721,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/DOC_INCIDENT_CLOSED
+                type: https://api.homecare.example/problems/DOC_INCIDENT_CLOSED
                 title: This incident is closed
                 status: 409
                 detail: Closed incidents are read-only.
@@ -5778,7 +5778,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/DOC_INCIDENT_ACTIONS_OPEN
+                type: https://api.homecare.example/problems/DOC_INCIDENT_ACTIONS_OPEN
                 title: Corrective actions are still open
                 status: 409
                 detail: 1 corrective action is still open. Mark it Done or waive it with a reason first.
@@ -5854,7 +5854,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/TOF_OVERLAPPING_REQUEST
+                type: https://api.homecare.example/problems/TOF_OVERLAPPING_REQUEST
                 title: You already have a request for these dates
                 status: 409
                 detail: Cancel or change the existing request.
@@ -5872,7 +5872,7 @@ paths:
                 balance:
                   summary: TOF_INSUFFICIENT_BALANCE
                   value:
-                    type: https://api.tendwell.example/problems/TOF_INSUFFICIENT_BALANCE
+                    type: https://api.homecare.example/problems/TOF_INSUFFICIENT_BALANCE
                     title: Not enough PTO
                     status: 422
                     detail: This request needs 16 hours of PTO and your balance is 12.5 hours. Shorten the request or choose
@@ -5883,7 +5883,7 @@ paths:
                 dates:
                   summary: TOF_DATES_INVALID
                   value:
-                    type: https://api.tendwell.example/problems/TOF_DATES_INVALID
+                    type: https://api.homecare.example/problems/TOF_DATES_INVALID
                     title: The end date is before the start date
                     status: 422
                     detail: Choose an end date on or after the start date.
@@ -6001,7 +6001,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/TOF_REQUEST_ALREADY_DECIDED
+                type: https://api.homecare.example/problems/TOF_REQUEST_ALREADY_DECIDED
                 title: This request was already decided
                 status: 409
                 detail: Refresh to see the decision.
@@ -6143,7 +6143,7 @@ paths:
                 dup:
                   summary: TOF_HOLIDAY_EXISTS
                   value:
-                    type: https://api.tendwell.example/problems/TOF_HOLIDAY_EXISTS
+                    type: https://api.homecare.example/problems/TOF_HOLIDAY_EXISTS
                     title: This date is already a holiday
                     status: 409
                     detail: Edit the existing holiday instead.
@@ -6153,7 +6153,7 @@ paths:
                 locked:
                   summary: PAY_PERIOD_LOCKED
                   value:
-                    type: https://api.tendwell.example/problems/PAY_PERIOD_LOCKED
+                    type: https://api.homecare.example/problems/PAY_PERIOD_LOCKED
                     title: That date is in an exported pay period
                     status: 409
                     detail: Holidays cannot be added to a locked period.
@@ -6367,7 +6367,7 @@ paths:
       description: |
         Generates the payroll CSV with the tenant's column mapping, watermarks it, records the export in the audit log and
         locks the period. Later changes to visits in a locked period become adjustment lines in the next open period.
-        Tendwell exports payroll; it does not process payroll (CR-008 rejected).
+        The platform exports payroll; it does not process payroll (CR-008 rejected).
 
         Requirements: FR-PAY-05, FR-PAY-06, FR-RPT-04. Business rules: BR-046, BR-058. Change requests: CR-008.
       x-requirements: [FR-PAY-05, FR-PAY-06, FR-RPT-04]
@@ -6408,7 +6408,7 @@ paths:
                 exportedBy: d9e0f1a2-b3c4-4d5e-8f6a-7b8c9d0e1f01
                 exportedAt: '2026-09-15T14:02:11Z'
                 periodStatus: Locked
-                downloadUrl: https://files.tendwell.example/exports/2c3d4e5f.csv?X-Amz-Expires=900&X-Amz-Signature=3b1f
+                downloadUrl: https://files.homecare.example/exports/2c3d4e5f.csv?X-Amz-Expires=900&X-Amz-Signature=3b1f
                 downloadUrlExpiresAt: '2026-09-15T14:17:11Z'
                 watermark: Denise Carter | TEN-001 | 2026-09-15T14:02:11Z
         '400': {$ref: '#/components/responses/BadRequest'}
@@ -6427,7 +6427,7 @@ paths:
                 issues:
                   summary: PAY_EXPORT_HAS_OPEN_ISSUES
                   value:
-                    type: https://api.tendwell.example/problems/PAY_EXPORT_HAS_OPEN_ISSUES
+                    type: https://api.homecare.example/problems/PAY_EXPORT_HAS_OPEN_ISSUES
                     title: Some visits still need review
                     status: 422
                     detail: 1 caregiver has an open exception. Resolve it, or confirm the export and the visit will be paid
@@ -6438,7 +6438,7 @@ paths:
                 map:
                   summary: PAY_COLUMN_MAPPING_INVALID
                   value:
-                    type: https://api.tendwell.example/problems/PAY_COLUMN_MAPPING_INVALID
+                    type: https://api.homecare.example/problems/PAY_COLUMN_MAPPING_INVALID
                     title: The column mapping is incomplete
                     status: 422
                     detail: Map the Employee ID and Hours columns in Payroll settings, then export again.
@@ -6513,7 +6513,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_RUN_IN_PROGRESS
+                type: https://api.homecare.example/problems/BIL_RUN_IN_PROGRESS
                 title: A billing run for this period is already running
                 status: 409
                 detail: Wait for the current run to finish, then review the draft invoices.
@@ -6824,7 +6824,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_INVOICE_IMMUTABLE
+                type: https://api.homecare.example/problems/BIL_INVOICE_IMMUTABLE
                 title: This invoice has been issued and cannot change
                 status: 409
                 detail: Issue a credit note, or void the invoice if it is unpaid and reissue it.
@@ -6946,7 +6946,7 @@ paths:
                 dup:
                   summary: BIL_DUPLICATE_INVOICE_SUSPECTED
                   value:
-                    type: https://api.tendwell.example/problems/BIL_DUPLICATE_INVOICE_SUSPECTED
+                    type: https://api.homecare.example/problems/BIL_DUPLICATE_INVOICE_SUSPECTED
                     title: A matching invoice already exists
                     status: 409
                     detail: INV-2026-000119 covers the same client, payer and period. Void one of them before issuing.
@@ -6960,7 +6960,7 @@ paths:
                 state:
                   summary: BIL_INVALID_STATUS_TRANSITION
                   value:
-                    type: https://api.tendwell.example/problems/BIL_INVALID_STATUS_TRANSITION
+                    type: https://api.homecare.example/problems/BIL_INVALID_STATUS_TRANSITION
                     title: Approve the invoice before issuing it
                     status: 409
                     detail: Only Approved invoices can be issued.
@@ -7018,7 +7018,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_INVOICE_HAS_PAYMENTS
+                type: https://api.homecare.example/problems/BIL_INVOICE_HAS_PAYMENTS
                 title: This invoice has payments
                 status: 409
                 detail: Invoices with payments cannot be voided. Issue a credit note instead.
@@ -7066,7 +7066,7 @@ paths:
               schema: {$ref: '#/components/schemas/PaymentLink'}
               example:
                 invoiceId: b4e2d6f8-1a3c-4e5b-9d7f-000000000456
-                url: https://pay.tendwell.example/i/7Hq2LakemontX9
+                url: https://pay.homecare.example/i/7Hq2LakemontX9
                 methods: [Card, ACH]
                 expiresAt: '2026-10-16T14:00:00Z'
                 providerRef: plink_1PzW3xLakemont4
@@ -7082,7 +7082,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_INVALID_STATUS_TRANSITION
+                type: https://api.homecare.example/problems/BIL_INVALID_STATUS_TRANSITION
                 title: Issue the invoice first
                 status: 409
                 detail: Payment links are available for issued invoices with a balance.
@@ -7097,7 +7097,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_PAYMENT_LINK_NOT_PRIVATE_PAY
+                type: https://api.homecare.example/problems/BIL_PAYMENT_LINK_NOT_PRIVATE_PAY
                 title: Payment links are for private-pay invoices
                 status: 422
                 detail: This invoice is not billed to private pay. Submit it in a claim batch instead.
@@ -7164,7 +7164,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_INVOICE_NOT_ISSUED
+                type: https://api.homecare.example/problems/BIL_INVOICE_NOT_ISSUED
                 title: Credit notes apply to issued invoices
                 status: 409
                 detail: Edit the draft instead, or approve and issue it first.
@@ -7179,7 +7179,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_CREDIT_EXCEEDS_BALANCE
+                type: https://api.homecare.example/problems/BIL_CREDIT_EXCEEDS_BALANCE
                 title: The credit is larger than the balance
                 status: 422
                 detail: The balance is $174.00. Enter a credit of $174.00 or less.
@@ -7233,7 +7233,7 @@ paths:
                 periodEnd: '2026-09-30'
                 claimCount: 112
                 totalCents: 2318450
-                downloadUrl: https://files.tendwell.example/claims/6a7b8c9d.csv?X-Amz-Expires=900&X-Amz-Signature=9c2e
+                downloadUrl: https://files.homecare.example/claims/6a7b8c9d.csv?X-Amz-Expires=900&X-Amz-Signature=9c2e
                 downloadUrlExpiresAt: '2026-10-02T15:15:00Z'
                 createdAt: '2026-10-02T15:00:00Z'
         '400': {$ref: '#/components/responses/BadRequest'}
@@ -7247,7 +7247,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_CLAIM_BATCH_EMPTY
+                type: https://api.homecare.example/problems/BIL_CLAIM_BATCH_EMPTY
                 title: Nothing to submit for this payer and period
                 status: 422
                 detail: There are no approved or issued billable lines for this payer in September 2026.
@@ -7324,7 +7324,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/BIL_WEBHOOK_SIGNATURE_INVALID
+                type: https://api.homecare.example/problems/BIL_WEBHOOK_SIGNATURE_INVALID
                 title: Signature verification failed
                 status: 400
                 detail: The signature does not match or the timestamp is outside the 5-minute tolerance.
@@ -7373,7 +7373,7 @@ paths:
                   eventType: dose.missed
                   title: A dose needs attention
                   body: A scheduled dose was not documented. Sign in to review.
-                  deepLink: tendwell://dose-tasks/2e3f4a5b-6c7d-4e8f-9a0b-1c2d3e4f5a01
+                  deepLink: homecare://dose-tasks/2e3f4a5b-6c7d-4e8f-9a0b-1c2d3e4f5a01
                   urgent: true
                   createdAt: '2026-09-08T14:00:04Z'
                   readAt: null
@@ -7493,7 +7493,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/NTF_CHANNEL_NOT_ALLOWED
+                type: https://api.homecare.example/problems/NTF_CHANNEL_NOT_ALLOWED
                 title: Urgent alerts need a phone channel
                 status: 422
                 detail: Keep Push or SMS on for missed doses so you are alerted right away.
@@ -7612,7 +7612,7 @@ paths:
                 step:
                   summary: NTF_LADDER_INVALID_STEP
                   value:
-                    type: https://api.tendwell.example/problems/NTF_LADDER_INVALID_STEP
+                    type: https://api.homecare.example/problems/NTF_LADDER_INVALID_STEP
                     title: Step delays must increase
                     status: 422
                     detail: Each step must start later than the one before it. Step 2 starts at 0 minutes.
@@ -7622,7 +7622,7 @@ paths:
                 role:
                   summary: NTF_RECIPIENT_MUST_BE_ROLE
                   value:
-                    type: https://api.tendwell.example/problems/NTF_RECIPIENT_MUST_BE_ROLE
+                    type: https://api.homecare.example/problems/NTF_RECIPIENT_MUST_BE_ROLE
                     title: Escalations go to roles, not people
                     status: 422
                     detail: Choose a role for each step. People are picked automatically when the alert is sent.
@@ -7792,7 +7792,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/RPT_DATE_RANGE_TOO_LARGE
+                type: https://api.homecare.example/problems/RPT_DATE_RANGE_TOO_LARGE
                 title: Choose a shorter date range
                 status: 422
                 detail: Reports cover up to 366 days. Split the range and run the report twice.
@@ -7941,7 +7941,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/RPT_DATE_RANGE_TOO_LARGE
+                type: https://api.homecare.example/problems/RPT_DATE_RANGE_TOO_LARGE
                 title: Choose a shorter date range
                 status: 422
                 detail: Audit exports cover up to 366 days per file.
@@ -8007,7 +8007,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/FAM_CONSENT_NOT_RECORDED
+                type: https://api.homecare.example/problems/FAM_CONSENT_NOT_RECORDED
                 title: Access has not been set up
                 status: 403
                 detail: The agency has not recorded consent for you to view this schedule. Contact the agency.
@@ -8068,7 +8068,7 @@ paths:
             application/problem+json:
               schema: {$ref: '#/components/schemas/Problem'}
               example:
-                type: https://api.tendwell.example/problems/FAM_CONSENT_NOT_RECORDED
+                type: https://api.homecare.example/problems/FAM_CONSENT_NOT_RECORDED
                 title: Access has not been set up
                 status: 403
                 detail: The agency has not recorded consent for you to contact them about this client.
@@ -8368,7 +8368,7 @@ components:
         application/problem+json:
           schema: {$ref: '#/components/schemas/Problem'}
           example:
-            type: https://api.tendwell.example/problems/API_VALIDATION_FAILED
+            type: https://api.homecare.example/problems/API_VALIDATION_FAILED
             title: The request has invalid fields
             status: 400
             detail: Fix the highlighted fields and try again.
@@ -8387,7 +8387,7 @@ components:
         application/problem+json:
           schema: {$ref: '#/components/schemas/Problem'}
           example:
-            type: https://api.tendwell.example/problems/IAM_UNAUTHENTICATED
+            type: https://api.homecare.example/problems/IAM_UNAUTHENTICATED
             title: Sign-in required
             status: 401
             detail: Your session has ended. Sign in again to continue.
@@ -8406,7 +8406,7 @@ components:
             permissionDenied:
               summary: Missing permission
               value:
-                type: https://api.tendwell.example/problems/IAM_PERMISSION_DENIED
+                type: https://api.homecare.example/problems/IAM_PERMISSION_DENIED
                 title: You do not have access to this action
                 status: 403
                 detail: Your role does not allow this action. Ask your Agency Administrator if you need access.
@@ -8416,7 +8416,7 @@ components:
             mfaRequired:
               summary: MFA required for this role (BR-006)
               value:
-                type: https://api.tendwell.example/problems/IAM_MFA_REQUIRED
+                type: https://api.homecare.example/problems/IAM_MFA_REQUIRED
                 title: Set up two-step verification to continue
                 status: 403
                 detail: Your role requires two-step verification. Set up an authenticator app or SMS code, then sign in again.
@@ -8426,7 +8426,7 @@ components:
             tenantReadOnly:
               summary: Tenant is read-only (BR-003)
               value:
-                type: https://api.tendwell.example/problems/TEN_READ_ONLY
+                type: https://api.homecare.example/problems/TEN_READ_ONLY
                 title: Your agency account is read-only
                 status: 403
                 detail: Your agency's trial has ended or a subscription payment is overdue, so you can view and export data
@@ -8443,7 +8443,7 @@ components:
         application/problem+json:
           schema: {$ref: '#/components/schemas/Problem'}
           example:
-            type: https://api.tendwell.example/problems/API_RESOURCE_NOT_FOUND
+            type: https://api.homecare.example/problems/API_RESOURCE_NOT_FOUND
             title: Not found
             status: 404
             detail: We could not find that record. It may have been removed or you may not have access to it.
@@ -8459,7 +8459,7 @@ components:
         application/problem+json:
           schema: {$ref: '#/components/schemas/Problem'}
           example:
-            type: https://api.tendwell.example/problems/API_IDEMPOTENCY_REQUEST_IN_PROGRESS
+            type: https://api.homecare.example/problems/API_IDEMPOTENCY_REQUEST_IN_PROGRESS
             title: The original request is still being processed
             status: 409
             detail: A request with this Idempotency-Key is still in progress. Wait a few seconds and retry with the same key.
@@ -8475,7 +8475,7 @@ components:
         application/problem+json:
           schema: {$ref: '#/components/schemas/Problem'}
           example:
-            type: https://api.tendwell.example/problems/API_PRECONDITION_FAILED
+            type: https://api.homecare.example/problems/API_PRECONDITION_FAILED
             title: This record changed since you opened it
             status: 412
             detail: Someone else saved a change to this record. Reload it, review the changes and try again.
@@ -8490,7 +8490,7 @@ components:
         application/problem+json:
           schema: {$ref: '#/components/schemas/Problem'}
           example:
-            type: https://api.tendwell.example/problems/API_PRECONDITION_REQUIRED
+            type: https://api.homecare.example/problems/API_PRECONDITION_REQUIRED
             title: Version check required
             status: 428
             detail: Reload the record and try again.
@@ -8505,7 +8505,7 @@ components:
         application/problem+json:
           schema: {$ref: '#/components/schemas/Problem'}
           example:
-            type: https://api.tendwell.example/problems/API_IDEMPOTENCY_KEY_REUSED
+            type: https://api.homecare.example/problems/API_IDEMPOTENCY_KEY_REUSED
             title: This request key was already used for different data
             status: 422
             detail: The Idempotency-Key was used earlier with a different request body. Generate a new key for a new request.
@@ -8524,7 +8524,7 @@ components:
         application/problem+json:
           schema: {$ref: '#/components/schemas/Problem'}
           example:
-            type: https://api.tendwell.example/problems/API_RATE_LIMITED
+            type: https://api.homecare.example/problems/API_RATE_LIMITED
             title: Too many requests
             status: 429
             detail: You are sending requests too quickly. Wait 20 seconds and try again.
@@ -8540,7 +8540,7 @@ components:
         type:
           type: string
           format: uri
-          description: 'URI that identifies the problem type: https://api.tendwell.example/problems/{code}.'
+          description: 'URI that identifies the problem type: https://api.homecare.example/problems/{code}.'
         title:
           type: string
           description: Short, user-safe summary. Never contains client names, dates of birth, addresses, Medicaid IDs, diagnoses
@@ -9325,7 +9325,7 @@ components:
           description: Increases are prorated within the cycle (FR-ONB-06).
         paymentMethodToken:
           type: string
-          description: Payment-provider token for a new payment method. Card numbers never reach Tendwell.
+          description: Payment-provider token for a new payment method. Card numbers never reach the platform.
     User:
       type: object
       properties:
@@ -10552,7 +10552,7 @@ components:
         selfie:
           type: string
           contentMediaType: image/jpeg
-          description: Live selfie (JPEG, max 2 MB). Forwarded to the vendor and not stored by Tendwell.
+          description: Live selfie (JPEG, max 2 MB). Forwarded to the vendor and not stored by the platform.
         deviceId:
           type: string
     IdentityCheck:
@@ -12151,7 +12151,7 @@ components:
           format: date-time
     PaymentWebhookEvent:
       type: object
-      description: Payment-provider event as delivered. Only the fields Tendwell reads are listed.
+      description: Payment-provider event as delivered. Only the fields the platform reads are listed.
       required: [id, type, created, data]
       properties:
         id:

@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This story map arranges all 54 Tendwell user stories along the end-to-end journey of a care agency, from signing up to auditing its own operations. It was built in the discovery workshops of February 2026 and is used to:
+This story map arranges all 54 the platform user stories along the end-to-end journey of a care agency, from signing up to auditing its own operations. It was built in the discovery workshops of February 2026 and is used to:
 
 - check that the backlog covers the whole value chain without gaps;
 - define the R1 walking skeleton, the thinnest slice that proves the value chain end to end; and
@@ -75,7 +75,7 @@ Numbers in each box are story counts per slice. Activities with an R2 story are 
 | Sign up and choose a plan | US-001 Register my agency | US-002 Apply a trial or promo code at sign-up | |
 | Verify and activate | US-003 Verify my email and complete the setup checklist | | |
 | Pay for the subscription | | US-004 Manage my subscription seats and payment method; US-006 Move unpaid tenants to read-only without blocking care | |
-| Run pricing (Tendwell Labs) | | US-005 Manage plans and promo codes | |
+| Run pricing (the vendor) | | US-005 Manage plans and promo codes | |
 | Sign in securely | US-007 Sign in with multi-factor authentication | US-008 Reset a forgotten password; US-010 Lock accounts and expire idle sessions | |
 | Give staff the right access | US-009 Assign roles and permission overrides | | |
 | Allow support access | | US-011 Request time-boxed support access to a tenant | |

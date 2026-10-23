@@ -260,7 +260,7 @@ Voids total 208 (177 Draft and 31 Issued). The dry run listed 214 keys and match
 
 Reconciliation checks performed by the Business Analyst with each agency's Billing and Payroll Specialist:
 
-- Sum of credit notes in Tendwell = $2,914.50 = sum of refunds in the three agencies' payment provider accounts.
+- Sum of credit notes in the platform = $2,914.50 = sum of refunds in the three agencies' payment provider accounts.
 - Each kept invoice shows status Paid with balance $0.00; each credited duplicate shows a credit equal to its payment and balance $0.00.
 - AR ageing reports for the 9 tenants after correction match each tenant's pre-incident AR plus the legitimate 2026-07-21 invoices.
 
@@ -282,11 +282,11 @@ Reconciliation checks performed by the Business Analyst with each agency's Billi
 Email to administrators of affected tenants, 2026-07-21 11:52 ET (TEN-001 version):
 
 ```text
-Subject: Tendwell incident INC-2026-007: duplicate draft invoices - identified
+Subject: the platform incident INC-2026-007: duplicate draft invoices - identified
 
 Hello,
 
-Early this morning, a fault in Tendwell's nightly billing process created a second
+Early this morning, a fault in the platform's nightly billing process created a second
 draft invoice for some of your clients for the same payer and period.
 
 How it affected your agency:
@@ -308,7 +308,7 @@ What we need from you:
 
 We will send a written post-incident summary within 5 business days.
 
-Customer Success Lead, Tendwell Labs
+Customer Success Lead, the vendor
 ```
 
 ## Approval

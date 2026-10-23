@@ -1,16 +1,16 @@
-# Tendwell: Business Analysis Case Study for a Home-Care Operations SaaS
+# US Home-Care Operations Platform: Business Analysis Case Study for a Home-Care Operations SaaS
 
 **An end-to-end, traceable Business Analysis portfolio for a multi-tenant healthcare operations platform.** It runs from discovery to production incident reviews.
 
-> **Fictional case study.** Tendwell, Tendwell Labs, the pilot agencies, every person, figure and record in this repository are invented for portfolio purposes. All test data is synthetic. Nothing here is drawn from any employer or client. Compliance content is written to show how requirements support regulations; it is not legal advice.
+> **Case study of a real project.** Client details are withheld, and names, figures and records in this repository are changed or synthetic. Compliance content is written to show how requirements support regulations; it is not legal or tax advice.
 
-> **Read it in the browser.** The [case study page](https://ayushsingh0456.github.io/case-studies/tendwell.html) walks through the work, and the [document library](https://ayushsingh0456.github.io/library.html?project=tendwell) opens every file here with diagrams rendered. Formatted PDFs: [BRD](https://ayushsingh0456.github.io/assets/docs/tendwell-BRD.pdf) · [SRS](https://ayushsingh0456.github.io/assets/docs/tendwell-SRS.pdf).
+> **Read it in the browser.** The [case study page](https://ayushsingh0456.github.io/case-studies/tendwell.html) walks through the work, and the [document library](https://ayushsingh0456.github.io/library.html?project=homecare) opens every file here with diagrams rendered. Formatted PDFs: [BRD](https://ayushsingh0456.github.io/assets/docs/tendwell-BRD.pdf) · [SRS](https://ayushsingh0456.github.io/assets/docs/tendwell-SRS.pdf).
 
 ---
 
 ## The product in one paragraph
 
-Tendwell helps US home and community-based care agencies run their operations in one place. It covers in-home personal care, adult day programs and supported living. An agency authorizes services for a client and schedules a caregiver. The caregiver clocks in at the client's home with GPS-based **Electronic Visit Verification (EVV)**, then documents tasks, medications and vitals on the visit. Every verified visit then feeds **payroll export** and **client billing** without re-keying. The hard parts are where a BA earns their keep:
+The platform helps US home and community-based care agencies run their operations in one place. It covers in-home personal care, adult day programs and supported living. An agency authorizes services for a client and schedules a caregiver. The caregiver clocks in at the client's home with GPS-based **Electronic Visit Verification (EVV)**, then documents tasks, medications and vitals on the visit. Every verified visit then feeds **payroll export** and **client billing** without re-keying. The hard parts are where a BA earns their keep:
 - care must never be blocked by software;
 - clinical records must never silently disappear;
 - overtime, travel time and 15-minute billing units must be computed exactly;
@@ -117,7 +117,7 @@ These are the decisions I would expect to be asked about in an interview. Each o
 
 - **EVV flags, it never blocks.** A caregiver outside the geofence can still clock in. The visit raises a reason-coded exception for review, because refusing a punch means undocumented care (BR-021, BR-026, [ADR-002](03-design/architecture/adr/ADR-002-append-only-evv-punch-ledger.md)).
 - **Missed doses stay missed.** A request to auto-cancel undocumented doses at midnight was rejected as CR-007. Instead, doses escalate to the nurse and remain visible as "Missed - undocumented" (BR-030, BR-031).
-- **Export payroll, don't run it.** In-app tax processing (CR-008) was deferred. Tendwell computes hours and pay lines exactly and hands a CSV to the agency's payroll provider ([ADR-005](03-design/architecture/adr/ADR-005-payroll-export-not-processing.md)).
+- **Export payroll, don't run it.** In-app tax processing (CR-008) was deferred. The platform computes hours and pay lines exactly and hands a CSV to the agency's payroll provider ([ADR-005](03-design/architecture/adr/ADR-005-payroll-export-not-processing.md)).
 - **Incidents change requirements.** Three production incidents each produced a change request, a business-rule or NFR update in SRS v1.3, and regression tests. Examples include a database-enforced billing idempotency key, a separate *Low GPS accuracy* exception, and resolving notification recipients at send time.
 - **Open issues are written down.** The SRS keeps an open-issues table (TBD-01 to TBD-17). Each row records the behavior R1 implements today, an owner and a target date, so nothing ambiguous is left implicit.
 
@@ -147,4 +147,4 @@ ISO/IEC/IEEE 29148 (requirements) · ISO/IEC 25010 (quality model) · ISO/IEC/IE
 
 LinkedIn: [linkedin.com/in/ayush-singh-914495189](https://www.linkedin.com/in/ayush-singh-914495189/)
 
-This case study is self-directed. It models the kind of work I do on live products, using a fictional product so that no employer or client information is disclosed.
+This case study is based on a project I worked on as Business Analyst. Client and employer details are withheld to protect confidentiality.

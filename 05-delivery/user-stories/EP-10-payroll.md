@@ -13,7 +13,7 @@
 
 ## Purpose and scope
 
-This file holds the user stories and acceptance criteria for EP-10. It covers pay periods, the calculation of regular, overtime, holiday, travel, PTO and mileage lines from Verified visits, the pre-export review, the configurable CSV export that locks the period, and adjustments for late changes. Tendwell prepares payroll and exports it to the agency's payroll provider; it does not process payroll, withhold tax or issue pay stubs (ADR-005, CR-008). The rules are designed to support FLSA overtime and the DOL Home Care Rule on travel time between clients; the agency remains responsible for its pay practices.
+This file holds the user stories and acceptance criteria for EP-10. It covers pay periods, the calculation of regular, overtime, holiday, travel, PTO and mileage lines from Verified visits, the pre-export review, the configurable CSV export that locks the period, and adjustments for late changes. The platform prepares payroll and exports it to the agency's payroll provider; it does not process payroll, withhold tax or issue pay stubs (ADR-005, CR-008). The rules are designed to support FLSA overtime and the DOL Home Care Rule on travel time between clients; the agency remains responsible for its pay practices.
 
 ## Epic
 
@@ -54,7 +54,7 @@ Canonical worked example (used in US-041-AC1): caregiver E-2041 Maya Ortiz, hour
 | Dependencies | US-019, US-029, US-040 |
 
 **Story**
-As a Billing & Payroll Specialist, I want Tendwell to calculate each caregiver's regular, overtime, holiday, travel, PTO and mileage lines from Verified visits, so that I review exceptions instead of rebuilding timesheets by hand.
+As a Billing & Payroll Specialist, I want the platform to calculate each caregiver's regular, overtime, holiday, travel, PTO and mileage lines from Verified visits, so that I review exceptions instead of rebuilding timesheets by hand.
 
 **Acceptance criteria**
 
@@ -180,7 +180,7 @@ Scenario: US-042-AC5 Only users with the export permission can export
 
 **Notes**
 - The export watermark (BR-058) is carried in the file name and in the audit event, not as a data row, so that the payroll provider's import is not broken (agreed with the Compliance and Privacy Officer, 2026-05-20).
-- Tendwell does not calculate tax withholding or produce pay stubs; full payroll processing was requested in CR-008 and rejected (DEC-04).
+- The platform does not calculate tax withholding or produce pay stubs; full payroll processing was requested in CR-008 and rejected (DEC-04).
 - Analytics: time from period end to export per tenant is the measure for OBJ-02.
 
 ### US-043 · Carry late changes into the next period as adjustments

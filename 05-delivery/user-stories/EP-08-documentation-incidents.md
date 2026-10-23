@@ -144,7 +144,7 @@ Scenario: US-037-AC3 Urgent incident notifications bypass quiet hours
   Given the time is 23:40, inside quiet hours
   When Rosa reports category "SuspectedAbuseNeglect"
   Then Priya and Tom receive push and SMS notifications within 1 minute
-  And the notification text is "Urgent: a client incident needs review. Sign in to Tendwell." with no client name, initials or category
+  And the notification text is "Urgent: a client incident needs review. Sign in to the platform." with no client name, initials or category
 
 Scenario: US-037-AC4 Start the deadline clock for suspected abuse or neglect
   When Rosa reports category "SuspectedAbuseNeglect" that occurred 2026-09-14 13:00
